@@ -1,7 +1,7 @@
 <template>
-  <div class="column items-center justify-center q-mb-xl">
-    <q-icon class="q-my-lg" name="img:/wyu-icon.svg" size="10rem" />
-    <h4 class="q-my-lg">Sign in</h4>
+  <div class="column items-center justify-center q-mb-lg">
+    <q-icon class="q-my-lg" name="img:/wyu-icon.svg" size="8rem" />
+    <h4 class="q-my-md">Sign in</h4>
   </div>
 
   <q-form ref="form" greedy @submit="login">
@@ -10,6 +10,7 @@
       id="username"
       class="font q-mb-sm"
       outlined
+      dense
       v-model="email"
       type="email"
       lazy-rules
@@ -20,6 +21,7 @@
       id="password"
       class="font q-mb-sm"
       outlined
+      dense
       v-model="password"
       type="password"
       lazy-rules
@@ -27,7 +29,7 @@
     />
     <q-btn
       color="accent"
-      size="lg"
+      size="md"
       class="font-bold q-my-sm login__button"
       type="submit"
       label="Login"
@@ -35,7 +37,7 @@
     <q-btn
       color="primary"
       outline
-      size="lg"
+      size="md"
       class="font-bold q-my-sm login__button login--signup"
       label="Sign Up"
     />
