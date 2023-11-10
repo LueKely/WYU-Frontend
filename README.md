@@ -1,4 +1,4 @@
-# What's Your Ulam? (what-s-your-ulam---frontend)
+# What's Your Ulam?
 
 An online platform for people to share their recipes and create new ones online!
 
