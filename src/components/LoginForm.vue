@@ -4,20 +4,26 @@
     <h4 class="q-my-md">Sign in</h4>
   </div>
 
+  <div v-if="loginError" class="text-18 text-center text-negative q-mb-md">
+    {{ loginError }}
+  </div>
+
   <q-form ref="form" greedy @submit="login">
     <label for="username" class="font text-18 q-mb-sm">Username/Email</label>
     <q-input
-      id="username"
+      @focus="clearError"
+      id="login_identifier"
       class="font q-mb-sm"
       outlined
       dense
-      v-model="email"
-      type="email"
+      v-model="loginIdentifier"
+      type="text"
       lazy-rules
-      :rules="[(val) => !!val || 'username is required']"
+      :rules="[(val) => !!val || 'username/email is required']"
     />
     <label for="password" class="font text-18 q-mb-sm">Password</label>
     <q-input
+      @focus="clearError"
       id="password"
       class="font q-mb-sm"
       outlined
@@ -33,6 +39,7 @@
       class="font-bold q-my-sm login__button"
       type="submit"
       label="Login"
+      :loading="btnLoadingState"
     />
     <q-btn
       color="primary"
@@ -45,10 +52,48 @@
 </template>
 
 <script setup lang="js">
-import { ref } from 'vue';
+import { ref } from "vue";
+import { LoginUser } from "../composables/Authentication";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const form = ref(null);
-const email = ref('');
-const password = ref('');
+const loginIdentifier = ref("test123");
+const password = ref("testest");
+let loginError = ref('');
+let btnLoadingState = ref(false);
+
+const login = () => {
+  btnLoadingState.value = true;
+  loginError.value = null;
+  form.value.validate().then((succcess) => {
+    if (succcess) {
+      const userData = {
+        login_identifier: loginIdentifier.value,
+        password: password.value,
+      };
+
+      LoginUser(userData)
+        .then((response) => {
+          if (response.status === "success") {
+            router.push( { name: 'whatsYourUlam' } )
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          loginError.value = 'Incorrect username/email or password'
+        })
+        .finally(() => {
+          btnLoadingState.value = false;
+        });
+    }
+  });
+};
+
+const clearError = () => {
+  loginError.value = null;
+}
 </script>
 
 <style lang="scss" scoped>
