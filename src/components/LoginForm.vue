@@ -75,7 +75,7 @@ const login = () => {
       LoginUser(userData)
         .then((response) => {
           if (response.status === "success") {
-            router.push( { name: 'whatsYourUlam' } )
+            router.push( { name: 'home' } )
           }
         })
         .catch((error) => {
