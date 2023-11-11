@@ -1,7 +1,7 @@
 <template>
   <div class="column items-center justify-center q-mb-lg">
-    <q-icon class="q-my-lg" name="img:/wyu-icon.svg" size="8rem" />
-    <h4 class="q-my-md">Sign in</h4>
+    <q-icon class="q-my-md" name="img:/wyu-icon.svg" size="8rem" />
+    <h4 class="q-my-sm">Sign in</h4>
   </div>
 
   <div v-if="loginError" class="text-18 text-center text-negative q-mb-md">

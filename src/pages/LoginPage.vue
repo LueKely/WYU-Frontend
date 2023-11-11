@@ -8,13 +8,13 @@
 
       <!-- carousel -->
       <div
-        class="login login--carousel shadow-3 column items-center justify-center"
+        class="login login--carousel shadow-3 column no-wrap items-center justify-center"
       >
-        <div class="text-center q-mb-xl">
-          <h2>What's Your <span class="text-accent">Ulam</span></h2>
-          <h5 class="text-primary">
+        <div class="text-center q-mt-lg q-mb-xl">
+          <h3>What's Your <span class="text-accent">Ulam</span></h3>
+          <h6 class="text-primary">
             Discover.Cook.Share: Anong <span class="text-accent">Ulam</span> Mo?
-          </h5>
+          </h6>
         </div>
         <FoodCarousel></FoodCarousel>
       </div>

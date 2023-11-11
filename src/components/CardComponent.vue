@@ -5,7 +5,7 @@
     <q-card-section>
       <div class="text-overline text-orange-9">{{ prop.username }}</div>
       <div class="text-h6 q-mb-xs">{{ prop.recipe }}</div>
-      <q-card-section class="q-pt-none text-caption text-grey">
+      <q-card-section class="q-pt-none q-px-none text-caption text-grey">
         {{ prop.description }}
       </q-card-section>
     </q-card-section>
@@ -25,6 +25,6 @@ const prop = defineProps({
 
 <style lang="scss" scoped>
 .my-card {
-  width: 300px;
+  width: 320px;
 }
 </style>
