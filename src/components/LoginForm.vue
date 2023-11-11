@@ -27,7 +27,6 @@
       id="password"
       class="font q-mb-sm"
       outlined
-      dense
       v-model="password"
       type="password"
       lazy-rules
@@ -35,7 +34,7 @@
     />
     <q-btn
       color="accent"
-      size="md"
+      size="lg"
       class="font-bold q-my-sm login__button"
       type="submit"
       label="Login"
@@ -44,7 +43,7 @@
     <q-btn
       color="primary"
       outline
-      size="md"
+      size="lg"
       class="font-bold q-my-sm login__button login--signup"
       label="Sign Up"
     />
