@@ -12,7 +12,9 @@
       >
         <div class="text-center q-mb-xl">
           <h2>What's Your <span class="text-accent">Ulam</span></h2>
-          <h5 class="text-primary">Discover.Cook.Share: Anong Ulam Mo?</h5>
+          <h5 class="text-primary">
+            Discover.Cook.Share: Anong <span class="text-accent">Ulam</span> Mo?
+          </h5>
         </div>
         <FoodCarousel></FoodCarousel>
       </div>
@@ -109,7 +111,7 @@ import LoginForm from 'src/components/LoginForm.vue';
 }
 
 .login--form {
-  padding: 40px;
+  padding-inline: 40px;
   height: 100%;
   width: 100%;
 

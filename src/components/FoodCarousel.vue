@@ -12,48 +12,20 @@
     padding
     infinite
     arrows
-    height="500px"
-    class="text-primary rounded-borders"
+    class="carousel text-primary rounded-borders"
   >
-    <q-carousel-slide name="style" class="column no-wrap flex-center">
-      <div class="">
-        <CardComponent
-          username="Lue's"
-          description="kill yourself NOW"
-          recipe="adobo"
-          url="https://www.eatwithcarmen.com/wp-content/uploads/2022/09/chicken-adobo_.jpg"
-        ></CardComponent>
-      </div>
-    </q-carousel-slide>
-    <q-carousel-slide name="tv" class="column no-wrap flex-center">
-      <div class="">
-        <CardComponent
-          username="Adam's"
-          description="a chinese style fried rice well suited for anyone"
-          recipe="Chicken Fried Rice"
-          url="https://hips.hearstapps.com/hmg-prod/images/chicken-fried-rice-horizontal-1545488885.png?crop=0.8893333333333334xw:1xh;center,top&resize=1200:*"
-        ></CardComponent>
-      </div>
-    </q-carousel-slide>
-    <q-carousel-slide name="layers" class="column no-wrap flex-center">
-      <div class="">
-        <CardComponent
-          username="Lue's"
-          description="kill yourself NOW"
-          recipe="adobo"
-          url="https://www.eatwithcarmen.com/wp-content/uploads/2022/09/chicken-adobo_.jpg"
-        ></CardComponent>
-      </div>
-    </q-carousel-slide>
-    <q-carousel-slide name="map" class="column no-wrap flex-center">
-      <div class="">
-        <CardComponent
-          username="Lue's"
-          description="kill yourself NOW"
-          recipe="adobo"
-          url="https://www.eatwithcarmen.com/wp-content/uploads/2022/09/chicken-adobo_.jpg"
-        ></CardComponent>
-      </div>
+    <q-carousel-slide
+      v-for="(item, index) in foodList"
+      :key="index"
+      :name="index"
+      class="column no-wrap flex-center items-center justify-center"
+    >
+      <CardComponent
+        :username="item.username"
+        :description="item.description"
+        :recipe="item.recipe"
+        :url="item.url"
+      ></CardComponent>
     </q-carousel-slide>
   </q-carousel>
 </template>
@@ -62,5 +34,43 @@
 import { ref } from "vue";
 import CardComponent from "./CardComponent.vue";
 
+const foodList = ref([
+  {
+    username: "Julius's",
+    recipe: "Caesar Salad",
+    description:
+      "Crisp romaine, parmesan, croutons, and tangy Caesar dressing.",
+    url: "https://www.noracooks.com/wp-content/uploads/2022/06/vegan-caesar-salad-4.jpg",
+  },
+  {
+    username: "Lue's",
+    recipe: "Hamburger",
+    description: "Juicy beef patty, lettuce, tomato, and a soft bun.",
+    url: "https://cdn.britannica.com/31/122031-050-F8FCA663/Hamburger-cheeseburger.jpg",
+  },
+  {
+    username: "Ryan's",
+    recipe: "Miso Soup",
+    description: "Japanese broth with tofu, seaweed, and green onions.",
+    url: "https://www.justonecookbook.com/wp-content/uploads/2022/06/Miso-Soup-8297-I.jpg",
+  },
+  {
+    username: "Judy's",
+    recipe: "Ceviche",
+    description: "Fresh seafood cured in citrus juices with herbs and spices.",
+    url: "https://www.cookingclassy.com/wp-content/uploads/2020/09/ceviche-6.jpg",
+  },
+]);
+
 const slide = ref(null);
 </script>
+
+<style lang="scss" scoped>
+.carousel {
+  min-height: 500px;
+  height: auto;
+  max-width: 750px;
+  width: 90%;
+  min-width: 300px;
+}
+</style>

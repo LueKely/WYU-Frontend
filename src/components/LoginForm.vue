@@ -57,8 +57,8 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const form = ref(null);
-const loginIdentifier = ref("test123");
-const password = ref("testest");
+const loginIdentifier = ref("");
+const password = ref("");
 let loginError = ref('');
 let btnLoadingState = ref(false);
 
