@@ -49,13 +49,13 @@ const foodList = ref([
     url: "https://cdn.britannica.com/31/122031-050-F8FCA663/Hamburger-cheeseburger.jpg",
   },
   {
-    username: "Ryan's",
+    username: "Mike's",
     recipe: "Miso Soup",
     description: "Japanese broth with tofu, seaweed, and green onions.",
     url: "https://www.justonecookbook.com/wp-content/uploads/2022/06/Miso-Soup-8297-I.jpg",
   },
   {
-    username: "Judy's",
+    username: "Aaron's",
     recipe: "Ceviche",
     description: "Fresh seafood cured in citrus juices with herbs and spices.",
     url: "https://www.cookingclassy.com/wp-content/uploads/2020/09/ceviche-6.jpg",
