@@ -15,7 +15,6 @@
       id="login_identifier"
       class="font q-mb-sm"
       outlined
-      dense
       v-model="loginIdentifier"
       type="text"
       lazy-rules

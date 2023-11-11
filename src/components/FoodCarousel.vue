@@ -28,10 +28,10 @@
     <q-carousel-slide name="tv" class="column no-wrap flex-center">
       <div class="">
         <CardComponent
-          username="Lue's"
-          description="kill yourself NOW"
-          recipe="adobo"
-          url="https://www.eatwithcarmen.com/wp-content/uploads/2022/09/chicken-adobo_.jpg"
+          username="Adam's"
+          description="a chinese style fried rice well suited for anyone"
+          recipe="Chicken Fried Rice"
+          url="https://hips.hearstapps.com/hmg-prod/images/chicken-fried-rice-horizontal-1545488885.png?crop=0.8893333333333334xw:1xh;center,top&resize=1200:*"
         ></CardComponent>
       </div>
     </q-carousel-slide>
