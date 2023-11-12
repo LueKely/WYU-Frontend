@@ -3,9 +3,10 @@
     <q-icon class="q-my-lg" name="img:/wyu-icon.svg" size="8rem" />
     <h4 class="q-my-md">Sign in</h4>
   </div>
-
-  <div v-if="loginError" class="text-18 text-center text-negative q-mb-md">
-    {{ loginError }}
+  <div class="error q-mb-md">
+    <div v-if="loginError" class="text-18 text-center text-negative">
+      {{ loginError }}
+    </div>
   </div>
 
   <q-form ref="form" greedy @submit="login">
@@ -100,5 +101,8 @@ const clearError = () => {
 }
 .login--signup {
   border-color: red;
+}
+.error {
+  height: 1rem;
 }
 </style>
