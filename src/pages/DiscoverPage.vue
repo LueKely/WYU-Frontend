@@ -1,14 +1,16 @@
 <template>
   <div class="page--discover">
     <div class="container container-sections">
-      <section>Ulam of the day</section>
+      <UlamOfTheDay></UlamOfTheDay>
       <section>Recent Posts</section>
       <section>Categories</section>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import UlamOfTheDay from "../components/discoverPageAssets/UlamOfTheDay.vue";
+</script>
 
 <style lang="scss" scoped>
 .page--discover {
