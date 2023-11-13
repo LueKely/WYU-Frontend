@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import UlamOfTheDay from "../components/discoverPageAssets/UlamOfTheDay.vue";
+import UlamOfTheDay from "@discover/UlamOfTheDay.vue";
 </script>
 
 <style lang="scss" scoped>

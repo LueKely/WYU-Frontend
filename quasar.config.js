@@ -9,7 +9,7 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 const { configure } = require("quasar/wrappers");
-
+const path = require("node:path");
 module.exports = configure(function (/* ctx */) {
   return {
     eslint: {
@@ -51,14 +51,14 @@ module.exports = configure(function (/* ctx */) {
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16",
-        extendViteConf(viteConf, { isServer, isClient }) {
-          Object.assign(viteConf.resolve.alias, {
-            discover: path.join(
-              "discover",
-              "./src/components/discoverPageAssets"
-            ),
-          });
-        },
+      },
+      extendViteConf(viteConf, { isServer, isClient }) {
+        Object.assign(viteConf.resolve.alias, {
+          "@discover": path.join(
+            __dirname,
+            "./src/components/discoverPageAssets"
+          ),
+        });
       },
 
       vueRouterMode: "hash", // available values: 'hash', 'history'
