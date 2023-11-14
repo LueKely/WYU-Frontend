@@ -1,37 +1,39 @@
 <template>
   <div class="page--discover">
-    <div class="container container-sections">
+    <div class="container--sections">
       <UlamOfTheDay></UlamOfTheDay>
-      <section>Recent Posts</section>
-      <section>Categories</section>
+      <RecentPost></RecentPost>
+      <CategoriesSection></CategoriesSection>
     </div>
   </div>
 </template>
 
 <script setup>
 import UlamOfTheDay from "@discover/UlamOfTheDay.vue";
+import RecentPost from "@discover/RecentPost.vue";
+import CategoriesSection from "@discover/CategoriesSection.vue";
 </script>
 
 <style lang="scss" scoped>
 .page--discover {
+  background-color: #f5f5f5;
   width: 100%;
   height: 100%;
 
-  background-color: rgb(230, 199, 199);
-
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.container-sections {
-  padding: 0;
+.container--sections {
+  display: flex;
+  align-items: center;
+  justify-items: flex-start;
+  flex-direction: column;
+  padding: 30px 0px;
   box-sizing: border-box;
   width: 60%;
   height: 100%;
-  background-color: red;
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  flex-direction: column;
+  box-shadow: 0px 0px 20px 0px rgba(206, 206, 206, 0.932);
 }
 </style>
