@@ -18,6 +18,8 @@
         <div class="ulam__buttons">
           <!-- svg gaming -->
           <div class="heart--container">
+            <p class="text-24 text-secondary">100</p>
+
             <svg
               class="q-mr-sm"
               width="25"
@@ -32,7 +34,6 @@
                 stroke-width="2"
               />
             </svg>
-            <p class="text-24 text-secondary">100</p>
           </div>
 
           <button class="button--ulam q-mr-sm font">
@@ -52,12 +53,12 @@
 <style lang="scss" scoped>
 .heart--container {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  margin-bottom: 2px;
   p {
-    margin: 0;
+    margin: 0 5px 0 0;
   }
   svg {
     margin: 0;
@@ -76,6 +77,7 @@
   // border-radius: 50px;
 }
 .button--ulam {
+  margin: 0px;
   appearance: none;
   overflow: hidden;
   position: relative;
@@ -142,7 +144,7 @@
 .ulam__buttons {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
 }
 
