@@ -58,6 +58,7 @@ module.exports = configure(function (/* ctx */) {
             __dirname,
             "./src/components/discoverPageAssets"
           ),
+          "@create": path.join(__dirname, "./src/components/recipePageAssets"),
         });
       },
 
