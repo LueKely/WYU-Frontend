@@ -127,11 +127,11 @@ const stepInput = ref("");
 const recipeSteps = ref([]);
 
 const maxLesser = computed(() => {
-  return maxTime.value < minTime.value;
+  return maxTime.value < minTime.value || maxTime.value === minTime.value;
 });
 
 const minGreater = computed(() => {
-  return minTime.value > maxTime.value;
+  return minTime.value > maxTime.value || minTime.value === maxTime.value;
 });
 
 const isBtnDisabled = computed(() => {
