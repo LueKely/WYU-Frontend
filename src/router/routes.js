@@ -24,6 +24,11 @@ const routes = [
             name: "categories",
             component: () => import("../pages/CategoryPage.vue"),
           },
+          {
+            path: "create",
+            name: "create",
+            component: () => import("../pages/RecipeForm.vue"),
+          },
         ],
       },
     ],
