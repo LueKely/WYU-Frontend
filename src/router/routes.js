@@ -29,6 +29,11 @@ const routes = [
             name: "create",
             component: () => import("../pages/RecipeForm.vue"),
           },
+          {
+            path: "recent",
+            name: "recent",
+            component: () => import("../pages/RecentPosts.vue"),
+          },
         ],
       },
     ],
