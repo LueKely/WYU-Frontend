@@ -1,11 +1,18 @@
 <template>
-  <div class="page--discover">
-    <div class="container--sections">
-      <UlamOfTheDay></UlamOfTheDay>
-      <RecentPost></RecentPost>
-      <CategoriesSection></CategoriesSection>
+  <transition
+    appear
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+    :duration="2000"
+  >
+    <div class="page--discover">
+      <div class="container--sections">
+        <UlamOfTheDay></UlamOfTheDay>
+        <RecentPost></RecentPost>
+        <CategoriesSection></CategoriesSection>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script setup>

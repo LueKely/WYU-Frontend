@@ -4,10 +4,10 @@ import { LocalStorage } from "quasar";
 
 const axiosConfig = {
   baseURL: "http://localhost:3000/api/",
-  // withCredentials: true,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${LocalStorage.getItem("Bearer") || ""}`,
+    Authorization: `Bearer ${JSON.parse(localStorage.getItem("Bearer")) || ""}`,
   },
   data: {},
 };

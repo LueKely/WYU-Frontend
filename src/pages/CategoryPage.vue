@@ -1,5 +1,12 @@
 <template>
-  <div class="page--discover">TEST</div>
+  <transition
+    appear
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+    :duration="2000"
+  >
+    <div class="page--discover">TEST</div>
+  </transition>
 </template>
 
 <script setup></script>
