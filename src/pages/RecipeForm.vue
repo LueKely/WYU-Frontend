@@ -204,7 +204,10 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { CreateRecipe } from "../composables/Recipe";
+
+const router = useRouter();
 
 const recipeForm = ref(null);
 const btnLoadingState = ref(false);
@@ -309,7 +312,7 @@ const sendForm = () => {
       CreateRecipe(recipeData)
         .then((response) => {
           if (response.status === "success") {
-            // TODO: redirect to recent posts
+            router.push({ name: "recent" });
           }
         })
         .catch((error) => {

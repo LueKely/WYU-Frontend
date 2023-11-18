@@ -77,8 +77,7 @@ const login = () => {
         .then((response) => {
           if (response.status === "success") {
             localStorage.setItem("Bearer", JSON.stringify(response.data.token));
-             // TODO: redirect to recent posts
-            router.push( { name: 'create' } )
+            router.push( { name: 'recent' } )
           }
         })
         .catch((error) => {

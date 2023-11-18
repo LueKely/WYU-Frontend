@@ -5,7 +5,7 @@ import { api } from "../boot/axios";
 const GetAllRecipe = () => {
   return new Promise((resolve, reject) => {
     api
-      .get("recipe/create/")
+      .get("recipe/")
       .then((response) => {
         resolve(response.data);
       })
@@ -18,7 +18,7 @@ const GetAllRecipe = () => {
 const GetRecipe = (payload) => {
   return new Promise((resolve, reject) => {
     api
-      .get(`recipe/create/?id=${payload.id}`)
+      .get(`recipe/?id=${payload.id}`)
       .then((response) => {
         resolve(response.data);
       })
