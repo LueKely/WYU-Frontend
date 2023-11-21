@@ -40,7 +40,9 @@ import CategoriesSection from "@discover/CategoriesSection.vue";
   padding: 30px 0px;
   box-sizing: border-box;
   width: 60%;
+  min-width: 700px;
   height: 100%;
   box-shadow: 0px 0px 20px 0px rgba(206, 206, 206, 0.932);
+  padding-inline: 10px;
 }
 </style>
