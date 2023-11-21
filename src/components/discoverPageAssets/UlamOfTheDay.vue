@@ -1,18 +1,20 @@
 <template>
   <section>
-    <h3 class="text-bold">Ulam of the day:</h3>
+    <h3 class="text-bold text-43 font-bold text-center">Ulam Of The Day</h3>
     <div class="ulam__container q-mt-sm">
-      <img
+      <q-img
+        width="100%"
         class="ulam__image"
         src="../../assets/images/pexels-harry-dona-2338407 1.png"
-        alt="ulam of the day image"
+        alt="ulam of the
+      day image"
       />
       <div class="ulam__actions">
         <!-- ulam description -->
         <div class="ulam__info">
-          <h4 class="text-secondary">Name of user</h4>
-          <h3 class="text-secondary">Recipe Name</h3>
-          <h5 class="text-secondary">flavor text</h5>
+          <h4 class="text-secondary text-24">Name of user</h4>
+          <h3 class="text-secondary font-bold text-32">Recipe Name</h3>
+          <h5 class="text-secondary text-24">flavor text</h5>
         </div>
         <!-- ulam call to action -->
         <div class="ulam__buttons">
@@ -51,6 +53,9 @@
 <script setup></script>
 
 <style lang="scss" scoped>
+section {
+  width: 100%;
+}
 .heart--container {
   display: flex;
   // flex-direction: column;

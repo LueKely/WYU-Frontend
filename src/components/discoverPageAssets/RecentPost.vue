@@ -1,7 +1,7 @@
 <template>
   <section>
-    <h3>Recent Post</h3>
-    <h5>insert cards here</h5>
+    <h3 class="text-32 font-bold">Recent Post</h3>
+    <p class="text-18">Fresh Bites: Explore Our Latest Updates and Insights</p>
     <CarouselComponent />
   </section>
 </template>
@@ -12,8 +12,9 @@ import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 
 <style lang="scss" scoped>
 section {
+  margin-top: 30px;
+
   width: 100%;
-  background-color: rgba(201, 124, 124, 0.897);
 
   row-gap: 5px;
 
@@ -21,5 +22,10 @@ section {
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+}
+
+h3,
+p {
+  margin: 0;
 }
 </style>
