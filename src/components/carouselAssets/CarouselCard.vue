@@ -19,7 +19,13 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const carouselCardProps = defineProps({
+  title: String,
+  description: String,
+  url: String,
+});
+</script>
 
 <style lang="scss" scoped>
 .card__container {
