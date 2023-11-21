@@ -7,39 +7,56 @@
   >
     <div class="page--create">
       <q-form class="form--create" ref="recipeForm" greedy @submit="sendForm">
-        <h2 class="text-32">Create a Recipe</h2>
-        <label for="recipe__name">Recipe Name</label>
-        <q-input
-          :rules="[
-            (val) => !!val || '* Required',
-            (val) => val.length > 10 || 'Min 10 characters',
-          ]"
-          id="recipe__name"
-          outlined
-          v-model="recipeName"
-        />
-        <label for="recipe__photo">Photo Url</label>
-        <q-input
-          id="recipe__photo"
-          :rules="[
-            (val) => !!val || '* Required',
+        <!-- Recipe Name -->
+        <h2 class="text-32 text-semibold q-mb-lg">Create a Recipe</h2>
+        <div class="q-mb-sm">
+          <label for="recipe__name" class="text-18 text-medium q-mb-sm block"
+            >Recipe Name</label
+          >
+          <q-input
+            :rules="[
+              (val) => !!val || '* Required',
+              (val) => val.length > 10 || 'Min 10 characters',
+            ]"
+            id="recipe__name"
+            outlined
+            v-model="recipeName"
+          />
+        </div>
 
-            (val) => /^https?:\/\/\S+$/.test(val) || 'Invalid URL',
-          ]"
-          outlined
-          v-model="recipePhoto"
-        >
-          <template v-slot:prepend> <q-icon name="photo_library" /> </template
-        ></q-input>
-        <div class="form__part--dropdown">
+        <!-- Image Input -->
+        <div class="q-mb-sm">
+          <label for="recipe__photo" class="text-18 text-medium q-mb-sm block"
+            >Photo Url</label
+          >
+          <q-input
+            id="recipe__photo"
+            :rules="[
+              (val) => !!val || '* Required',
+
+              (val) => /^https?:\/\/\S+$/.test(val) || 'Invalid URL',
+            ]"
+            outlined
+            v-model="recipePhoto"
+          >
+            <template v-slot:prepend> <q-icon name="photo_library" /> </template
+          ></q-input>
+        </div>
+        <div class="form__part--dropdown q-mb-sm">
           <!-- drop down -->
           <div>
-            <h3 class="text-24">Set difficulty</h3>
-            <q-btn-dropdown color="primary" outlined :label="recipeDifficulty">
+            <h3 class="text-18 text-medium q-mb-sm block">Set difficulty</h3>
+            <q-btn-dropdown
+              unelevated
+              :ripple="false"
+              :outline="true"
+              color="grey-7"
+              :label="recipeDifficulty"
+            >
               <q-list>
                 <q-item clickable v-close-popup @click="setDifficulty('easy')">
                   <q-item-section>
-                    <q-item-label>easy</q-item-label>
+                    <q-item-label>Easy</q-item-label>
                   </q-item-section>
                 </q-item>
 
@@ -49,13 +66,13 @@
                   @click="setDifficulty('medium')"
                 >
                   <q-item-section>
-                    <q-item-label>medium</q-item-label>
+                    <q-item-label>Medium</q-item-label>
                   </q-item-section>
                 </q-item>
 
                 <q-item clickable v-close-popup @click="setDifficulty('hard')">
                   <q-item-section>
-                    <q-item-label>hard</q-item-label>
+                    <q-item-label>Hard</q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -63,10 +80,12 @@
           </div>
           <!-- time to finish -->
           <div>
-            <h3 class="text-24">time to finish</h3>
+            <h3 class="text-18 text-medium q-mb-sm block">Cooking Time</h3>
             <div class="time__container">
               <div>
-                <label for="time--min">Minimum Time in minutes</label>
+                <label for="time--min" class="text-12"
+                  >Minimum Time in minutes</label
+                >
                 <q-input
                   id="time--min"
                   outlined
@@ -84,7 +103,9 @@
                 >
               </div>
               <div>
-                <label for="time--max">Maximum Time in minutes</label>
+                <label for="time--max" class="text-12"
+                  >Maximum Time in minutes</label
+                >
                 <q-input
                   id="time--max"
                   type="number"
@@ -105,8 +126,8 @@
           </div>
         </div>
         <!-- tags -->
-        <div class="form__tags">
-          <h3 class="text-24">Tags</h3>
+        <div class="form__tags q-mb-lg">
+          <h3 class="text-18 text-medium block q-mb-sm">Tags</h3>
           <div class="tags__container">
             <div v-for="(tag, index) in recipeTagLists" :key="index">
               <q-chip
@@ -123,7 +144,7 @@
 
         <!-- desscription -->
         <div>
-          <h3 class="text-24">Description</h3>
+          <h3 class="text-18 text-medium block q-mb-sm">Description</h3>
           <q-input
             :rules="[
               (val) => !!val || '* Required',
@@ -135,62 +156,157 @@
           />
         </div>
         <div>
-          <h3 class="text-24">Ingredients</h3>
-          <ul class="ul--form">
+          <h3 class="text-18 text-medium block q-mb-sm">Ingredients</h3>
+          <ul v-if="recipeIngredients.length !== 0" class="ul--form">
             <li
               class="font li--form"
               v-for="(ingredient, index) in recipeIngredients"
               :key="index"
             >
-              {{ ingredient }}
+              <span class="block" v-if="!ingredient.isEditing">{{
+                ingredient.name
+              }}</span>
+              <q-input
+                v-else
+                v-model="ingredient.name"
+                autogrow
+                dense
+                borderless
+              />
+              <div class="interactions">
+                <q-icon
+                  v-if="!ingredient.isEditing"
+                  name="edit"
+                  size="24px"
+                  class="block cursor-pointer"
+                  @click="ingredient.isEditing = true"
+                />
+                <q-icon
+                  v-else
+                  name="check"
+                  size="24px"
+                  class="block cursor-pointer"
+                  @click="applyChanges('ingredient', ingredient.name, index)"
+                />
+                <q-icon
+                  name="close"
+                  size="24px"
+                  class="block cursor-pointer"
+                  @click="recipeIngredients.splice(index, 1)"
+                />
+              </div>
             </li>
           </ul>
           <q-input
-            type="text"
+            v-if="isAddingNewIngredient"
             outlined
             autogrow
+            type="text"
             v-model="ingredientInput"
-          ></q-input>
+            :rules="[(val) => !!val || '* Required']"
+          >
+            <template v-slot:append>
+              <q-icon
+                v-if="ingredientInput"
+                name="add"
+                @click="appendToIngredients"
+                class="cursor-pointer"
+              />
+              <q-icon
+                v-else
+                name="close"
+                @click="cancelAdding('ingredient')"
+                class="cursor-pointer"
+              />
+            </template>
+          </q-input>
           <div class="append__container">
             <q-btn
-              outline
+              unelevated
               round
               color="primary"
               icon="add"
-              @click="appendToIngredients"
+              @click="isAddingNewIngredient = true"
             ></q-btn>
           </div>
         </div>
 
-        <div>
-          <h3 class="text-24">Instructions</h3>
-          <ol class="ul--form">
+        <div class="q-mb-xl">
+          <h3 class="text-18 text-medium block q-mb-sm">Instructions</h3>
+          <ol v-if="recipeSteps.length !== 0" class="ul--form">
             <li
-              class="font li--form"
+              class="text-regular li--form"
               v-for="(step, index) in recipeSteps"
               :key="index"
             >
-              {{ step }}
+              <span v-if="!step.isEditing" class="block">{{ step.name }}</span>
+              <q-input v-else v-model="step.name" autogrow dense borderless />
+              <div class="interactions">
+                <q-icon
+                  v-if="!step.isEditing"
+                  name="edit"
+                  size="24px"
+                  class="block cursor-pointer"
+                  @click="step.isEditing = true"
+                />
+                <q-icon
+                  v-else
+                  name="check"
+                  size="24px"
+                  class="block cursor-pointer"
+                  @click="applyChanges('instruction', step.name, index)"
+                />
+                <q-icon
+                  name="close"
+                  size="24px"
+                  class="block cursor-pointer"
+                  @click="recipeSteps.splice(index, 1)"
+                />
+              </div>
             </li>
           </ol>
 
-          <q-input type="text" outlined autogrow v-model="stepInput"></q-input>
+          <q-input
+            v-if="isAddingNewStep"
+            outlined
+            autogrow
+            type="text"
+            v-model="stepInput"
+            :rules="[(val) => !!val || '* Required']"
+          >
+            <template v-slot:append>
+              <q-icon
+                v-if="stepInput"
+                name="add"
+                @click="appendToSteps"
+                class="cursor-pointer"
+              />
+              <q-icon
+                v-else
+                name="close"
+                @click="cancelAdding('instruction')"
+                class="cursor-pointer"
+              />
+            </template>
+          </q-input>
 
           <div class="append__container">
             <q-btn
-              outline
+              unelevated
               round
               color="primary"
               icon="add"
-              @click="appendToSteps"
+              @click="isAddingNewStep = true"
             ></q-btn>
           </div>
         </div>
-        <div class="btn__container--create">
+        <div class="btn__container">
+          <q-btn class="btn--submit font-bold" outline @click="router.go(-1)"
+            >Cancel</q-btn
+          >
           <q-btn
-            outline
-            class="btn--submit font-bold text-18"
-            color="accent"
+            flat
+            class="btn--submit font-bold"
             :loading="btnLoadingState"
             :disable="isBtnDisabled"
             type="submit"
@@ -220,6 +336,8 @@ const recipeTime = ref(computed(() => `${minTime.value} - ${maxTime.value}`));
 const recipeTags = ref([]);
 const recipeDescription = ref("");
 
+const isAddingNewIngredient = ref(false);
+const isAddingNewStep = ref(false);
 const ingredientInput = ref("");
 const recipeIngredients = ref([]);
 
@@ -260,14 +378,44 @@ const setDifficulty = (difficulty) => {
 
 const appendToIngredients = () => {
   if (ingredientInput.value === "") return;
-  recipeIngredients.value.push(ingredientInput.value);
+  isAddingNewIngredient.value = false;
+  let newIngredient = {
+    name: ingredientInput.value,
+    isEditing: false,
+  };
+  recipeIngredients.value.push(newIngredient);
   ingredientInput.value = "";
 };
 
 const appendToSteps = () => {
   if (stepInput.value === "") return;
-  recipeSteps.value.push(stepInput.value);
+  isAddingNewStep.value = false;
+  let newStep = {
+    name: stepInput.value,
+    isEditing: false,
+  };
+  recipeSteps.value.push(newStep);
   stepInput.value = "";
+};
+
+const applyChanges = (type, newValue, index) => {
+  if (type === "ingredient") {
+    recipeIngredients.value[index].isEditing = false;
+    recipeIngredients.value[index].name = newValue;
+  } else {
+    recipeSteps.value[index].isEditing = false;
+    recipeSteps.value[index].name = newValue;
+  }
+};
+
+const cancelAdding = (type) => {
+  if (type === "ingredient") {
+    isAddingNewIngredient.value = false;
+    ingredientInput.value = "";
+  } else {
+    isAddingNewStep.value = false;
+    stepInput.value = "";
+  }
 };
 
 const recipeTagLists = ref([
@@ -298,6 +446,15 @@ const sendForm = () => {
 
   recipeForm.value.validate().then((success) => {
     if (success) {
+      // Get all the ingredients and instructions
+      let modifiedIngredients = recipeIngredients.value.map((ingredient) => {
+        return ingredient.name;
+      });
+
+      let modifiedInstrutions = recipeSteps.value.map((step) => {
+        return step.name;
+      });
+
       const recipeData = {
         recipe_name: recipeName.value,
         image_url: recipePhoto.value,
@@ -305,8 +462,8 @@ const sendForm = () => {
         cooking_time: recipeTime.value,
         tags: [...recipeTags.value],
         description: recipeDescription.value,
-        ingredients: [...recipeIngredients.value],
-        instructions: [...recipeSteps.value],
+        ingredients: modifiedIngredients,
+        instructions: modifiedInstrutions,
       };
 
       CreateRecipe(recipeData)
