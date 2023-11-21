@@ -1,0 +1,75 @@
+<template>
+  <div class="navbar-container q-mb-md">
+    <q-toolbar class="q-px-xl q-py-md">
+      <div class="flex items-center q-gutter-xl">
+        <q-avatar size="55px">
+          <q-img src="/wyu-icon.svg" fit="cover"></q-img>
+        </q-avatar>
+
+        <q-input
+          rounded
+          dense
+          outlined
+          v-model="text"
+          bg-color="grey-1"
+          placeholder="Search dish..."
+        >
+          <template v-slot:prepend>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </div>
+
+      <q-space />
+
+      <q-tabs v-model="currentTab" shrink>
+        <q-route-tab
+          :ripple="false"
+          class="text-weight-bold"
+          name="home"
+          label="Home"
+          to="/home"
+          exact
+        />
+        <q-route-tab
+          :ripple="false"
+          name="profile"
+          label="Profile"
+          to="/profile"
+          exact
+        />
+        <q-route-tab
+          :ripple="false"
+          name="collections"
+          label="Collections"
+          to="/collections"
+          exact
+        />
+      </q-tabs>
+
+      <q-space />
+
+      <q-avatar color="primary" class="q-mr-sm" text-color="white">
+        J
+      </q-avatar>
+    </q-toolbar>
+  </div>
+</template>
+
+<script lang="js" setup>
+import { ref } from "vue";
+
+const text = ref("");
+const currentTab = ref("home");
+</script>
+
+<style lang="scss" scoped>
+.navbar-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #ffffff;
+  box-shadow: 0px 5px 13px -1px rgba(189, 189, 189, 1);
+}
+</style>

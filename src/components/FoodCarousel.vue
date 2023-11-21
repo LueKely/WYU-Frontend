@@ -5,7 +5,7 @@
     transition-next="scale"
     swipeable
     animated
-    control-color="accent"
+    control-color="accent-2"
     control-type="outline"
     navigation
     autoplay

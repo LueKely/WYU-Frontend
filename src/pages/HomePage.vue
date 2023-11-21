@@ -5,20 +5,21 @@
     leave-active-class="animated fadeOut"
     :duration="2000"
   >
-    <div class="page page--home">
-      <nav>Navigation</nav>
-      <router-view></router-view>
+    <div class="main-page">
+      <NavigationBar />
+      <div class="main-page__home">
+        <router-view></router-view>
+      </div>
     </div>
   </transition>
 </template>
 
-<script setup></script>
+<script setup>
+import NavigationBar from "@partials/NavigationBar.vue";
+</script>
 
 <style lang="scss" scoped>
-nav {
-  height: 60px;
-}
-.page--home {
-  flex-direction: column;
+.main-page {
+  position: relative;
 }
 </style>

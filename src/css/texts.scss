@@ -1,3 +1,20 @@
+@import "./functions.scss";
+
+/* Text Color */
+.text-primary {
+  color: $primary !important;
+}
+
+.text-secondary {
+  color: $secondary !important;
+}
+
+@for $i from 0 through 2 {
+  .text-accent-#{$i} {
+    color: setColor($i) !important;
+  }
+}
+
 /* App Text font sizes */
 .text-76 {
   font-size: 4.222rem !important;
@@ -21,6 +38,34 @@
 
 .text-18 {
   font-size: 1rem !important;
+}
+
+.text-12 {
+  font-size: 0.75rem !important;
+}
+
+.text-10 {
+  font-size: 0.563rem !important;
+}
+
+.text-light {
+  font-family: "Quicksand Light", sans-serif !important;
+}
+
+.text-regular {
+  font-family: "Quicksand Regular", sans-serif !important;
+}
+
+.text-medium {
+  font-family: "Quicksand Medium", sans-serif !important;
+}
+
+.text-semibold {
+  font-family: "Quicksand SemiBold", sans-serif !important;
+}
+
+.text-bold {
+  font-family: "Quicksand Bold", sans-serif !important;
 }
 
 .recent__tags {
