@@ -1,6 +1,5 @@
 import { boot } from "quasar/wrappers";
 import axios from "axios";
-import { LocalStorage } from "quasar";
 
 const axiosConfig = {
   baseURL: "http://localhost:3000/api/",

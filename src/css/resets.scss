@@ -2,7 +2,14 @@
 html {
   font-size: 18px;
 }
-* {
+
+body {
+  background-color: $accent-1;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 

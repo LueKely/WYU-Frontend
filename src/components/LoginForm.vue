@@ -77,6 +77,7 @@ const login = () => {
         .then((response) => {
           if (response.status === "success") {
             localStorage.setItem("Bearer", JSON.stringify(response.data.token));
+            console.log(JSON.parse(localStorage.getItem("Bearer")));
             router.push( { name: 'recent' } )
           }
         })

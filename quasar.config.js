@@ -60,6 +60,7 @@ module.exports = configure(function (/* ctx */) {
           ),
 
           "@recent": path.join(__dirname, "./src/components/recentPostAssets"),
+          "@partials": path.join(__dirname, "./src/layouts/partials"),
         });
       },
 
