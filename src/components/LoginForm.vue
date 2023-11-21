@@ -33,18 +33,18 @@
       :rules="[(val) => !!val || 'Password is required']"
     />
     <q-btn
-      color="accent"
       size="lg"
-      class="font-bold q-my-sm login__button"
+      class="text-bold q-my-sm login-btn login__button"
       type="submit"
       label="Login"
+      unelevated
       :loading="btnLoadingState"
     />
     <q-btn
-      color="primary"
+      color="accent-0"
       outline
       size="lg"
-      class="font-bold q-my-sm login__button login--signup"
+      class="text-bold q-my-sm login__button login--signup"
       label="Sign Up"
     />
   </q-form>
@@ -77,7 +77,6 @@ const login = () => {
         .then((response) => {
           if (response.status === "success") {
             localStorage.setItem("Bearer", JSON.stringify(response.data.token));
-            console.log(JSON.parse(localStorage.getItem("Bearer")));
             router.push( { name: 'recent' } )
           }
         })
@@ -101,9 +100,11 @@ const clearError = () => {
 .login__button {
   width: 100%;
 }
-.login--signup {
-  border-color: red;
+
+.login-btn {
+  background-color: #ffb74d !important;
 }
+
 .error {
   height: 1rem;
 }
