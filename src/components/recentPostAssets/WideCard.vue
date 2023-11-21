@@ -16,16 +16,26 @@
           </p>
         </div>
       </div>
-      <p class="text-accent-2 text-medium text-18 cursor-pointer">See recipe</p>
+      <p
+        class="text-accent-2 text-medium text-18 cursor-pointer"
+        @click="
+          router.push({ name: 'recipe', params: { id: props.recipeData._id } })
+        "
+      >
+        See recipe
+      </p>
     </div>
     <q-img
       :src="props.recipeData.image_url"
       alt="food"
       style="border-radius: 10px"
+      class="q-mb-md"
     />
     <div clas="recipe__info">
       <div class="flex justify-between items-center">
-        <h2 class="text-24 font-bold">{{ props.recipeData.recipe_name }}</h2>
+        <h2 class="text-24 text-semibold">
+          {{ props.recipeData.recipe_name }}
+        </h2>
         <div class="recent__tags">
           <div v-for="(tag, index) in props.recipeData.tags" :key="index">
             <q-chip class="q-mr-sm" color="primary" text-color="white">{{
@@ -34,20 +44,59 @@
           </div>
         </div>
       </div>
-      <div class="metadata">
-        <p>Difficulty: {{ props.recipeData.difficulty }}</p>
-        <p>Ingridients: {{ ingridientCount }}</p>
-        <p>Estimated time: {{ props.recipeData.cooking_time }}</p>
+      <div class="metadata q-my-sm">
+        <p class="text-12 text-thin">
+          Difficulty: {{ props.recipeData.difficulty }}
+        </p>
+        <p class="text-12 text-thin">Ingridients: {{ ingridientCount }}</p>
+        <p class="text-12 text-thin">
+          Cooking Time: {{ props.recipeData.cooking_time }} minutes
+        </p>
       </div>
       <div class="description">
-        <p class="text-18">{{ props.recipeData.description }}</p>
+        <p class="text-18 text-medium">{{ props.recipeData.description }}</p>
+      </div>
+      <div class="interactions flex q-gutter-md q-mt-xs items-center">
+        <div class="heart cursor-pointer" @click="heartToggled = !heartToggled">
+          <q-img
+            v-if="!heartToggled"
+            loading="lazy"
+            no-spinner
+            src="../../assets/heart_outlined.svg"
+            width="35px"
+          />
+          <q-img
+            v-else
+            loading="lazy"
+            no-spinner
+            src="../../assets/heart_filled.svg"
+            width="35px"
+          />
+        </div>
+        <div class="save cursor-pointer" @click="saveToggled = !saveToggled">
+          <q-img
+            v-if="!saveToggled"
+            loading="lazy"
+            no-spinner
+            src="../../assets/save_outline.svg"
+            width="35px"
+          />
+          <q-img
+            v-else
+            loading="lazy"
+            no-spinner
+            src="../../assets/save_filled.svg"
+            width="35px"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   recipeData: {
@@ -56,6 +105,8 @@ const props = defineProps({
   },
 });
 
+const router = useRouter();
+
 const userInitials = computed(() => {
   return props.recipeData.username.charAt(0);
 });
@@ -63,6 +114,9 @@ const userInitials = computed(() => {
 const ingridientCount = computed(() => {
   return props.recipeData.ingredients.length;
 });
+
+const heartToggled = ref(false);
+const saveToggled = ref(false);
 </script>
 
 <style lang="scss" scoped></style>

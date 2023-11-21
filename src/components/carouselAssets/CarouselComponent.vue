@@ -99,7 +99,7 @@ onMounted(() => {
   width: 100%;
   position: absolute;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 }
 
