@@ -6,8 +6,9 @@
       loading="true"
       width="100%"
       height="150px"
+      @click="visitPage"
     />
-    <div class="card__container--text">
+    <div class="card__container--text q-mt-md">
       <h4 class="text-18 font-bold">Lorem Burger</h4>
       <p class="card__text">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor
@@ -20,10 +21,27 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const visitPage = () => {
+  if (isRecipe) {
+    router.push(`/recipe/${pathUrl}`);
+    return;
+  }
+  router.push(`category/${pathUrl}`);
+};
+
+// props for the card carousel:
+
+//   title: String,
+//   description: String,
+//   imgUrl: String,
+//   isRecipe: Boolean,
+//   pathUrl: String,
+
 const carouselCardProps = defineProps({
-  title: String,
-  description: String,
-  url: String,
+  payload: Object,
 });
 </script>
 

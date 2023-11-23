@@ -22,7 +22,7 @@
         @click="prevPage"
       ></q-btn>
       <q-btn
-        :disable="turn == groupedData.length - 1"
+        :disable="turn == groupedData.length"
         round
         size="20px"
         color="accent"
@@ -37,13 +37,13 @@
 import CarouselCard from "../carouselAssets/CarouselCard.vue";
 import { onMounted, computed, ref, watchEffect } from "vue";
 
-const translateX = ref(500);
+const translateX = ref(1575);
 const turn = ref(1);
 
-const turnLength = 1080;
+const turnLength = 1050;
 
 function nextPage() {
-  if (turn.value == groupedData.value.length - 1) return;
+  if (turn.value == groupedData.value.length) return;
   turn.value++;
   translateX.value -= turnLength;
   console.log(turn.value);
@@ -99,7 +99,7 @@ onMounted(() => {
   width: 100%;
   position: absolute;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 }
 
