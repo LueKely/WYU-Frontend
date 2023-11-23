@@ -7,7 +7,11 @@
           v-for="(group, index) in groupedData"
           :key="index"
         >
-          <CarouselCard v-for="(item, index) in group" :key="index" />
+          <CarouselCard
+            v-for="(item, index) in group"
+            :key="index"
+            :payload="item"
+          />
         </div>
       </div>
     </div>

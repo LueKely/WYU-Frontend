@@ -9,13 +9,13 @@
 <script setup>
 import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 import { provide, ref } from "vue";
+provide("isRecipe", true);
 const dummyData = ref([
   {
     title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
     imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
     pathUrl: "lorem1",
   },
   {
@@ -23,7 +23,7 @@ const dummyData = ref([
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
     imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
+
     pathUrl: "lorem1",
   },
   {
@@ -31,7 +31,7 @@ const dummyData = ref([
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
     imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
+
     pathUrl: "lorem1",
   },
   {
@@ -39,7 +39,7 @@ const dummyData = ref([
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
     imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
+
     pathUrl: "lorem1",
   },
   {
@@ -47,63 +47,7 @@ const dummyData = ref([
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
     imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
-    pathUrl: "lorem1",
-  },
-  {
-    title: "lorem1",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
-    pathUrl: "lorem1",
-  },
-  {
-    title: "lorem1",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
-    pathUrl: "lorem1",
-  },
-  {
-    title: "lorem1",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
-    pathUrl: "lorem1",
-  },
-  {
-    title: "lorem1",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
-    pathUrl: "lorem1",
-  },
-  {
-    title: "lorem1",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
-    pathUrl: "lorem1",
-  },
-  {
-    title: "lorem1",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
-    pathUrl: "lorem1",
-  },
-  {
-    title: "lorem1",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    imgUrl: "https://picsum.photos/500/300",
-    isRecipe: true,
+
     pathUrl: "lorem1",
   },
 ]);
