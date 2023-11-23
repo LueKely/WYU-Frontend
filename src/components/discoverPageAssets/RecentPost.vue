@@ -9,78 +9,50 @@
 <script setup>
 import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 import { provide, ref } from "vue";
+
+provide("isRecipe", true);
 const dummyData = ref([
   {
     title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
-  },
-  {
-    title: "lorem2",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
-  },
-  {
-    title: "lorem3",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
-  },
-  {
-    title: "lorem4",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
-  },
-  {
-    title: "lorem5",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
-  },
-  {
-    title: "lorem6",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
+    imgUrl: "https://picsum.photos/500/300",
+    pathUrl: "lorem1",
   },
   {
     title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
+    imgUrl: "https://picsum.photos/500/300",
+    pathUrl: "lorem1",
   },
   {
-    title: "lorem2",
+    title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
+    imgUrl: "https://picsum.photos/500/300",
+    pathUrl: "lorem1",
   },
   {
-    title: "lorem3",
+    title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
+    imgUrl: "https://picsum.photos/500/300",
+    pathUrl: "lorem1",
   },
   {
-    title: "lorem4",
+    title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
+    imgUrl: "https://picsum.photos/500/300",
+    pathUrl: "lorem1",
   },
   {
-    title: "lorem5",
+    title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
-  },
-  {
-    title: "lorem6",
-    description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
-    url: "https://picsum.photos/500/300",
+    imgUrl: "https://picsum.photos/500/300",
+    pathUrl: "lorem1",
   },
 ]);
 </script>

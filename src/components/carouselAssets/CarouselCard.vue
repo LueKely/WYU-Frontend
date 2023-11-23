@@ -1,36 +1,56 @@
 <template>
   <div class="card__container">
     <q-img
-      src="https://picsum.photos/500/300"
+
+      :src="cardProps.payload.imgUrl"
       :ratio="16 / 9"
       loading="true"
       width="100%"
       height="150px"
+
+      @click="visitPage"
     />
-    <div class="card__container--text">
-      <h4 class="text-18 font-bold">Lorem Burger</h4>
+    <div class="card__container--text q-mt-md">
+      <h4 class="text-18 font-bold">{{ cardProps.payload.title }}</h4>
       <p class="card__text">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor
-        nemo explicabo repellendus necessitatibus adipisci veritatis harum,
-        cupiditate laborum, excepturi impedit culpa. Incidunt, assumenda.
-        Reiciendis perspiciatis corporis voluptates optio ut?
+        {{ cardProps.payload.description }}
+
       </p>
     </div>
   </div>
 </template>
 
 <script setup>
-const carouselCardProps = defineProps({
-  title: String,
-  description: String,
-  url: String,
+import { useRouter } from "vue-router";
+import { inject, onMounted } from "vue";
+
+const isRecipe = inject("isRecipe");
+const router = useRouter();
+
+const visitPage = () => {
+  if (isRecipe) {
+    router.push(`/recipe/${cardProps.payload.pathUrl}`);
+    return;
+  }
+  router.push(`category/${cardProps.payload.pathUrl}`);
+};
+
+// props for the card carousel:
+
+//   title: String,
+//   description: String,
+//   imgUrl: String,
+//   pathUrl: String,
+
+const cardProps = defineProps({
+  payload: Object,
 });
 </script>
 
 <style lang="scss" scoped>
 .card__container {
   background: #ffe2b8;
-  width: 310px;
+  width: 250px;
   height: 290px;
   border-radius: 10px;
   display: flex;
@@ -38,6 +58,8 @@ const carouselCardProps = defineProps({
   justify-content: flex-start;
   flex-direction: column;
   padding: 15px;
+  margin-inline: 10px;
+
 }
 .card__container--text {
   // background-color: red;
