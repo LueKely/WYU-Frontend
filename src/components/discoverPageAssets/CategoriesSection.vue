@@ -9,12 +9,15 @@
 <script setup>
 import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 import { provide, ref } from "vue";
+
 provide("isRecipe", false);
+
 const dummyData = ref([
   {
     title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
+
     imgUrl: "https://picsum.photos/500/300",
     pathUrl: "lorem1",
   },
@@ -50,8 +53,10 @@ const dummyData = ref([
     title: "lorem1",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
+
     imgUrl: "https://picsum.photos/500/300",
     pathUrl: "lorem1",
+
   },
 ]);
 </script>

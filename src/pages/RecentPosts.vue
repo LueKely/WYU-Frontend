@@ -1,6 +1,6 @@
 <template>
   <div class="page--recent">
-    <div class="container--recent" v-show="!pageLoadingState">
+    <div class="container--recent" v-if="!pageLoadingState">
       <h2 style="align-self: flex-start" class="text-43 text-bold q-mb-md">
         Recent Posts
       </h2>
@@ -23,7 +23,7 @@
       size="20px"
       :to="{ name: 'create' }"
     />
-    <q-inner-loading :showing="pageLoadingState" color="accent-1" />
+    <q-inner-loading :showing="pageLoadingState" color="accent-2" />
   </div>
 </template>
 
@@ -31,7 +31,7 @@
 import WideCard from "@recent/WideCard.vue";
 
 import { ref, onMounted } from "vue";
-import { GetAllRecipe } from "../composables/Recipe";
+import { GetAllRecipe } from "@composables/Recipe";
 
 const pageLoadingState = ref(false);
 const recipeList = ref([]);

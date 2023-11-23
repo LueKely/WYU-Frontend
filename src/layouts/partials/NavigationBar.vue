@@ -28,21 +28,21 @@
           class="text-weight-bold"
           name="home"
           label="Home"
-          to="/home"
+          to="/home/discover"
           exact
         />
         <q-route-tab
           :ripple="false"
           name="profile"
           label="Profile"
-          to="/profile"
+          to="/home/profile"
           exact
         />
         <q-route-tab
           :ripple="false"
           name="collections"
           label="Collections"
-          to="/collections"
+          to="/home/collections"
           exact
         />
       </q-tabs>

@@ -52,7 +52,7 @@
 
 <script setup lang="js">
 import { ref } from "vue";
-import { LoginUser } from "../composables/Authentication";
+import { LoginUser } from "@composables/Authentication";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

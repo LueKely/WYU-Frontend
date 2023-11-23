@@ -1,6 +1,7 @@
 <template>
   <div class="carousel__container">
     <div class="carousel" :style="{ transform: `translateX(${translateX}px)` }">
+
       <div
         class="carousel__container--cards"
         v-for="(group, index) in groupedData"
@@ -11,6 +12,7 @@
           :key="index"
           :payload="item"
         />
+
       </div>
     </div>
 
@@ -110,6 +112,7 @@ onMounted(() => {
   height: 100%;
   display: flex;
   align-items: flex-start;
+
   justify-content: center;
 
   position: relative;
@@ -117,9 +120,11 @@ onMounted(() => {
 }
 
 .carousel__container--cards {
+
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
 }
 
 .carousel__container--buttons {

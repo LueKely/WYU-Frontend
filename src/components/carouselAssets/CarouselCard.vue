@@ -1,17 +1,20 @@
 <template>
   <div class="card__container">
     <q-img
+
       :src="cardProps.payload.imgUrl"
       :ratio="16 / 9"
       loading="true"
       width="100%"
       height="150px"
+
       @click="visitPage"
     />
     <div class="card__container--text q-mt-md">
       <h4 class="text-18 font-bold">{{ cardProps.payload.title }}</h4>
       <p class="card__text">
         {{ cardProps.payload.description }}
+
       </p>
     </div>
   </div>
@@ -56,6 +59,7 @@ const cardProps = defineProps({
   flex-direction: column;
   padding: 15px;
   margin-inline: 10px;
+
 }
 .card__container--text {
   // background-color: red;

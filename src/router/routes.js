@@ -34,6 +34,11 @@ const routes = [
             name: "recent",
             component: () => import("../pages/RecentPosts.vue"),
           },
+          {
+            path: "recipe/:id",
+            name: "recipe",
+            component: () => import("../pages/RecipePage.vue"),
+          },
         ],
       },
     ],

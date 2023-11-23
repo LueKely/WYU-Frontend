@@ -9,6 +9,7 @@
 <script setup>
 import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 import { provide, ref } from "vue";
+
 provide("isRecipe", true);
 const dummyData = ref([
   {
