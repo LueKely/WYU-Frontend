@@ -1,18 +1,16 @@
 <template>
   <div class="carousel__container">
     <div class="carousel" :style="{ transform: `translateX(${translateX}px)` }">
-      <div class="carousel__list--card">
-        <div
-          class="carousel__container--cards"
-          v-for="(group, index) in groupedData"
+      <div
+        class="carousel__container--cards"
+        v-for="(group, index) in groupedData"
+        :key="index"
+      >
+        <CarouselCard
+          v-for="(item, index) in group"
           :key="index"
-        >
-          <CarouselCard
-            v-for="(item, index) in group"
-            :key="index"
-            :payload="item"
-          />
-        </div>
+          :payload="item"
+        />
       </div>
     </div>
 
@@ -41,10 +39,10 @@
 import CarouselCard from "../carouselAssets/CarouselCard.vue";
 import { onMounted, computed, ref, watchEffect } from "vue";
 
-const translateX = ref(1575);
+const translateX = ref(405);
 const turn = ref(1);
 
-const turnLength = 1050;
+const turnLength = 810;
 
 function nextPage() {
   if (turn.value == groupedData.value.length) return;
@@ -99,20 +97,19 @@ onMounted(() => {
 .carousel {
   transition: all 0.5s ease-in-out;
 
-  position: absolute;
   width: 100%;
-  position: absolute;
+
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  left: 0;
 }
 
 .carousel__list--card {
-  // overflow: hidden;
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
   position: relative;
@@ -120,14 +117,9 @@ onMounted(() => {
 }
 
 .carousel__container--cards {
-  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  // position: absolute;
-  column-gap: 40px;
-  padding-inline: 10px;
+  justify-content: flex-start;
 }
 
 .carousel__container--buttons {

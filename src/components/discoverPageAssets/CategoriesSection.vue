@@ -46,6 +46,13 @@ const dummyData = ref([
     imgUrl: "https://picsum.photos/500/300",
     pathUrl: "lorem1",
   },
+  {
+    title: "lorem1",
+    description:
+      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus dolor  nemo explicabo repellendus necessitatibus adipisci veritatis harum,",
+    imgUrl: "https://picsum.photos/500/300",
+    pathUrl: "lorem1",
+  },
 ]);
 </script>
 

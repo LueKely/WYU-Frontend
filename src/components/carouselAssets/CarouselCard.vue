@@ -47,7 +47,7 @@ const cardProps = defineProps({
 <style lang="scss" scoped>
 .card__container {
   background: #ffe2b8;
-  width: 310px;
+  width: 250px;
   height: 290px;
   border-radius: 10px;
   display: flex;
@@ -55,6 +55,7 @@ const cardProps = defineProps({
   justify-content: flex-start;
   flex-direction: column;
   padding: 15px;
+  margin-inline: 10px;
 }
 .card__container--text {
   // background-color: red;
