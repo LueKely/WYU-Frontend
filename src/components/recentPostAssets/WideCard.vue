@@ -27,7 +27,7 @@
     </div>
     <q-img
       :src="props.recipeData.image_url"
-      alt="food"
+      :alt="props.recipeData.recipe_name"
       style="border-radius: 10px"
       class="q-mb-md"
     />
@@ -107,6 +107,7 @@
 import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useCacheStore } from "../../stores/cacheStore";
 
 const props = defineProps({
   recipeData: {
@@ -115,6 +116,7 @@ const props = defineProps({
   },
 });
 
+const caching = useCacheStore();
 const router = useRouter();
 
 const userInitials = computed(() => {
@@ -160,7 +162,8 @@ const LikeOrUnlikePost = (recipeId) => {
   LikeORUnlike(payload)
     .then((response) => {
       if (response.status === "success") {
-        // Do Something
+        caching.recentPosts = {};
+        delete caching.recipe.recipes[props.recipeData._id];
       }
     })
     .catch((error) => {
@@ -179,7 +182,8 @@ const SaveOrUnsavePost = (recipeId) => {
   SaveOrUnsave(payload)
     .then((response) => {
       if (response.status === "success") {
-        // Do something
+        caching.recentPosts = {};
+        delete caching.recipe.recipes[props.recipeData._id];
       }
     })
     .catch((error) => {

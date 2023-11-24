@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useLocalStorage } from "@vueuse/core";
 import { readonly } from "vue";
 
+/* DI PA TO NAGAGAMITTT */
 export const useUserStore = defineStore("user", () => {
   const user = ref(localStorage.getItem("user") || "");
   const token = ref(JSON.parse(localStorage.getItem("Bearer")) || "");

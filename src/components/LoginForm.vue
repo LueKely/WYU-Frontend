@@ -82,7 +82,7 @@ const login = () => {
           if (response.status === "success") {
             localStorage.setItem("Bearer", JSON.stringify(response.data.token));
             localStorage.setItem("c_user", JSON.stringify(response.data.userData));
-            router.push({ name: "recent" });
+            router.push({ name: "discover" });
           }
         })
         .catch((error) => {

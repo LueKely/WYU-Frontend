@@ -322,8 +322,10 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { CreateRecipe } from "../composables/Recipe";
+import { useCacheStore } from "../stores/cacheStore";
 
 const router = useRouter();
+const caching = useCacheStore();
 
 const recipeForm = ref(null);
 const btnLoadingState = ref(false);
@@ -469,6 +471,7 @@ const sendForm = () => {
       CreateRecipe(recipeData)
         .then((response) => {
           if (response.status === "success") {
+            caching.recentPosts = {};
             router.push({ name: "recent" });
           }
         })

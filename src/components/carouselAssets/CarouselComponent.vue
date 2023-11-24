@@ -44,7 +44,7 @@ const props = defineProps({
   payload: Array,
 });
 
-const translateX = ref(230);
+const translateX = ref(370);
 const turn = ref(1);
 
 const turnLength = 810;

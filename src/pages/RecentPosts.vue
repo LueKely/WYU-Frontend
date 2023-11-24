@@ -29,22 +29,22 @@
 
 <script setup>
 import WideCard from "@recent/WideCard.vue";
-
 import { ref, onMounted } from "vue";
 import { GetAllRecipe } from "@composables/Recipe";
-import { useUserStore } from "../stores/userStore";
+import { useCacheStore } from "../stores/cacheStore";
 
 const pageLoadingState = ref(false);
 const recipeList = ref([]);
-const userStore = useUserStore();
+const caching = useCacheStore();
 
 onMounted(() => {
   pageLoadingState.value = true;
-  if (userStore.getToken) {
+  if (Object.keys(caching.recentPosts).length === 0) {
     GetAllRecipe()
       .then((response) => {
         if (response.status === "success") {
           recipeList.value = response.data;
+          caching.setRecentPostsCache("recentPosts", response.data);
         }
       })
       .catch((error) => {
@@ -53,6 +53,9 @@ onMounted(() => {
       .finally(() => {
         pageLoadingState.value = false;
       });
+  } else {
+    recipeList.value = caching.recentPosts.recentPosts;
+    pageLoadingState.value = false;
   }
 });
 </script>

@@ -4,7 +4,6 @@
       <div class="recipe-page__container__img">
         <q-img
           style="border-radius: 10px"
-          width="100%"
           class="ulam__image"
           :src="recipeData.image_url"
           alt="ulam of the
@@ -101,7 +100,9 @@
                     size="45px"
                     class="q-mr-md block"
                     text-color="white"
-                    >J</q-avatar
+                    >{{
+                      currentUser.username.charAt(0).toUpperCase()
+                    }}</q-avatar
                   >
                 </div>
                 <div class="input">
@@ -166,22 +167,25 @@
 import { GetRecipe, AddNewComment } from '@composables/Recipe';
 import { ref, onMounted, computed } from "vue";
 import { useRoute } from 'vue-router';
+import { useCacheStore } from "../stores/cacheStore";
+
 
 const route = useRoute();
+const caching = useCacheStore();
 const recipeData = ref({});
 const pageLoadingState = ref(false);
 
+const userInitial = ref("");
 const userComment = ref("");
 const comments = ref([]);
 let numberOfLikes = ref(0);
 let numberOfFavorites = ref(0);
 
+const currentUser = JSON.parse(localStorage.getItem("c_user"));
+const user_id = currentUser.id;
 
 const addComment = (comment) => {
   if(comment){
-    let currentUser = JSON.parse(localStorage.getItem("c_user"));
-    let user_id = currentUser.id;
-
     let payload = {
       user_id: user_id,
       username: currentUser.username,
@@ -194,6 +198,9 @@ const addComment = (comment) => {
         const reactiveComponent = ref(response.data);
         comments.value.unshift(reactiveComponent.value);
         userComment.value = '';
+        caching.recentPosts = {};
+        delete caching.recipe.recipes[route.params.id];
+
       }
     }).catch((error) => {
       console.log(error)
@@ -203,22 +210,39 @@ const addComment = (comment) => {
 
 onMounted(() => {
   pageLoadingState.value = true;
-  let payload = {
-    id: route.params.id
-  }
-  GetRecipe(payload).then((response) => {
-    if(response.status === 'success'){
-      recipeData.value = response.data;
-      comments.value = recipeData.value.comments;
-      numberOfLikes.value = recipeData.value.likes.length;
-      numberOfFavorites.value = recipeData.value.saves.length;
 
-    }
-  }).catch((error) => {
-    console.log(error)
-  }).finally(() => {
+  let isInCache = caching.getRecipeCacheByKey(route.params.id);
+
+  if(isInCache){
+    recipeData.value = isInCache;
+    comments.value = recipeData.value.comments;
+    numberOfLikes.value = recipeData.value.likes.length;
+    numberOfFavorites.value = recipeData.value.saves.length;
+    userInitial.value = recipeData.value.username.charAt(0).toUpperCase();
     pageLoadingState.value = false;
-  })
+  }
+  else{
+    let payload = {
+      id: route.params.id
+    }
+    GetRecipe(payload).then((response) => {
+      if(response.status === 'success'){
+        recipeData.value = response.data;
+        comments.value = recipeData.value.comments;
+        numberOfLikes.value = recipeData.value.likes.length;
+        numberOfFavorites.value = recipeData.value.saves.length;
+        userInitial.value = recipeData.value.username.charAt(0).toUpperCase();
+
+        caching.setRecipeCache(recipeData.value._id, recipeData.value);
+      }
+    }).catch((error) => {
+      console.log(error)
+    }).finally(() => {
+      pageLoadingState.value = false;
+    })
+  }
+
+
 })
 </script>
 
