@@ -36,7 +36,7 @@ export default route(function (/* { store, ssrContext } */) {
   Router.beforeEach((to, from, next) => {
     let isAuthenticated = JSON.parse(localStorage.getItem("Bearer"));
 
-    if (to.name !== "login" && !isAuthenticated) {
+    if (to.name !== "login" && !isAuthenticated && to.name !== "register") {
       next({ name: "login" });
     } else if (to.name === "login" && isAuthenticated) {
       next({ name: "recent" });

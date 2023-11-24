@@ -46,6 +46,7 @@
       size="lg"
       class="text-bold q-my-sm login__button login--signup"
       label="Sign Up"
+      @click="$router.push({ name: 'register' })"
     />
   </q-form>
 </template>
@@ -62,6 +63,7 @@ const loginIdentifier = ref("");
 const password = ref("");
 let loginError = ref('');
 let btnLoadingState = ref(false);
+
 
 const login = () => {
   btnLoadingState.value = true;

@@ -44,6 +44,12 @@ const routes = [
     ],
   },
 
+  {
+    path: "/register",
+    name: "register",
+    component: () => import("../pages/RegisterPage.vue"),
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {
