@@ -55,8 +55,10 @@
 import { ref } from "vue";
 import { LoginUser } from "@composables/Authentication";
 import { useRouter } from "vue-router";
+import { useUserStore } from "../stores/userStore";
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const form = ref(null);
 const loginIdentifier = ref("");
@@ -79,7 +81,8 @@ const login = () => {
         .then((response) => {
           if (response.status === "success") {
             localStorage.setItem("Bearer", JSON.stringify(response.data.token));
-            router.push( { name: 'recent' } )
+            localStorage.setItem("c_user", JSON.stringify(response.data.userData));
+            router.push({ name: "recent" });
           }
         })
         .catch((error) => {

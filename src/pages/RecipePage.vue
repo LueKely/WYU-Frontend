@@ -18,7 +18,9 @@
               src="../assets/heart_filled.svg"
               width="30px"
             />
-            <span class="block text-center text-12 q-mt-xs">24k</span>
+            <span class="block text-center text-12 q-mt-xs">{{
+              numberOfLikes
+            }}</span>
           </div>
           <div>
             <q-img
@@ -27,7 +29,9 @@
               src="../assets/save_filled.svg"
               width="30px"
             />
-            <span class="block text-center text-12 q-mt-xs">25k</span>
+            <span class="block text-center text-12 q-mt-xs">{{
+              numberOfFavorites
+            }}</span>
           </div>
         </div>
       </div>
@@ -37,7 +41,7 @@
           <h2 class="text-24 text-semibold">{{ recipeData.recipe_name }}</h2>
           <div class="flex q-gutter-xs">
             <div v-for="(tag, index) in recipeData.tags" :key="index">
-              <q-chip color="primary" text-color="white">{{ tag }}</q-chip>
+              <q-chip class="q-px-md" text-color="white">{{ tag }}</q-chip>
             </div>
           </div>
         </div>
@@ -48,7 +52,7 @@
             Difficulty: {{ recipeData.difficulty }}
           </p>
           <p class="text-18 text-medium">
-            Cooking Time: {{ recipeData.cooking_time }} minutes
+            Cooking Time: {{ recipeData.cooking_time }}
           </p>
           <p class="text-18 text-thin q-mt-sm">
             {{ recipeData.description }}
@@ -56,7 +60,7 @@
         </div>
 
         <!-- Ingredients -->
-        <div class="q-mt-md">
+        <div class="q-mt-lg">
           <h2 class="text-24 text-semibold q-mb-sm">Ingredients</h2>
           <div class="flex column q-gutter-sm">
             <div
@@ -70,7 +74,7 @@
         </div>
 
         <!-- Instructions -->
-        <div class="q-mt-md">
+        <div class="q-mt-lg">
           <h2 class="text-24 text-semibold q-mb-sm">Instructions</h2>
           <div class="flex column q-gutter-xs">
             <div
@@ -101,7 +105,12 @@
                   >
                 </div>
                 <div class="input">
-                  <q-input flat outlined placeholder="Add a comment" />
+                  <q-input
+                    flat
+                    outlined
+                    placeholder="Add a comment"
+                    v-model="userComment"
+                  />
                 </div>
               </div>
               <div class="button">
@@ -112,6 +121,8 @@
                   color="white"
                   text-color="black"
                   icon="send"
+                  @click="addComment(userComment)"
+                  :disabled="userComment === ''"
                 />
               </div>
             </div>
@@ -119,8 +130,7 @@
           <div v-if="comments.length !== 0">
             <div
               v-for="comment in comments"
-              :key="comment.user_id"
-              :class="{ 'last-comment': index === comments.length - 1 }"
+              :key="comment._id"
               class="flex no-wrap q-gutter-sm q-mt-md q-mb-lg"
             >
               <div class="">
@@ -136,13 +146,15 @@
                 <h3 class="text-18 text-medium q-mb-xs">
                   {{ comment.username }}
                 </h3>
-                <p class="text-12 text-thin">
-                  {{ comment.comment }}
+                <p class="text-12 text-thin comment-content">
+                  {{ comment.user_comment }}
                 </p>
               </div>
             </div>
           </div>
-          <div v-else class="no-comments">No Comments for now</div>
+          <div v-else class="flex flex-center">
+            <div class="no-comments text-thin">No comments on this post</div>
+          </div>
         </div>
       </div>
     </div>
@@ -151,40 +163,43 @@
 </template>
 
 <script setup lang="js">
-import { GetRecipe } from '@composables/Recipe';
-import {ref, onMounted} from "vue";
+import { GetRecipe, AddNewComment } from '@composables/Recipe';
+import { ref, onMounted, computed } from "vue";
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const recipeData = ref({});
 const pageLoadingState = ref(false);
 
-const comments = ref([
-  {
-    user_id: 1,
-    username: 'Julius123',
-    comment:
-      'Wow, this recipe is a game-changer! I never thought I could make something so delicious with just a few ingredients. The flavors are out of this world, and the step-by-step instructions made it super easy to follow. My family couldn’t get enough of it! Definitely adding this to my regular rotation. Thanks for sharing this amazing recipe! 🌟👩‍🍳'
-  },
-  {
-    user_id: 2,
-    username: 'Test_123',
-    comment:
-      "Tried this recipe last night and it was a total hit! The combination of ingredients is pure genius – who knew such simple things could create such a flavor explosion? My kitchen smelled amazing, and my taste buds were doing a happy dance. Can't wait to impress my friends with this dish at our next dinner party. This recipe is a keeper for sure! 🍽️🌟"
-  },
-  {
-    user_id: 3,
-    username: 'FoodieFanatic',
-    comment:
-      "I'm always on the lookout for new recipes, and this one did not disappoint! The flavors were on point, and the presentation was restaurant-quality. I even took a picture to show off my culinary skills. Thanks for sharing this gem! 📸👨‍🍳 #FoodieGoals #DeliciousDelights"
-  },
-  {
-    user_id: 4,
-    username: 'HealthyEats4Life',
-    comment:
-      "As someone who's health-conscious, I appreciate finding recipes that are both nutritious and tasty. This one struck the perfect balance! It's now become a go-to option when I want a satisfying, guilt-free meal. Kudos to you for making healthy eating so enjoyable! 🥗👏 #CleanEating #BalancedFlavors"
+const userComment = ref("");
+const comments = ref([]);
+let numberOfLikes = ref(0);
+let numberOfFavorites = ref(0);
+
+
+const addComment = (comment) => {
+  if(comment){
+    let currentUser = JSON.parse(localStorage.getItem("c_user"));
+    let user_id = currentUser.id;
+
+    let payload = {
+      user_id: user_id,
+      username: currentUser.username,
+      recipe_id: recipeData.value._id,
+      user_comment: comment
+    };
+
+    AddNewComment(payload).then((response) => {
+      if(response.status === 'success'){
+        const reactiveComponent = ref(response.data);
+        comments.value.unshift(reactiveComponent.value);
+        userComment.value = '';
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
   }
-]);
+}
 
 onMounted(() => {
   pageLoadingState.value = true;
@@ -194,6 +209,10 @@ onMounted(() => {
   GetRecipe(payload).then((response) => {
     if(response.status === 'success'){
       recipeData.value = response.data;
+      comments.value = recipeData.value.comments;
+      numberOfLikes.value = recipeData.value.likes.length;
+      numberOfFavorites.value = recipeData.value.saves.length;
+
     }
   }).catch((error) => {
     console.log(error)
@@ -203,4 +222,14 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.recipe-page {
+  &__container {
+    &__recipe-information {
+      .comment-content {
+        word-break: break-word;
+      }
+    }
+  }
+}
+</style>

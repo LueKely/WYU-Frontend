@@ -1,20 +1,22 @@
 <template>
-  <div class="card__container">
+  <div class="card__container cursor-pointer" @click="visitRecipe">
     <q-img
-
-      :src="cardProps.payload.imgUrl"
+      :src="cardProps.payload.image_url"
       :ratio="16 / 9"
       loading="true"
       width="100%"
       height="150px"
-
-      @click="visitPage"
     />
     <div class="card__container--text q-mt-md">
-      <h4 class="text-18 font-bold">{{ cardProps.payload.title }}</h4>
+      <h4 class="text-18 font-bold">
+        {{
+          cardProps.payload.recipe_name
+            ? cardProps.payload.recipe_name
+            : cardProps.payload.categories
+        }}
+      </h4>
       <p class="card__text">
         {{ cardProps.payload.description }}
-
       </p>
     </div>
   </div>
@@ -26,10 +28,13 @@ import { inject, onMounted } from "vue";
 
 const isRecipe = inject("isRecipe");
 const router = useRouter();
+const cardProps = defineProps({
+  payload: Object,
+});
 
-const visitPage = () => {
+const visitRecipe = () => {
   if (isRecipe) {
-    router.push(`/recipe/${cardProps.payload.pathUrl}`);
+    router.push({ name: "recipe", params: { id: cardProps.payload._id } });
     return;
   }
   router.push(`category/${cardProps.payload.pathUrl}`);
@@ -41,10 +46,6 @@ const visitPage = () => {
 //   description: String,
 //   imgUrl: String,
 //   pathUrl: String,
-
-const cardProps = defineProps({
-  payload: Object,
-});
 </script>
 
 <style lang="scss" scoped>
@@ -59,7 +60,6 @@ const cardProps = defineProps({
   flex-direction: column;
   padding: 15px;
   margin-inline: 10px;
-
 }
 .card__container--text {
   // background-color: red;
@@ -69,6 +69,7 @@ const cardProps = defineProps({
 }
 .card__text {
   margin: 0;
+  margin-top: 8px !important;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3; /* number of lines to show */

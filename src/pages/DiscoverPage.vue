@@ -43,6 +43,6 @@ import CategoriesSection from "@discover/CategoriesSection.vue";
   min-width: 700px;
   height: 100%;
   box-shadow: 0px 0px 20px 0px rgba(206, 206, 206, 0.932);
-  padding-inline: 10px;
+  padding-inline: 24px;
 }
 </style>

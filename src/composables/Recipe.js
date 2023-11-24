@@ -41,4 +41,50 @@ const CreateRecipe = (payload) => {
   });
 };
 
-export { GetAllRecipe, GetRecipe, CreateRecipe };
+const LikeORUnlike = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post("itr/like/", payload)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const AddNewComment = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post("itr/comment/", payload)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const SaveOrUnsave = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post("itr/save/", payload)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export {
+  GetAllRecipe,
+  GetRecipe,
+  CreateRecipe,
+  LikeORUnlike,
+  AddNewComment,
+  SaveOrUnsave,
+};

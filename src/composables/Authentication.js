@@ -12,4 +12,17 @@ const LoginUser = (payload) => {
       });
   });
 };
-export { LoginUser };
+
+const RegisterUser = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post("user/register/", payload)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+export { LoginUser, RegisterUser };

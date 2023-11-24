@@ -1,46 +1,11 @@
-<script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-const username = ref("");
-const email = ref("");
-const password = ref("");
-const first_name = ref("");
-const last_name = ref("");
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const router = useRouter();
-const payload = computed(() => {
-  return {
-    username: username.value,
-    email: email.value,
-    password: password.value,
-    first_name: first_name.value,
-    last_name: last_name.value,
-  };
-});
-const isDisabled = computed(() => {
-  return (
-    !username.value ||
-    !email.value ||
-    !password.value ||
-    !first_name.value ||
-    !last_name.value
-  );
-});
-
-function onSubmit() {
-  console.log(payload.value);
-  router.push("/login");
-}
-</script>
-
 <template>
   <div class="page">
-    <q-form @submit="onSubmit" class="register__container">
+    <q-form ref="form" @submit="onSubmit" class="register__container">
       <div class="register__text q-mb-xl">
         <q-avatar size="150px" square>
           <q-img src="/wyu-icon.svg" fit="cover"></q-img>
         </q-avatar>
-        <h1 class="font-bold text-32">Register</h1>
+        <h1 class="text-bold text-32 q-mt-sm">Register</h1>
       </div>
       <div class="row name__container">
         <q-input
@@ -75,6 +40,7 @@ function onSubmit() {
         bottom-slots
         v-model="password"
         label="password"
+        type="password"
         counter
         :rules="[
           (val) => val.length >= 7 || 'Please enter atleast 8 characters',
@@ -89,17 +55,73 @@ function onSubmit() {
           color="accent"
           :disabled="isDisabled"
           class="q-ma-sm btn"
+          :loading="btnLoadingState"
         />
       </div>
     </q-form>
   </div>
 </template>
 
+<script setup>
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import { RegisterUser } from "@composables/Authentication";
+
+const router = useRouter();
+
+const form = ref({});
+let btnLoadingState = ref(false);
+const username = ref("");
+const email = ref("");
+const password = ref("");
+const first_name = ref("");
+const last_name = ref("");
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+const payload = computed(() => {
+  return {
+    username: username.value,
+    email: email.value,
+    password: password.value,
+    first_name: first_name.value,
+    last_name: last_name.value,
+  };
+});
+
+const isDisabled = computed(() => {
+  return (
+    !username.value ||
+    !email.value ||
+    !password.value ||
+    !first_name.value ||
+    !last_name.value
+  );
+});
+
+const onSubmit = () => {
+  btnLoadingState.value = true;
+  form.value.validate().then((success) => {
+    if (success) {
+      RegisterUser(payload.value)
+        .then((response) => {
+          if (response.status === "success") {
+            btnLoadingState.value = false;
+            router.push("/login");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  });
+};
+</script>
+
 <style lang="scss" scoped>
 .register__container {
   background-color: #ffffff;
   width: 500px;
-  height: 80dvh;
+  height: 90vh;
 
   box-shadow: 0 0 5px rgba(116, 116, 116, 0.5);
   border-radius: 10px;

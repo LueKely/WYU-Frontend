@@ -6,6 +6,7 @@ import {
   createWebHashHistory,
 } from "vue-router";
 import routes from "./routes";
+import { useUserStore } from "../stores/userStore";
 
 /*
  * If not building with SSR mode, you can
@@ -34,7 +35,7 @@ export default route(function (/* { store, ssrContext } */) {
   });
 
   Router.beforeEach((to, from, next) => {
-    let isAuthenticated = JSON.parse(localStorage.getItem("Bearer"));
+    let isAuthenticated = JSON.parse(localStorage.getItem("Bearer")) || "";
 
     if (to.name !== "login" && !isAuthenticated && to.name !== "register") {
       next({ name: "login" });

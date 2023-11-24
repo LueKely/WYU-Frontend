@@ -1,7 +1,6 @@
 <template>
   <div class="carousel__container">
     <div class="carousel" :style="{ transform: `translateX(${translateX}px)` }">
-
       <div
         class="carousel__container--cards"
         v-for="(group, index) in groupedData"
@@ -12,7 +11,6 @@
           :key="index"
           :payload="item"
         />
-
       </div>
     </div>
 
@@ -41,7 +39,12 @@
 import CarouselCard from "../carouselAssets/CarouselCard.vue";
 import { onMounted, computed, ref, watchEffect } from "vue";
 
-const translateX = ref(405);
+// generate a prop for the carousel card component
+const props = defineProps({
+  payload: Array,
+});
+
+const translateX = ref(230);
 const turn = ref(1);
 
 const turnLength = 810;
@@ -50,7 +53,6 @@ function nextPage() {
   if (turn.value == groupedData.value.length) return;
   turn.value++;
   translateX.value -= turnLength;
-  console.log(turn.value);
 }
 
 function prevPage() {
@@ -58,11 +60,6 @@ function prevPage() {
   turn.value--;
   translateX.value += turnLength;
 }
-
-// generate a prop for the carousel card component
-const props = defineProps({
-  payload: Array,
-});
 
 const length = computed(() => {
   return groupedData.value.length;
@@ -120,11 +117,9 @@ onMounted(() => {
 }
 
 .carousel__container--cards {
-
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
 }
 
 .carousel__container--buttons {

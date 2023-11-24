@@ -32,24 +32,28 @@ import WideCard from "@recent/WideCard.vue";
 
 import { ref, onMounted } from "vue";
 import { GetAllRecipe } from "@composables/Recipe";
+import { useUserStore } from "../stores/userStore";
 
 const pageLoadingState = ref(false);
 const recipeList = ref([]);
+const userStore = useUserStore();
 
 onMounted(() => {
   pageLoadingState.value = true;
-  GetAllRecipe()
-    .then((response) => {
-      if (response.status === "success") {
-        recipeList.value = response.data;
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally(() => {
-      pageLoadingState.value = false;
-    });
+  if (userStore.getToken) {
+    GetAllRecipe()
+      .then((response) => {
+        if (response.status === "success") {
+          recipeList.value = response.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        pageLoadingState.value = false;
+      });
+  }
 });
 </script>
 

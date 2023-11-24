@@ -38,9 +38,12 @@
         </h2>
         <div class="recent__tags">
           <div v-for="(tag, index) in props.recipeData.tags" :key="index">
-            <q-chip class="q-mr-sm" color="primary" text-color="white">{{
-              tag
-            }}</q-chip>
+            <q-chip
+              class="q-mr-sm q-px-md"
+              style="background: #f5a623 !important"
+              text-color="white"
+              >{{ tag }}</q-chip
+            >
           </div>
         </div>
       </div>
@@ -57,7 +60,10 @@
         <p class="text-18 text-medium">{{ props.recipeData.description }}</p>
       </div>
       <div class="interactions flex q-gutter-md q-mt-xs items-center">
-        <div class="heart cursor-pointer" @click="heartToggled = !heartToggled">
+        <div
+          class="heart cursor-pointer"
+          @click="LikeOrUnlikePost(props.recipeData._id)"
+        >
           <q-img
             v-if="!heartToggled"
             loading="lazy"
@@ -73,7 +79,10 @@
             width="35px"
           />
         </div>
-        <div class="save cursor-pointer" @click="saveToggled = !saveToggled">
+        <div
+          class="save cursor-pointer"
+          @click="SaveOrUnsavePost(props.recipeData._id)"
+        >
           <q-img
             v-if="!saveToggled"
             loading="lazy"
@@ -95,7 +104,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const props = defineProps({
@@ -115,8 +125,67 @@ const ingridientCount = computed(() => {
   return props.recipeData.ingredients.length;
 });
 
+const currentUser = JSON.parse(localStorage.getItem("c_user"));
+const currentUserId = currentUser.id;
+
 const heartToggled = ref(false);
 const saveToggled = ref(false);
+
+onMounted(() => {
+  if (props.recipeData.likes.length > 0) {
+    props.recipeData.likes.forEach((like) => {
+      if (like.user_id === currentUserId) {
+        heartToggled.value = true;
+      }
+    });
+  }
+
+  if (props.recipeData.saves.length > 0) {
+    props.recipeData.saves.forEach((save) => {
+      if (save.user_id === currentUserId) {
+        saveToggled.value = true;
+      }
+    });
+  }
+});
+
+const LikeOrUnlikePost = (recipeId) => {
+  heartToggled.value = !heartToggled.value;
+
+  let payload = {
+    user_id: currentUserId,
+    recipe_id: recipeId,
+  };
+
+  LikeORUnlike(payload)
+    .then((response) => {
+      if (response.status === "success") {
+        // Do Something
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const SaveOrUnsavePost = (recipeId) => {
+  saveToggled.value = !saveToggled.value;
+
+  let payload = {
+    user_id: currentUserId,
+    recipe_id: recipeId,
+  };
+
+  SaveOrUnsave(payload)
+    .then((response) => {
+      if (response.status === "success") {
+        // Do something
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 </script>
 
 <style lang="scss" scoped></style>

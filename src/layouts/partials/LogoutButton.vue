@@ -1,10 +1,10 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-ml-sm">
     <q-btn-dropdown
       color="accent"
-      label="Account Settings"
+      icon="settings"
       outline
-      class="text-12"
+      class="text-10"
       dense
       fab-mini
     >
@@ -40,3 +40,5 @@ const logout = () => {
   router.push("/login");
 };
 </script>
+
+<style lang="scss" scoped></style>
