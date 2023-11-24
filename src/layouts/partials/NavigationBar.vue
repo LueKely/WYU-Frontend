@@ -52,12 +52,14 @@
       <q-avatar color="primary" class="q-mr-sm" text-color="white">
         J
       </q-avatar>
+      <LogoutButton />
     </q-toolbar>
   </div>
 </template>
 
 <script lang="js" setup>
 import { ref } from "vue";
+import LogoutButton from "../partials/LogoutButton.vue";
 
 const text = ref("");
 const currentTab = ref("home");
