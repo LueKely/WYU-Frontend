@@ -12,9 +12,9 @@
       <div class="ulam__actions">
         <!-- ulam description -->
         <div class="ulam__info">
-          <h4 class="text-secondary text-24">Name of user</h4>
-          <h3 class="text-secondary font-bold text-32">Recipe Name</h3>
-          <h5 class="text-secondary text-24">flavor text</h5>
+          <h4 class="text-secondary text-24">WYU Official</h4>
+          <h3 class="text-secondary font-bold text-32">Chicken Adobo</h3>
+          <h5 class="text-secondary text-24">@wyu_official</h5>
         </div>
         <!-- ulam call to action -->
         <div class="ulam__buttons">

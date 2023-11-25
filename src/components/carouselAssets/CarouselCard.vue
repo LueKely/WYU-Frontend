@@ -50,7 +50,9 @@ const visitRecipe = () => {
 
 <style lang="scss" scoped>
 .card__container {
+  transition: all ease-out 100ms;
   background: #ffe2b8;
+  border: 5px solid transparent;
   width: 250px;
   height: 290px;
   border-radius: 10px;
@@ -60,6 +62,11 @@ const visitRecipe = () => {
   flex-direction: column;
   padding: 15px;
   margin-inline: 10px;
+}
+
+.card__container:hover {
+  transition: all ease-in 100ms;
+  border: 5px solid rgb(238, 167, 60);
 }
 .card__container--text {
   // background-color: red;
