@@ -1,30 +1,14 @@
 import { boot } from "quasar/wrappers";
 import axios from "axios";
-import { useUserStore } from "../stores/userStore";
 
 const axiosConfig = {
   baseURL: "http://localhost:3000/api/",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${JSON.parse(localStorage.getItem("Bearer")) || ""}`,
   },
   data: {},
 };
-
-/* axios.interceptors.request.use((config) => {
-  const userStore = useUserStore();
-  const token = userStore.getToken;
-
-  console.log("Interceptor is called");
-  console.log("Token:", token);
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-}); */
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;

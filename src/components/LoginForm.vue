@@ -56,6 +56,8 @@ import { ref } from "vue";
 import { LoginUser } from "@composables/Authentication";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../stores/userStore";
+import { LocalStorage } from "quasar";
+
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -80,9 +82,13 @@ const login = () => {
       LoginUser(userData)
         .then((response) => {
           if (response.status === "success") {
-            localStorage.setItem("Bearer", JSON.stringify(response.data.token));
-            localStorage.setItem("c_user", JSON.stringify(response.data.userData));
-            router.push({ name: "discover" });
+            LocalStorage.set("Bearer", response.data.token);
+            LocalStorage.set("c_user", response.data.userData);
+            userStore.setUser(response.data.userData);
+            userStore.setToken(response.data.token)
+            if(userStore.getToken){
+              router.push({ name: "discover" });
+            }
           }
         })
         .catch((error) => {

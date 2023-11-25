@@ -48,6 +48,13 @@ const categoriesData = ref([
     image_url:
       "https://images.unsplash.com/photo-1603384358453-e337643f75fa?q=80&w=1874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
+  {
+    categories: "Appetizers",
+    description:
+      "Whet your appetite with a variety of flavorful appetizers. Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dolor nemo explicabo repellendus necessitatibus adipisci veritatis harum.",
+    image_url:
+      "https://images.unsplash.com/photo-1607098665874-fd193397547b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ]);
 </script>
 

@@ -26,24 +26,31 @@ import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 import { provide, ref, onMounted } from "vue";
 import { GetAllRecipe } from "@composables/Recipe";
 import { useRouter } from "vue-router";
+import { useUserStore } from "../../stores/userStore";
+import { LocalStorage } from "quasar";
 
 provide("isRecipe", true);
 const router = useRouter();
 const carouselLoadingState = ref(true);
 const recipesData = ref([]);
+const userStore = useUserStore();
 
 onMounted(() => {
   carouselLoadingState.value = true;
-  GetAllRecipe()
-    .then((response) => {
-      if (response.status === "success") {
-        recipesData.value = response.data;
-        carouselLoadingState.value = false;
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  let isTokenAvailable = userStore.getToken || LocalStorage.getItem("Bearer");
+
+  if (isTokenAvailable) {
+    GetAllRecipe()
+      .then((response) => {
+        if (response.status === "success") {
+          recipesData.value = response.data;
+          carouselLoadingState.value = false;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 });
 </script>
 

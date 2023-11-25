@@ -108,6 +108,7 @@ import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useCacheStore } from "../../stores/cacheStore";
+import { LocalStorage } from "quasar";
 
 const props = defineProps({
   recipeData: {
@@ -127,7 +128,7 @@ const ingridientCount = computed(() => {
   return props.recipeData.ingredients.length;
 });
 
-const currentUser = JSON.parse(localStorage.getItem("c_user"));
+const currentUser = LocalStorage.getItem("c_user");
 const currentUserId = currentUser.id;
 
 const heartToggled = ref(false);

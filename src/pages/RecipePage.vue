@@ -168,6 +168,7 @@ import { GetRecipe, AddNewComment } from '@composables/Recipe';
 import { ref, onMounted, computed } from "vue";
 import { useRoute } from 'vue-router';
 import { useCacheStore } from "../stores/cacheStore";
+import { LocalStorage } from "quasar";
 
 
 const route = useRoute();
@@ -181,7 +182,7 @@ const comments = ref([]);
 let numberOfLikes = ref(0);
 let numberOfFavorites = ref(0);
 
-const currentUser = JSON.parse(localStorage.getItem("c_user"));
+const currentUser = LocalStorage.getItem("c_user");
 const user_id = currentUser.id;
 
 const addComment = (comment) => {

@@ -33,11 +33,12 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { LocalStorage } from "quasar";
 const router = useRouter();
 // create a function that will clear all the local storage and redirect to login page
 const logout = () => {
-  localStorage.clear();
-  router.push("/login");
+  LocalStorage.clear();
+  window.location.reload();
 };
 </script>
 

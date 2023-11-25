@@ -1,11 +1,21 @@
 import { api } from "../boot/axios";
+import { useUserStore } from "../stores/userStore";
+import { LocalStorage } from "quasar";
+
+const userStore = useUserStore();
 
 /* ALL HTTP REQUEST ABOUT RECIPES HERE */
 
 const GetAllRecipe = () => {
   return new Promise((resolve, reject) => {
     api
-      .get("recipe/")
+      .get("recipe/", {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
       .then((response) => {
         resolve(response.data);
       })
@@ -18,7 +28,13 @@ const GetAllRecipe = () => {
 const GetRecipe = (payload) => {
   return new Promise((resolve, reject) => {
     api
-      .get(`recipe/?id=${payload.id}`)
+      .get(`recipe/?id=${payload.id}`, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
       .then((response) => {
         resolve(response.data);
       })
@@ -31,7 +47,13 @@ const GetRecipe = (payload) => {
 const CreateRecipe = (payload) => {
   return new Promise((resolve, reject) => {
     api
-      .post("recipe/create/", payload)
+      .post("recipe/create/", payload, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
       .then((response) => {
         resolve(response.data);
       })
@@ -44,7 +66,13 @@ const CreateRecipe = (payload) => {
 const LikeORUnlike = (payload) => {
   return new Promise((resolve, reject) => {
     api
-      .post("itr/like/", payload)
+      .post("itr/like/", payload, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
       .then((response) => {
         resolve(response.data);
       })
@@ -57,7 +85,13 @@ const LikeORUnlike = (payload) => {
 const AddNewComment = (payload) => {
   return new Promise((resolve, reject) => {
     api
-      .post("itr/comment/", payload)
+      .post("itr/comment/", payload, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
       .then((response) => {
         resolve(response.data);
       })
@@ -70,7 +104,13 @@ const AddNewComment = (payload) => {
 const SaveOrUnsave = (payload) => {
   return new Promise((resolve, reject) => {
     api
-      .post("itr/save/", payload)
+      .post("itr/save/", payload, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
       .then((response) => {
         resolve(response.data);
       })

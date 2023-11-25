@@ -73,10 +73,6 @@ const groupedData = computed(() => {
   }
   return groups;
 });
-
-onMounted(() => {
-  console.log(groupedData.value);
-});
 </script>
 
 <style lang="scss" scoped>

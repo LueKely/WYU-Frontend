@@ -50,7 +50,7 @@
       <q-space />
 
       <q-avatar color="primary" class="q-mr-sm" text-color="white">
-        J
+        {{ username.charAt(0).toUpperCase() }}
       </q-avatar>
       <LogoutButton />
     </q-toolbar>
@@ -58,11 +58,17 @@
 </template>
 
 <script lang="js" setup>
-import { ref } from "vue";
+import { ref} from "vue";
 import LogoutButton from "../partials/LogoutButton.vue";
+import { useUserStore } from "../../stores/userStore";
+import { LocalStorage } from "quasar";
 
 const text = ref("");
 const currentTab = ref("home");
+
+const userStore = useUserStore();
+const currentUser = userStore.getUser || LocalStorage.getItem("c_user");
+const username = ref(currentUser.username);
 </script>
 
 <style lang="scss" scoped>

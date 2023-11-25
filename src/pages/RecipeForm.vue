@@ -16,7 +16,7 @@
           <q-input
             :rules="[
               (val) => !!val || '* Required',
-              (val) => val.length > 10 || 'Min 10 characters',
+              (val) => val.length > 4 || 'Min 10 characters',
             ]"
             id="recipe__name"
             outlined
