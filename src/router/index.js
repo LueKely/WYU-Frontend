@@ -35,17 +35,17 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  Router.beforeEach((to, from, next) => {
-    let isAuthenticated = LocalStorage.getItem("Bearer") || "";
+  // Router.beforeEach((to, from, next) => {
+  //   let isAuthenticated = LocalStorage.getItem("Bearer") || "";
 
-    if (to.name !== "login" && !isAuthenticated && to.name !== "register") {
-      next({ name: "login" });
-    } else if (to.name === "login" && isAuthenticated) {
-      next({ name: "discover" });
-    } else {
-      next();
-    }
-  });
+  //   if (to.name !== "login" && !isAuthenticated && to.name !== "register") {
+  //     next({ name: "login" });
+  //   } else if (to.name === "login" && isAuthenticated) {
+  //     next({ name: "discover" });
+  //   } else {
+  //     next();
+  //   }
+  // });
 
   return Router;
 });
