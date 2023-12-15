@@ -1,5 +1,16 @@
 <template>
-  <div class="page">Search{{ $route.query.q }}</div>
+  <transition
+    appear
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+    :duration="2000"
+  >
+    <div class="page page--search">
+      <div class="container--search">
+        <h3 class="font-bold">Search Results For: {{ $route.query.q }}</h3>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script setup>

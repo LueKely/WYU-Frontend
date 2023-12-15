@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h3 class="text-bold text-43 font-bold text-center">Ulam Of The Day</h3>
     <div class="ulam__container q-mt-sm">
       <q-img
         width="100%"
@@ -119,6 +118,8 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-top: 75px;
 }
 
 .ulam__gradient {

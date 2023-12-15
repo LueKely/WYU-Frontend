@@ -5,7 +5,7 @@
     leave-active-class="animated fadeOut"
     :duration="2000"
   >
-    <div class="page--discover">TEST</div>
+    <div class="page search">TEST</div>
   </transition>
 </template>
 
