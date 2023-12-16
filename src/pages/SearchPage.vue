@@ -19,13 +19,14 @@
         <div class="card__container--search">
           <div class="card--search">
             <img src="" alt="" />
-            <h2>Card Title</h2>
+            <h2 class="text-24 font-bold">Card Title</h2>
             <span
-              ><h3>Author</h3>
-              <button>like btn</button>
+              ><h3 class="text-18">Author</h3>
+              <button class="18">like btn</button>
               <button>bookmark btn</button>
             </span>
-            <p>description</p>
+            <hr style="color: white" />
+            <p class="text-18">description</p>
             <button>Call to action</button>
           </div>
         </div>
