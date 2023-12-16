@@ -1,22 +1,46 @@
 <template>
-  <transition
-    appear
-    enter-active-class="animated fadeIn"
-    leave-active-class="animated fadeOut"
-    :duration="2000"
-  >
-    <div class="page page--search">
-      <div class="container--search">
-        <h3 class="font-bold">Search Results For: {{ $route.query.q }}</h3>
+  <div class="page page--search">
+    <div class="container--search">
+      <div class="search__container--text">
+        <h3 class="font-bold text-32">Search</h3>
+        <h4 class="text-18">results for: "{{ $route.query.q }}"</h4>
+      </div>
+      <hr style="width: 100%; color: #f7f2f2" />
+      <div class="result__container">
+        <!-- if empty result from fetching -->
+        <div v-if="isEmpty" class="results--error">
+          <h3 class="text-24">No results Found</h3>
+          <p>
+            Looks like we don't have what you are looking for <br />
+            how about you create the recipe and share it with the world
+          </p>
+        </div>
+
+        <div class="card__container--search">
+          <div class="card--search">
+            <h2>Card Title</h2>
+            <span
+              ><h3>Author</h3>
+              <button>like btn</button>
+              <button>bookmark btn</button>
+            </span>
+            <p>description</p>
+            <button>Call to action</button>
+          </div>
+        </div>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRoute } from "vue-router";
 const router = useRoute();
+
+const dummyData = ref([12]);
+const isEmpty = computed(() => dummyData.value.length == 0);
+
 onMounted(() => {
   console.log(router.query.q);
 });
