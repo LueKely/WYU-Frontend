@@ -18,6 +18,7 @@
 
         <div class="card__container--search">
           <div class="card--search">
+            <img src="" alt="" />
             <h2>Card Title</h2>
             <span
               ><h3>Author</h3>
