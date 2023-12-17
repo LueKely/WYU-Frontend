@@ -18,16 +18,26 @@
 
         <div class="card__container--search">
           <div class="card--search">
-            <img src="" alt="" />
-            <h2 class="text-24 font-bold">Card Title</h2>
-            <span
-              ><h3 class="text-18">Author</h3>
-              <button class="18">like btn</button>
-              <button>bookmark btn</button>
-            </span>
-            <hr style="color: white" />
-            <p class="text-18">description</p>
-            <button>Call to action</button>
+            <div class="card--container__info">
+              <h2 class="text-24 font-bold">Card Title</h2>
+              <span class="card__container__info--author"
+                ><h3 class="text-18 font-light">Author</h3>
+                <span>
+                  <button class="18">L</button>
+                  <button>b</button>
+                </span>
+              </span>
+              <hr style="color: #d6d6d6" />
+              <p class="text-10">description</p>
+              <button>Call to action</button>
+            </div>
+
+            <img
+              class="card__image--search"
+              src="https://www.kawalingpinoy.com/wp-content/uploads/2013/01/sinigang-baboy-7.jpg"
+              spinner-color="white"
+              aspect-ratio="2/3"
+            />
           </div>
         </div>
       </div>

@@ -49,11 +49,75 @@
 }
 
 .card--search {
-  width: 180px;
+  overflow: hidden;
+  position: relative;
+  width: 185px;
+  aspect-ratio: 5/7;
 
-  background-color: rgb(120, 202, 181);
-  aspect-ratio: 2/3;
+  border-radius: 20px;
+
+  & > * {
+    z-index: 1;
+    position: relative;
+  }
+  & > .card--container__info > h2,
+  p {
+    color: #f5f5f5 !important;
+  }
+}
+
+.card--container__info {
+  transition: transform 0.3s ease-in-out;
+  transform: translate(0, 185px);
 
   padding: 10px;
+  // background: rgb(48, 45, 45);
+
+  background: linear-gradient(
+    0deg,
+    rgb(18.431% 18.431% 18.431%) 0%,
+    rgb(18.431% 18.431% 18.431% / 0.9999847412109375) 6.25%,
+    rgb(18.427% 18.427% 18.427% / 0.999755859375) 12.5%,
+    rgb(18.409% 18.409% 18.409% / 0.9987640380859375) 18.75%,
+    rgb(18.359% 18.359% 18.359% / 0.99609375) 25%,
+    rgb(18.256% 18.256% 18.256% / 0.9904632568359375) 31.25%,
+    rgb(18.067% 18.067% 18.067% / 0.980224609375) 37.5%,
+    rgb(17.756% 17.756% 17.756% / 0.9633636474609375) 43.75%,
+    rgb(17.279% 17.279% 17.279% / 0.9375) 50%,
+    rgb(16.586% 16.586% 16.586% / 0.8998870849609375) 56.25%,
+    rgb(15.619% 15.619% 15.619% / 0.847412109375) 62.5%,
+    rgb(14.314% 14.314% 14.314% / 0.7765960693359375) 68.75%,
+    rgb(12.6% 12.6% 12.6% / 0.68359375) 75%,
+    rgb(10.399% 10.399% 10.399% / 0.5641937255859375) 81.25%,
+    rgb(7.627% 7.627% 7.627% / 0.413818359375) 87.5%,
+    rgb(4.194% 4.194% 4.194% / 0.2275238037109375) 93.75%,
+    rgb(0% 0% 0% / 0) 100%
+  );
+
+  min-height: 100%;
+}
+
+.card--search:hover > .card--container__info {
+  transform: translate(0, 0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card__image--search {
+  position: absolute;
+  top: 0;
+  left: 0;
+  aspect-ratio: 5/7;
+  width: 100%;
+  z-index: 0;
   border-radius: 20px;
+}
+
+.card__container__info--author {
+  h3 {
+    color: #f5f5f5 !important;
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
