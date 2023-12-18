@@ -17,28 +17,7 @@
         </div>
 
         <div class="card__container--search">
-          <div class="card--search">
-            <div class="card--container__info">
-              <h2 class="text-24 font-bold">Card Title</h2>
-              <span class="card__container__info--author"
-                ><h3 class="text-18 font-light">Author</h3>
-                <span>
-                  <button class="18">L</button>
-                  <button>b</button>
-                </span>
-              </span>
-              <hr style="color: #d6d6d6" />
-              <p class="text-10">description</p>
-              <button>Call to action</button>
-            </div>
-
-            <img
-              class="card__image--search"
-              src="https://www.kawalingpinoy.com/wp-content/uploads/2013/01/sinigang-baboy-7.jpg"
-              spinner-color="white"
-              aspect-ratio="2/3"
-            />
-          </div>
+          <SearchCard v-bind="propTest"></SearchCard>
         </div>
       </div>
     </div>
@@ -46,12 +25,22 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
+import SearchCard from "../components/searchAssets/SearchCard.vue";
 const router = useRoute();
 
 const dummyData = ref([12]);
 const isEmpty = computed(() => dummyData.value.length == 0);
+const propTest = reactive({
+  name: "Sinigeng",
+  author: "Lue",
+  description:
+    "korem ipsum dolor sit amet consectetur adipisicing elit korem ipsum dolor sit amet consectetur adipisicing elit korem ipsum dolor sit amet consectetur adipisicing elit ko",
+  imgUrl:
+    "https://www.kawalingpinoy.com/wp-content/uploads/2013/01/sinigang-baboy-7.jpg",
+  id: "123",
+});
 
 onMounted(() => {
   console.log(router.query.q);
