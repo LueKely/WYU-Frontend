@@ -23,7 +23,7 @@
   justify-content: flex-start;
   align-items: center;
 
-  width: 50%;
+  width: 55%;
   // min-width: 700px;
 }
 
@@ -46,6 +46,15 @@
   & > p {
     color: rgb(138, 138, 138) !important;
   }
+}
+
+.card__container--search {
+  display: flex;
+  align-items: center;
+  justify-items: start;
+  flex-wrap: wrap;
+  min-height: 100%;
+  gap: 25px;
 }
 
 .card--search {
@@ -114,7 +123,7 @@
 
 .card--search:hover > .card--container__info {
   transform: translate(0, 0);
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-out;
 }
 
 .card__image--search {

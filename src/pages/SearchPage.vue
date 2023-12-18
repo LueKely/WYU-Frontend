@@ -17,7 +17,9 @@
         </div>
 
         <div class="card__container--search">
-          <SearchCard v-bind="propTest"></SearchCard>
+          <div v-for="i in 10" :key="i">
+            <SearchCard v-bind="propTest"></SearchCard>
+          </div>
         </div>
       </div>
     </div>
