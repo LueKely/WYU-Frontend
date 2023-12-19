@@ -13,6 +13,9 @@
           v-model="text"
           bg-color="grey-1"
           placeholder="Search dish..."
+          @keyup.enter="
+            () => $router.push({ path: '/home/search', query: { q: text } })
+          "
         >
           <template v-slot:prepend>
             <q-icon name="search" />

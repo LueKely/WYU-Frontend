@@ -1,3 +1,7 @@
+import { useRoute } from "vue-router";
+
+const router = useRoute();
+
 const routes = [
   {
     path: "/",
@@ -39,10 +43,17 @@ const routes = [
             name: "recipe",
             component: () => import("../pages/RecipePage.vue"),
           },
+          {
+            path: "search",
+            name: "search",
+            component: () => import("../pages/SearchPage.vue"),
+            props: (router) => ({ query: router.query.q }),
+          },
         ],
       },
     ],
   },
+  // tambak lang muna to rito
 
   {
     path: "/register",
