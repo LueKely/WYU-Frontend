@@ -16,9 +16,9 @@
           </p>
         </div>
 
-        <div class="card__container--search">
-          <div v-for="i in 10" :key="i">
-            <SearchCard v-bind="propTest"></SearchCard>
+        <div v-else class="card__container--search">
+          <div v-for="(object, index) in recipeList" :key="index">
+            <SearchCard v-bind="object"></SearchCard>
           </div>
         </div>
       </div>
@@ -32,9 +32,8 @@ import { useRoute } from "vue-router";
 import SearchCard from "../components/searchAssets/SearchCard.vue";
 const router = useRoute();
 
-const dummyData = ref([12]);
-const isEmpty = computed(() => dummyData.value.length == 0);
-const propTest = reactive({
+// eto kunyari ung object na ipapass
+const propTest = {
   name: "Sinigeng",
   author: "Lue",
   description:
@@ -42,10 +41,13 @@ const propTest = reactive({
   imgUrl:
     "https://www.kawalingpinoy.com/wp-content/uploads/2013/01/sinigang-baboy-7.jpg",
   id: "123",
-});
+};
+
+const recipeList = ref([propTest]);
+const isEmpty = computed(() => recipeList.value.length == 0);
 
 onMounted(() => {
-  console.log(router.query.q);
+  console.log("insert fetch here");
 });
 </script>
 
