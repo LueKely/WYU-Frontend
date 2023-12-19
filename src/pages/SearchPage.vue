@@ -5,7 +5,7 @@
         <h3 class="font-bold text-32">Search</h3>
         <h4 class="text-18">results for: "{{ $route.query.q }}"</h4>
       </div>
-      <hr style="width: 100%; color: #f7f2f2" />
+      <hr style="width: 100%; color: #f7f2f2; margin-bottom: 10px" />
       <div class="result__container">
         <!-- if empty result from fetching -->
         <div v-if="isEmpty" class="results--error">
