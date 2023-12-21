@@ -49,6 +49,11 @@ const routes = [
             component: () => import("../pages/SearchPage.vue"),
             props: (router) => ({ query: router.query.q }),
           },
+          {
+            path: "profile",
+            name: "profile",
+            component: () => import("../pages/ProfilePage.vue"),
+          },
         ],
       },
     ],

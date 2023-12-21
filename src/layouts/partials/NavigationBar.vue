@@ -41,13 +41,6 @@
           to="/home/profile"
           exact
         />
-        <q-route-tab
-          :ripple="false"
-          name="collections"
-          label="Collections"
-          to="/home/collections"
-          exact
-        />
       </q-tabs>
 
       <q-space />
