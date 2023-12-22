@@ -23,6 +23,7 @@
 
 <style lang="scss" scoped>
 .container__profile--image {
+  z-index: 2;
   padding-inline: 20px;
   background-color: transparent;
   height: 352px;
