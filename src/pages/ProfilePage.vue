@@ -55,13 +55,12 @@ import UserLikedPost from "@profile/UserLikedPost.vue";
   bottom: 52px;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: start;
   width: 100%;
-  background-color: green;
+  padding-inline: 100px 10px;
 }
 
 .container__user--info {
-  background-color: blue;
   flex: 1;
 }
 
@@ -69,6 +68,5 @@ import UserLikedPost from "@profile/UserLikedPost.vue";
   // height: 100%;
 
   flex: 2;
-  background-color: red;
 }
 </style>

@@ -2,14 +2,14 @@
   <div class="container__profile--image">
     <div class="container__profile--banner">
       <q-img
-        src="https://picsum.photos/500/300"
+        src="https://img.freepik.com/free-vector/restaurant-mural-wallpaper_23-2148703851.jpg"
         height="300px"
         :ratio="4 / 3"
       />
     </div>
     <div class="container__profile--avatar">
       <q-avatar
-        size="100px"
+        size="120px"
         font-size="52px"
         color="teal"
         text-color="white"
@@ -45,5 +45,6 @@
 }
 
 .container__profile--avatar {
+  margin-left: 70px;
 }
 </style>
