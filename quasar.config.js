@@ -62,7 +62,7 @@ module.exports = configure(function (/* ctx */) {
           "@recent": path.join(__dirname, "./src/components/recentPostAssets"),
           "@partials": path.join(__dirname, "./src/layouts/partials"),
           "@composables": path.join(__dirname, "./src/composables"),
-          "@search": path.join(__dirname, "./src/components/searchPageAssets"),
+          "@profile": path.join(__dirname, "./src/components/profileAssets"),
         });
       },
 
@@ -94,7 +94,7 @@ module.exports = configure(function (/* ctx */) {
     devServer: {
       // https: true
       open: true, // opens browser window automatically
-      port: 9001,
+      port: 9000,
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
