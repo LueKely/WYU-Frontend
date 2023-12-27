@@ -37,15 +37,11 @@ const visitRecipe = () => {
     router.push({ name: "recipe", params: { id: cardProps.payload._id } });
     return;
   }
-  router.push(`category/${cardProps.payload.pathUrl}`);
+  router.push({
+    name: "category",
+    params: { category: cardProps.payload.categories.toLowerCase() },
+  });
 };
-
-// props for the card carousel:
-
-//   title: String,
-//   description: String,
-//   imgUrl: String,
-//   pathUrl: String,
 </script>
 
 <style lang="scss" scoped>

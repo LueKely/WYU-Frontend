@@ -44,6 +44,44 @@ const GetRecipe = (payload) => {
   });
 };
 
+const GetRecipeByName = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .get(`recipe/?name=${payload.name}`, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const GetRecipeByCategory = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .get(`recipe/?category=${payload.category}`, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 const CreateRecipe = (payload) => {
   return new Promise((resolve, reject) => {
     api
@@ -123,8 +161,10 @@ const SaveOrUnsave = (payload) => {
 export {
   GetAllRecipe,
   GetRecipe,
+  GetRecipeByName,
+  GetRecipeByCategory,
   CreateRecipe,
   LikeORUnlike,
-  AddNewComment,
   SaveOrUnsave,
+  AddNewComment,
 };

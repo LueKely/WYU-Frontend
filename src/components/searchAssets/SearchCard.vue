@@ -1,9 +1,9 @@
 <template>
   <div class="card--search">
     <div class="card--container__info">
-      <h2 class="text-24 font-bold">{{ cardProps.name }}</h2>
+      <h2 class="text-24 font-bold">{{ cardProps.recipe_name }}</h2>
 
-      <h3 class="text-18 font-light">by {{ cardProps.author }}</h3>
+      <h3 class="text-18 font-light">by {{ cardProps.username }}</h3>
 
       <hr style="color: #d6d6d6; width: 100%" />
       <p>{{ cardProps.description }}</p>
@@ -14,7 +14,7 @@
 
     <img
       class="card__image--search"
-      src="https://www.kawalingpinoy.com/wp-content/uploads/2013/01/sinigang-baboy-7.jpg"
+      :src="cardProps.image_url"
       spinner-color="white"
       aspect-ratio="2/3"
     />
@@ -26,12 +26,14 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 //cardProps
 const cardProps = defineProps({
-  name: String,
-  author: String,
+  recipe_name: String,
+  username: String,
   description: String,
-  imgUrl: String,
-  id: String,
+  image_url: String,
+  _id: String,
 });
+
+console.log(cardProps);
 
 function visitRecipe() {
   router.push(`recipe/${cardProps.id}`);

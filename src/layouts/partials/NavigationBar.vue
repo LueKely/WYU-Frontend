@@ -13,9 +13,7 @@
           v-model="text"
           bg-color="grey-1"
           placeholder="Search dish..."
-          @keyup.enter="
-            () => $router.push({ path: '/home/search', query: { q: text } })
-          "
+          @keyup.enter="handleSearchRecipe(text)"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
@@ -58,13 +56,23 @@ import { ref} from "vue";
 import LogoutButton from "../partials/LogoutButton.vue";
 import { useUserStore } from "../../stores/userStore";
 import { LocalStorage } from "quasar";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const text = ref("");
 const currentTab = ref("home");
 
 const userStore = useUserStore();
 const currentUser = userStore.getUser || LocalStorage.getItem("c_user");
 const username = ref(currentUser.username);
+
+const handleSearchRecipe = (query) => {
+  if(query){
+    text.value = "";
+    router.push({ name: 'search', params: { q: query } })
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>

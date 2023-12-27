@@ -24,8 +24,8 @@ const routes = [
             component: () => import("../pages/DiscoverPage.vue"),
           },
           {
-            path: "categories",
-            name: "categories",
+            path: "category/:category",
+            name: "category",
             component: () => import("../pages/CategoryPage.vue"),
           },
           {
@@ -44,7 +44,7 @@ const routes = [
             component: () => import("../pages/RecipePage.vue"),
           },
           {
-            path: "search",
+            path: "search/:q",
             name: "search",
             component: () => import("../pages/SearchPage.vue"),
             props: (router) => ({ query: router.query.q }),

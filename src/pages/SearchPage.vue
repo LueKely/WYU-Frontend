@@ -3,16 +3,16 @@
     <div class="container--search">
       <div class="search__container--text">
         <h3 class="font-bold text-32">Search</h3>
-        <h4 class="text-18">results for: "{{ $route.query.q }}"</h4>
+        <h4 class="text-18">results for: "{{ route.params.q }}"</h4>
       </div>
       <hr style="width: 100%; color: #f7f2f2; margin-bottom: 10px" />
       <div class="result__container">
         <!-- if empty result from fetching -->
-        <div v-if="isEmpty" class="results--error">
+        <div v-if="!recipeList" class="results--error">
           <h3 class="text-24">No results Found</h3>
           <p>
             Looks like we don't have what you are looking for <br />
-            how about you create the recipe and share it with the world
+            how about you create the recipe and share it with the world?
           </p>
         </div>
 
@@ -22,32 +22,48 @@
           </div>
         </div>
       </div>
+      <q-inner-loading :showing="pageLoadingState" color="accent-2" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, reactive, computed } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import SearchCard from "../components/searchAssets/SearchCard.vue";
-const router = useRoute();
+import { GetRecipeByName } from "@composables/Recipe";
 
-// eto kunyari ung object na ipapass
-const propTest = {
-  name: "Sinigeng",
-  author: "Lue",
-  description:
-    "korem ipsum dolor sit amet consectetur adipisicing elit korem ipsum dolor sit amet consectetur adipisicing elit korem ipsum dolor sit amet consectetur adipisicing elit ko",
-  imgUrl:
-    "https://www.kawalingpinoy.com/wp-content/uploads/2013/01/sinigang-baboy-7.jpg",
-  id: "123",
+const route = useRoute();
+let pageLoadingState = ref(false);
+const recipeList = ref([]);
+
+const SearchRecipeByName = () => {
+  recipeList.value = [];
+  pageLoadingState.value = true;
+  GetRecipeByName({ name: route.params.q })
+    .then((response) => {
+      if (response.status === "success") {
+        recipeList.value = response.data;
+        console.log(response);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      pageLoadingState.value = false;
+    });
 };
 
-const recipeList = ref([propTest, propTest, propTest, propTest]);
-const isEmpty = computed(() => recipeList.value.length == 0);
+watch(
+  () => route.params.q,
+  (value) => {
+    value && SearchRecipeByName();
+  }
+);
 
 onMounted(() => {
-  console.log("insert fetch here");
+  SearchRecipeByName();
 });
 </script>
 

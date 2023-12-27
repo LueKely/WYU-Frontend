@@ -55,7 +55,7 @@ import UserLikedPost from "@profile/UserLikedPost.vue";
   bottom: 52px;
   display: flex;
   justify-content: flex-start;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
   padding-inline: 100px 10px;
 }
