@@ -8,15 +8,14 @@
           <UserLinks />
         </div>
         <div class="container__user--activity">
-          test
           <!-- navigation for the two -->
-          <div class="container__controls"></div>
-          <!-- insert the two here-->
-          <div>
-            <!--
-            <UserCollections />
-            <UserLikedPost /> -->
+          <div class="container__controls">
+            <button class="font" @click="toggleCollections">collections</button>
+            <button class="font" @click="toggleLikedPost">likedpost</button>
+            <hr />
           </div>
+
+          <component :is="isCollections"></component>
         </div>
       </div>
     </div>
@@ -28,6 +27,21 @@ import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
 import UserCollections from "@profile/UserCollections.vue";
 import UserLikedPost from "@profile/UserLikedPost.vue";
+import { ref, computed } from "vue";
+
+const choice = ref(true);
+
+const isCollections = computed(() =>
+  choice.value === true ? UserCollections : UserLikedPost
+);
+
+const toggleCollections = () => {
+  choice.value = true;
+};
+
+const toggleLikedPost = () => {
+  choice.value = false;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -57,7 +71,26 @@ import UserLikedPost from "@profile/UserLikedPost.vue";
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  padding-inline: 100px 10px;
+  padding-inline: 50px 10px;
+}
+
+.container__controls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  button {
+    padding: 5px;
+    outline: none;
+    border: none;
+    border-bottom: solid 2px red;
+    background-color: transparent;
+  }
+
+  hr {
+    width: 100%;
+    margin-block: 10px 0px;
+  }
 }
 
 .container__user--info {

@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>liked posts</div>
 </template>
 
 <script setup></script>

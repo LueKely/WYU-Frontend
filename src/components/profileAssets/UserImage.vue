@@ -45,6 +45,6 @@
 }
 
 .container__profile--avatar {
-  margin-left: 70px;
+  margin-left: 30px;
 }
 </style>
