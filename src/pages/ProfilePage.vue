@@ -39,10 +39,11 @@ import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
 import UsersPosts from "@profile/UsersPosts.vue";
 import UserLikedPost from "@profile/UserLikedPost.vue";
-import { ref, computed } from "vue";
+import { provide, ref, computed } from "vue";
 
 const choice = ref(false);
-
+provide("userPosts", ["foo"]);
+provide("collections", ["bar"]);
 const isCollections = computed(() =>
   choice.value === true ? UserLikedPost : UsersPosts
 );
