@@ -10,8 +10,20 @@
         <div class="container__user--activity">
           <!-- navigation for the two -->
           <div class="container__controls">
-            <button class="font" @click="toggleCollections">collections</button>
-            <button class="font" @click="toggleLikedPost">likedpost</button>
+            <button
+              class="font text-18"
+              :class="{ post: !choice }"
+              @click="toggleLikedPost"
+            >
+              Posts
+            </button>
+            <button
+              class="font text-18"
+              :class="{ collection: choice }"
+              @click="toggleCollections"
+            >
+              Collection
+            </button>
             <hr />
           </div>
 
@@ -25,14 +37,15 @@
 <script setup>
 import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
-import UserCollections from "@profile/UserCollections.vue";
-import UserLikedPost from "@profile/UserLikedPost.vue";
-import { ref, computed } from "vue";
+import UsersPosts from "@profile/UsersPosts.vue";
+import UserLikedPost from "@profile/UserCollection.vue";
+import { provide, ref, computed } from "vue";
 
-const choice = ref(true);
-
+const choice = ref(false);
+provide("userPosts", ["foo", "foo", "foo", "foo"]);
+provide("collections", ["bar"]);
 const isCollections = computed(() =>
-  choice.value === true ? UserCollections : UserLikedPost
+  choice.value === true ? UserLikedPost : UsersPosts
 );
 
 const toggleCollections = () => {
@@ -71,30 +84,47 @@ const toggleLikedPost = () => {
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  padding-inline: 50px 10px;
+  padding-inline: 50px 20px;
 }
 
 .container__controls {
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-end;
 
   button {
-    padding: 5px;
+    transition: all 0.3s ease-in-out 0s;
+    padding: 5px 20px;
     outline: none;
     border: none;
-    border-bottom: solid 2px red;
+    border-bottom: solid 3px #d1d1d1;
     background-color: transparent;
   }
 
+  button:hover {
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    background-color: #eceaea;
+  }
+
+  button.post,
+  button.collection {
+    transition: all 0.3s ease-in-out 0s;
+    border-bottom: solid 3px #ffb74d;
+  }
+
   hr {
+    margin: 0;
     width: 100%;
-    margin-block: 10px 0px;
+    border: none;
+    height: 3px;
+    background-color: #d1d1d1;
   }
 }
 
 .container__user--info {
-  flex: 1;
+  padding-right: 50px;
+  flex: 0.8;
 }
 
 .container__user--activity {
