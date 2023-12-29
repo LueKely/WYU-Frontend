@@ -1,42 +1,60 @@
 <template>
   <div class="recipe-page">
     <div v-if="!pageLoadingState" class="recipe-page__container">
+      <!-- User Info -->
+      <div class="flex items-center q-my-md">
+        <q-avatar
+          color="primary"
+          size="55px"
+          class="q-mr-md"
+          text-color="white"
+          >{{ userInitial }}</q-avatar
+        >
+        <div class="flex-column text-18 q-ml-sm">
+          <p class="text-24 text-semibold">{{ recipeData.username }}</p>
+          <p class="text-18 text-grey-7">
+            {{ recipeData.createdAt?.split("T")[0] }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Recipe Image-->
       <div class="recipe-page__container__img">
         <q-img
           style="border-radius: 10px"
           class="ulam__image"
           :src="recipeData.image_url"
-          alt="ulam of the
-      day image"
+          alt="ulam of the day image"
         />
-        <div class="interactions flex q-gutter-md q-mt-xs items-center q-mb-sm">
-          <div class="heart">
-            <q-img
-              loading="lazy"
-              no-spinner
-              src="../assets/heart_filled.svg"
-              width="30px"
-            />
-            <span class="block text-center text-12 q-mt-xs">{{
-              numberOfLikes
-            }}</span>
-          </div>
-          <div>
-            <q-img
-              loading="lazy"
-              no-spinner
-              src="../assets/save_filled.svg"
-              width="30px"
-            />
-            <span class="block text-center text-12 q-mt-xs">{{
-              numberOfFavorites
-            }}</span>
-          </div>
+      </div>
+      <div class="interactions flex q-gutter-md q-mt-xs items-center q-mb-sm">
+        <div class="heart">
+          <q-img
+            loading="lazy"
+            no-spinner
+            src="../assets/heart_filled.svg"
+            width="30px"
+          />
+          <span class="block text-center text-12 q-mt-xs">{{
+            numberOfLikes
+          }}</span>
+        </div>
+        <div>
+          <q-img
+            loading="lazy"
+            no-spinner
+            src="../assets/save_filled.svg"
+            width="30px"
+          />
+          <span class="block text-center text-12 q-mt-xs">{{
+            numberOfFavorites
+          }}</span>
         </div>
       </div>
+
       <div class="recipe-page__container__recipe-information">
         <!-- Title and Tags -->
-        <div class="flex justify-between items-center q-mt-md">
+        <div class="flex justify-between flex-wrap items-center q-mt-md">
           <h2 class="text-24 text-semibold">{{ recipeData.recipe_name }}</h2>
           <div class="flex q-gutter-xs">
             <div v-for="(tag, index) in recipeData.tags" :key="index">
@@ -47,21 +65,23 @@
 
         <!-- Metadata -->
         <div class="flex column q-mt-sm">
-          <p class="text-18 text-medium">
+          <p class="text-18 text-thin text-grey-7">
             Difficulty: {{ recipeData.difficulty }}
           </p>
-          <p class="text-18 text-medium">
+          <p class="text-18 text-thin text-grey-7">
             Cooking Time: {{ recipeData.cooking_time }}
           </p>
-          <p class="text-18 text-thin q-mt-sm">
+          <p class="text-18 text-medium q-mt-md">
             {{ recipeData.description }}
           </p>
         </div>
 
+        <q-separator class="q-my-lg" />
+
         <!-- Ingredients -->
         <div class="q-mt-lg">
           <h2 class="text-24 text-semibold q-mb-sm">Ingredients</h2>
-          <div class="flex column q-gutter-sm">
+          <div class="flex column q-gutter-md">
             <div
               class="ingredient"
               v-for="(ingredient, index) in recipeData.ingredients"
@@ -75,7 +95,7 @@
         <!-- Instructions -->
         <div class="q-mt-lg">
           <h2 class="text-24 text-semibold q-mb-sm">Instructions</h2>
-          <div class="flex column q-gutter-xs">
+          <div class="flex column q-gutter-md">
             <div
               class="instruction"
               v-for="(instruction, index) in recipeData.instructions"
@@ -154,7 +174,9 @@
             </div>
           </div>
           <div v-else class="flex flex-center">
-            <div class="no-comments text-thin">No comments on this post</div>
+            <div class="no-comments text-thin">
+              Be the first to comment on this post.
+            </div>
           </div>
         </div>
       </div>
@@ -165,7 +187,7 @@
 
 <script setup lang="js">
 import { GetRecipe, AddNewComment } from '@composables/Recipe';
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from 'vue-router';
 import { useCacheStore } from "../stores/cacheStore";
 import { LocalStorage } from "quasar";
@@ -196,8 +218,8 @@ const addComment = (comment) => {
 
     AddNewComment(payload).then((response) => {
       if(response.status === 'success'){
-        const reactiveComponent = ref(response.data);
-        comments.value.unshift(reactiveComponent.value);
+        const newlyAddedComment = ref(response.data);
+        comments.value.unshift(newlyAddedComment.value);
         userComment.value = '';
         caching.recentPosts = {};
         delete caching.recipe.recipes[route.params.id];
@@ -221,29 +243,28 @@ onMounted(() => {
     numberOfFavorites.value = recipeData.value.saves.length;
     userInitial.value = recipeData.value.username.charAt(0).toUpperCase();
     pageLoadingState.value = false;
+    return;
   }
-  else{
-    let payload = {
-      id: route.params.id
-    }
-    GetRecipe(payload).then((response) => {
-      if(response.status === 'success'){
-        recipeData.value = response.data;
-        comments.value = recipeData.value.comments;
-        numberOfLikes.value = recipeData.value.likes.length;
-        numberOfFavorites.value = recipeData.value.saves.length;
-        userInitial.value = recipeData.value.username.charAt(0).toUpperCase();
 
-        caching.setRecipeCache(recipeData.value._id, recipeData.value);
-      }
+  let payload = {
+    id: route.params.id
+  }
+
+  GetRecipe(payload).then((response) => {
+    if(response.status === 'success'){
+      console.log(response);
+      recipeData.value = response.data;
+      comments.value = recipeData.value.comments;
+      numberOfLikes.value = recipeData.value.likes.length;
+      numberOfFavorites.value = recipeData.value.saves.length;
+      userInitial.value = recipeData.value.username.charAt(0).toUpperCase();
+      caching.setRecipeCache(recipeData.value._id, recipeData.value);
+    }
     }).catch((error) => {
       console.log(error)
     }).finally(() => {
       pageLoadingState.value = false;
     })
-  }
-
-
 })
 </script>
 

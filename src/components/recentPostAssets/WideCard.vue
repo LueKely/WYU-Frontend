@@ -17,7 +17,7 @@
         </div>
       </div>
       <p
-        class="text-accent-2 text-medium text-18 cursor-pointer"
+        class="text-accent-2 text-bold text-18 cursor-pointer"
         @click="
           router.push({ name: 'recipe', params: { id: props.recipeData._id } })
         "
@@ -69,14 +69,14 @@
             loading="lazy"
             no-spinner
             src="../../assets/heart_outlined.svg"
-            width="35px"
+            width="30px"
           />
           <q-img
             v-else
             loading="lazy"
             no-spinner
             src="../../assets/heart_filled.svg"
-            width="35px"
+            width="30px"
           />
         </div>
         <div
@@ -88,14 +88,14 @@
             loading="lazy"
             no-spinner
             src="../../assets/save_outline.svg"
-            width="35px"
+            width="30px"
           />
           <q-img
             v-else
             loading="lazy"
             no-spinner
             src="../../assets/save_filled.svg"
-            width="35px"
+            width="30px"
           />
         </div>
       </div>

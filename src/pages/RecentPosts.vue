@@ -1,9 +1,6 @@
 <template>
   <div class="page--recent">
     <div class="container--recent" v-if="!pageLoadingState">
-      <h2 style="align-self: flex-start" class="text-43 text-bold q-mb-md">
-        Recent Posts
-      </h2>
       <div class="card__container--recent">
         <div
           class="card__loop"
