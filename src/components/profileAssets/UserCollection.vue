@@ -7,7 +7,7 @@
 <script setup>
 import { inject } from "vue";
 import PostCard from "../profileAssets/PostCard.vue";
-const message = inject("userPosts");
+const message = inject("collections");
 </script>
 
 <style lang="scss" scoped>

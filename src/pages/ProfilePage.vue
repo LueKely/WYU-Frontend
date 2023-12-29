@@ -38,11 +38,11 @@
 import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
 import UsersPosts from "@profile/UsersPosts.vue";
-import UserLikedPost from "@profile/UserLikedPost.vue";
+import UserLikedPost from "@profile/UserCollection.vue";
 import { provide, ref, computed } from "vue";
 
 const choice = ref(false);
-provide("userPosts", ["foo"]);
+provide("userPosts", ["foo", "foo", "foo", "foo"]);
 provide("collections", ["bar"]);
 const isCollections = computed(() =>
   choice.value === true ? UserLikedPost : UsersPosts
@@ -118,7 +118,7 @@ const toggleLikedPost = () => {
     width: 100%;
     border: none;
     height: 3px;
-    background-color: rgb(224, 222, 222);
+    background-color: #d1d1d1;
   }
 }
 

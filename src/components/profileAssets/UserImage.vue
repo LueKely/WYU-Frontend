@@ -41,7 +41,7 @@
   height: 300px;
   width: 100%;
   aspect-ratio: 4/3;
-  background-color: red;
+  background-color: #ffb74d;
 }
 
 .container__profile--avatar {
