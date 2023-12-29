@@ -9,7 +9,7 @@
 
     <div class="container--metadata">
       <!-- insert user name here -->
-      <p></p>
+      <p>Test</p>
       <!-- meta data -->
       <div class="container--icons">
         <div class="">
@@ -17,7 +17,7 @@
           <q-img
             loading="lazy"
             no-spinner
-            src="../../assets/heart_outlined.svg"
+            src="../../assets/heart_filled.svg"
             width="15px"
           />
         </div>
@@ -26,7 +26,7 @@
           <q-img
             loading="lazy"
             no-spinner
-            src="../../assets/save_outline.svg"
+            src="../../assets/save_filled.svg"
             width="15px"
           />
         </div>
@@ -36,6 +36,13 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+
+const userPosts = defineProps({
+  posts: Object,
+});
+
+console.log(userPosts.posts);
 const forwardToRecipe = () => {
   console.log("forward to recipe");
 };
@@ -53,7 +60,7 @@ const forwardToRecipe = () => {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 10px;
+  padding: 8px 0px;
   gap: 10px;
 }
 .container--post {

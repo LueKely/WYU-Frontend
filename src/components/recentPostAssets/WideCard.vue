@@ -10,7 +10,21 @@
           >{{ userInitials }}</q-avatar
         >
         <div class="user__container--text text-18">
-          <p class="text-18 text-semibold">{{ props.recipeData.username }}</p>
+          <p
+            class="text-18 text-semibold cursor-pointer"
+            @click="
+              router.push({
+                name: 'profile',
+                params: {
+                  id: props.recipeData.user_id,
+                  isSelfVisit:
+                    props.recipeData.user_id === currentUserId ? 1 : 0,
+                },
+              })
+            "
+          >
+            {{ props.recipeData.username }}
+          </p>
           <p class="text-12 q-mt-sm">
             {{ props.recipeData.createdAt.split("T")[0] }}
           </p>

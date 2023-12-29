@@ -50,7 +50,7 @@ const routes = [
             props: (router) => ({ query: router.query.q }),
           },
           {
-            path: "profile",
+            path: "profile/:id/:isSelfVisit",
             name: "profile",
             component: () => import("../pages/ProfilePage.vue"),
           },

@@ -1,11 +1,11 @@
 <template>
   <div class="page page--search">
-    <div class="container--profile">
+    <div v-if="!pageLoadingState" class="container--profile">
       <UserImage />
       <div class="container--split">
         <!-- insert user links here -->
         <div class="container__user--info">
-          <UserLinks />
+          <UserLinks :user="userInfo.user" />
         </div>
         <div class="container__user--activity">
           <!-- navigation for the two -->
@@ -31,19 +31,30 @@
         </div>
       </div>
     </div>
+    <q-inner-loading :showing="pageLoadingState" color="accent-2" />
   </div>
 </template>
 
 <script setup>
+import { provide, ref, computed, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { LocalStorage } from "quasar";
 import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
 import UsersPosts from "@profile/UsersPosts.vue";
 import UserLikedPost from "@profile/UserCollection.vue";
-import { provide, ref, computed } from "vue";
+import { GetAllUserInfo } from "@composables/UserProfile";
 
-const choice = ref(false);
+const route = useRoute();
+const router = useRouter();
+const pageLoadingState = ref(false);
+const userInfo = ref([]);
+
 provide("userPosts", ["foo", "foo", "foo", "foo"]);
 provide("collections", ["bar"]);
+
+const choice = ref(false);
+
 const isCollections = computed(() =>
   choice.value === true ? UserLikedPost : UsersPosts
 );
@@ -55,6 +66,34 @@ const toggleCollections = () => {
 const toggleLikedPost = () => {
   choice.value = false;
 };
+
+// 1 = true, 0 = false
+onMounted(() => {
+  pageLoadingState.value = true;
+  if (route.params) {
+    const currentUserId = LocalStorage.getItem("c_user");
+    const isSelfVisit = ref(currentUserId.id === route.params.id ? 1 : 0);
+
+    let payload = {
+      id: route.params.id,
+      isSelfVisit: isSelfVisit.value,
+    };
+
+    GetAllUserInfo(payload)
+      .then((response) => {
+        if (response.status === "success") {
+          userInfo.value = response.data;
+          console.log(userInfo.value);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        pageLoadingState.value = false;
+      });
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +109,7 @@ const toggleLikedPost = () => {
 
   flex: 1;
 
-  width: 60%;
+  width: 80%;
   min-height: 100%;
 }
 

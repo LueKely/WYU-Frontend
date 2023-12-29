@@ -1,13 +1,13 @@
 <template>
   <div class="card--post__container">
-    <PostCard v-for="post in message" :key="post" />
+    <PostCard v-for="post in posts" :key="post" :userPosts="post" />
   </div>
 </template>
 
 <script setup>
 import { inject } from "vue";
 import PostCard from "../profileAssets/PostCard.vue";
-const message = inject("userPosts");
+const posts = inject("userPosts");
 </script>
 
 <style lang="scss" scoped>
