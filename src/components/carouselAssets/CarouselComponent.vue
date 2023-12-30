@@ -1,14 +1,10 @@
 <template>
   <div class="carousel__container">
     <div class="carousel" :style="{ transform: `translateX(${translateX}px)` }">
-      <div
-        class="carousel__container--cards"
-        v-for="(group, index) in groupedData"
-        :key="index"
-      >
+      <div class="carousel__container--cards" v-for="index in 6" :key="index">
         <CarouselCard
-          v-for="(item, index) in group"
-          :key="index"
+          v-for="(item, n) in groupedData[index - 1]"
+          :key="n"
           :payload="item"
         />
       </div>
