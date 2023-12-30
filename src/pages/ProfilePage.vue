@@ -12,22 +12,27 @@
           <div class="container__controls">
             <button
               class="font text-18"
-              :class="{ post: !choice }"
-              @click="toggleLikedPost"
+              :class="{ post: choice }"
+              @click="choice = true"
             >
               Posts
             </button>
             <button
+              v-if="!hideCollectionMenu"
               class="font text-18"
-              :class="{ collection: choice }"
-              @click="toggleCollections"
+              :class="{ collection: !choice }"
+              @click="choice = false"
             >
               Collection
             </button>
             <hr />
           </div>
 
-          <component :is="isCollections"></component>
+          <component
+            :is="isCollections"
+            :posts="userInfo.posts"
+            :savePosts="userInfo.saves"
+          ></component>
         </div>
       </div>
     </div>
@@ -36,8 +41,8 @@
 </template>
 
 <script setup>
-import { provide, ref, computed, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { ref, computed, onMounted, watch } from "vue";
+import { useRoute } from "vue-router";
 import { LocalStorage } from "quasar";
 import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
@@ -46,33 +51,26 @@ import UserLikedPost from "@profile/UserCollection.vue";
 import { GetAllUserInfo } from "@composables/UserProfile";
 
 const route = useRoute();
-const router = useRouter();
 const pageLoadingState = ref(false);
 const userInfo = ref([]);
+const currentUser = LocalStorage.getItem("c_user");
 
-provide("userPosts", ["foo", "foo", "foo", "foo"]);
-provide("collections", ["bar"]);
-
-const choice = ref(false);
-
-const isCollections = computed(() =>
-  choice.value === true ? UserLikedPost : UsersPosts
+const choice = ref(true);
+const hideCollectionMenu = computed(
+  () => Number(route.params.isSelfVisit) === 0
 );
 
-const toggleCollections = () => {
-  choice.value = true;
-};
+const isCollections = computed(() =>
+  choice.value ? UsersPosts : UserLikedPost
+);
 
-const toggleLikedPost = () => {
-  choice.value = false;
-};
-
-// 1 = true, 0 = false
-onMounted(() => {
+const getUserInfo = () => {
   pageLoadingState.value = true;
+
   if (route.params) {
-    const currentUserId = LocalStorage.getItem("c_user");
-    const isSelfVisit = ref(currentUserId.id === route.params.id ? 1 : 0);
+    const currentUserId = currentUser.id;
+    // 1 = true, 0 = false
+    const isSelfVisit = ref(currentUserId === route.params.id ? 1 : 0);
 
     let payload = {
       id: route.params.id,
@@ -83,7 +81,6 @@ onMounted(() => {
       .then((response) => {
         if (response.status === "success") {
           userInfo.value = response.data;
-          console.log(userInfo.value);
         }
       })
       .catch((error) => {
@@ -93,6 +90,17 @@ onMounted(() => {
         pageLoadingState.value = false;
       });
   }
+};
+
+watch(
+  () => route.params,
+  (value) => {
+    route.name === "profile" && getUserInfo();
+  }
+);
+
+onMounted(() => {
+  getUserInfo();
 });
 </script>
 

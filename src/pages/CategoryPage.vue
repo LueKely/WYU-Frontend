@@ -35,7 +35,6 @@ onMounted(() => {
     .then((response) => {
       if (response.status === "success") {
         recipeLists.value = response.data ? response.data : [];
-        console.log(recipeLists.value);
       }
     })
     .catch((error) => {

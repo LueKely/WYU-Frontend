@@ -33,8 +33,6 @@ const cardProps = defineProps({
   _id: String,
 });
 
-console.log(cardProps);
-
 function visitRecipe() {
   router.push(`/home/recipe/${cardProps._id}`);
 }

@@ -44,7 +44,6 @@ const SearchRecipeByName = () => {
     .then((response) => {
       if (response.status === "success") {
         recipeList.value = response.data;
-        console.log(response);
       }
     })
     .catch((error) => {

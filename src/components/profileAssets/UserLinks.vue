@@ -18,7 +18,7 @@
       <a
         :href="`https://www.facebook.com/${props.user?.fb_username}`"
         target="_blank"
-        >facebook</a
+        >{{ props.user?.fb_username }}</a
       >
     </li>
     <li>
@@ -26,7 +26,7 @@
       <a
         :href="`https://instagram.com/${props.user?.ig_username}`"
         target="_blank"
-        >instagram</a
+        >{{ props.user?.ig_username }}</a
       >
     </li>
     <li>
@@ -34,14 +34,13 @@
       <a
         :href="`https://www.twitter.com/${props.user?.twt_username}`"
         target="_blank"
-        >twitter</a
+        >{{ props.user?.twt_username }}</a
       >
     </li>
   </ul>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import FacebookIcon from "@profile/facebookIcon.vue";
 import TwitterIcon from "@profile/twitterIcon.vue";
 import InstagramIcon from "./InstagramIcon.vue";
