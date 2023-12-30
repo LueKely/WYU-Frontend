@@ -5,8 +5,14 @@
       <div class="container--split">
         <!-- insert user links here -->
         <div class="container__user--info">
-          <UserLinks :user="userInfo.user" />
+          <component
+            @edit-form="editForm"
+            @cancel-edit="cancelEdit"
+            :is="isEditingProfile"
+            :user="userInfo.user"
+          />
         </div>
+
         <div class="container__user--activity">
           <!-- navigation for the two -->
           <div class="container__controls">
@@ -48,12 +54,27 @@ import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
 import UsersPosts from "@profile/UsersPosts.vue";
 import UserLikedPost from "@profile/UserCollection.vue";
+import ProfileForm from "@profile/ProfileForm.vue";
 import { GetAllUserInfo } from "@composables/UserProfile";
 
 const route = useRoute();
 const pageLoadingState = ref(false);
 const userInfo = ref([]);
 const currentUser = LocalStorage.getItem("c_user");
+
+const isEditing = ref(false);
+
+function editForm() {
+  isEditing.value = true;
+}
+
+function cancelEdit() {
+  isEditing.value = false;
+}
+
+const isEditingProfile = computed(() =>
+  isEditing.value ? ProfileForm : UserLinks
+);
 
 const choice = ref(true);
 const hideCollectionMenu = computed(

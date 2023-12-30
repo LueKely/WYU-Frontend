@@ -38,6 +38,7 @@
       >
     </li>
   </ul>
+  <q-btn @click="editForm" outline rounded color="accent" label="edit info" />
 </template>
 
 <script setup>
@@ -45,12 +46,17 @@ import FacebookIcon from "@profile/facebookIcon.vue";
 import TwitterIcon from "@profile/twitterIcon.vue";
 import InstagramIcon from "./InstagramIcon.vue";
 
+const emit = defineEmits(["editForm"]);
 const props = defineProps({
   user: {
     type: Object,
     required: true,
   },
 });
+
+function editForm() {
+  emit("editForm");
+}
 </script>
 
 <style lang="scss" scoped>
