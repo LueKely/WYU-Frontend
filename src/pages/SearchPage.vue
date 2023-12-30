@@ -34,6 +34,7 @@ import SearchCard from "../components/searchAssets/SearchCard.vue";
 import { GetRecipeByName } from "@composables/Recipe";
 
 const route = useRoute();
+
 let pageLoadingState = ref(false);
 const recipeList = ref([]);
 
