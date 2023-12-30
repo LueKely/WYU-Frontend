@@ -11,7 +11,20 @@
           >{{ userInitial }}</q-avatar
         >
         <div class="flex-column text-18 q-ml-sm">
-          <p class="text-24 text-semibold">{{ recipeData.username }}</p>
+          <p
+            class="text-24 text-semibold cursor-pointer"
+            @click="
+              router.push({
+                name: 'profile',
+                params: {
+                  id: recipeData.user_id,
+                  isSelfVisit: recipeData.user_id === user_id ? 1 : 0,
+                },
+              })
+            "
+          >
+            {{ recipeData.username }}
+          </p>
           <p class="text-18 text-grey-7">
             {{ recipeData.createdAt?.split("T")[0] }}
           </p>
@@ -188,11 +201,11 @@
 <script setup lang="js">
 import { GetRecipe, AddNewComment } from '@composables/Recipe';
 import { ref, onMounted } from "vue";
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useCacheStore } from "../stores/cacheStore";
 import { LocalStorage } from "quasar";
 
-
+const router = useRouter();
 const route = useRoute();
 const caching = useCacheStore();
 const recipeData = ref({});
@@ -201,6 +214,7 @@ const pageLoadingState = ref(false);
 const userInitial = ref("");
 const userComment = ref("");
 const comments = ref([]);
+
 let numberOfLikes = ref(0);
 let numberOfFavorites = ref(0);
 
@@ -252,7 +266,6 @@ onMounted(() => {
 
   GetRecipe(payload).then((response) => {
     if(response.status === 'success'){
-      console.log(response);
       recipeData.value = response.data;
       comments.value = recipeData.value.comments;
       numberOfLikes.value = recipeData.value.likes.length;

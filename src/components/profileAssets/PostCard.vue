@@ -1,32 +1,36 @@
 <template>
-  <div class="container--post" @click="forwardToRecipe">
+  <div class="container--post" @click="forwardToRecipe(props.post._id)">
     <q-img
       class="rounded-borders"
-      src="https://picsum.photos/500/300"
+      :src="props.post.image_url"
       width="230px"
       :ratio="16 / 9"
     />
 
     <div class="container--metadata">
       <!-- insert user name here -->
-      <p></p>
+      <p>@{{ props.post.username }}</p>
       <!-- meta data -->
       <div class="container--icons">
-        <div class="">
-          <span class="font text-12 q-mr-xs">11</span>
+        <div>
+          <span class="font text-12 q-mr-sm">{{
+            props.post.likes.length
+          }}</span>
           <q-img
             loading="lazy"
             no-spinner
-            src="../../assets/heart_outlined.svg"
+            src="../../assets/heart_filled.svg"
             width="15px"
           />
         </div>
         <div>
-          <span class="font text-12 q-mr-xs">10</span>
+          <span class="font text-12 q-mr-sm">{{
+            props.post.saves.length
+          }}</span>
           <q-img
             loading="lazy"
             no-spinner
-            src="../../assets/save_outline.svg"
+            src="../../assets/save_filled.svg"
             width="15px"
           />
         </div>
@@ -36,8 +40,16 @@
 </template>
 
 <script setup>
-const forwardToRecipe = () => {
-  console.log("forward to recipe");
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const props = defineProps({
+  post: Object,
+});
+
+const forwardToRecipe = (recipeID) => {
+  recipeID && router.push({ name: "recipe", params: { id: recipeID } });
 };
 </script>
 
@@ -53,7 +65,7 @@ const forwardToRecipe = () => {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 10px;
+  padding: 8px 0px;
   gap: 10px;
 }
 .container--post {

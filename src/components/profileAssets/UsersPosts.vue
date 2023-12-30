@@ -1,13 +1,19 @@
 <template>
-  <div class="card--post__container">
-    <PostCard v-for="post in message" :key="post" />
+  <div v-if="props.posts?.length > 0" class="card--post__container">
+    <PostCard v-for="post in props.posts" :key="post._id" :post="post" />
   </div>
+  <div v-else class="empty-data flex flex-center">No posts.</div>
 </template>
 
 <script setup>
-import { inject } from "vue";
 import PostCard from "../profileAssets/PostCard.vue";
-const message = inject("userPosts");
+
+const props = defineProps({
+  posts: {
+    type: Array,
+    required: true,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -16,5 +22,10 @@ const message = inject("userPosts");
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
+}
+
+.empty-data {
+  width: 100%;
+  padding: 36px 0;
 }
 </style>

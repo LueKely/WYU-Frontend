@@ -1,26 +1,41 @@
 <template>
   <div class="user__text__contianer">
-    <h3 class="text-43 text-bold">name</h3>
-    <h4 class="text-light text-24" style="margin-bottom: 10px">@username</h4>
+    <h3 class="text-43 text-bold">
+      {{ props.user?.first_name }} {{ props.user?.last_name }}
+    </h3>
+    <h4 class="text-light text-24" style="margin-bottom: 10px">
+      @{{ props.user?.username }}
+    </h4>
   </div>
   <p class="user-text__description">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod esse explicabo
-    laudantium vitae doloremque placeat, provident vel? Quidem fuga nostrum
-    tempora neque repudiandae, rem eos ipsam doloribus numquam nam in!
+    {{ props.user?.user_bio }}
   </p>
-  <hr style="margin-block: 10px" class="profile" />
+  <q-separator class="q-my-md" />
+
   <ul class="font user__links">
     <li>
       <FacebookIcon />
-      <a href="">facebook</a>
+      <a
+        :href="`https://www.facebook.com/${props.user?.fb_username}`"
+        target="_blank"
+        >{{ props.user?.fb_username }}</a
+      >
     </li>
     <li>
       <InstagramIcon />
-      <a href="">instagram</a>
+      <a
+        :href="`https://instagram.com/${props.user?.ig_username}`"
+        target="_blank"
+        >{{ props.user?.ig_username }}</a
+      >
     </li>
     <li>
       <TwitterIcon />
-      <a href="">twitter</a>
+      <a
+        :href="`https://www.twitter.com/${props.user?.twt_username}`"
+        target="_blank"
+        >{{ props.user?.twt_username }}</a
+      >
     </li>
   </ul>
 </template>
@@ -29,13 +44,16 @@
 import FacebookIcon from "@profile/facebookIcon.vue";
 import TwitterIcon from "@profile/twitterIcon.vue";
 import InstagramIcon from "./InstagramIcon.vue";
+
+const props = defineProps({
+  user: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-hr.profile {
-  border-color: #e0dede;
-}
-
 .user__links {
   list-style: none;
   padding: 0;

@@ -1,60 +1,107 @@
 <template>
   <div class="page page--search">
-    <div class="container--profile">
+    <div v-if="!pageLoadingState" class="container--profile">
       <UserImage />
       <div class="container--split">
         <!-- insert user links here -->
         <div class="container__user--info">
-          <UserLinks />
+          <UserLinks :user="userInfo.user" />
         </div>
         <div class="container__user--activity">
           <!-- navigation for the two -->
           <div class="container__controls">
             <button
               class="font text-18"
-              :class="{ post: !choice }"
-              @click="toggleLikedPost"
+              :class="{ post: choice }"
+              @click="choice = true"
             >
               Posts
             </button>
             <button
+              v-if="!hideCollectionMenu"
               class="font text-18"
-              :class="{ collection: choice }"
-              @click="toggleCollections"
+              :class="{ collection: !choice }"
+              @click="choice = false"
             >
               Collection
             </button>
             <hr />
           </div>
 
-          <component :is="isCollections"></component>
+          <component
+            :is="isCollections"
+            :posts="userInfo.posts"
+            :savePosts="userInfo.saves"
+          ></component>
         </div>
       </div>
     </div>
+    <q-inner-loading :showing="pageLoadingState" color="accent-2" />
   </div>
 </template>
 
 <script setup>
+import { ref, computed, onMounted, watch } from "vue";
+import { useRoute } from "vue-router";
+import { LocalStorage } from "quasar";
 import UserImage from "@profile/UserImage.vue";
 import UserLinks from "@profile/UserLinks.vue";
 import UsersPosts from "@profile/UsersPosts.vue";
 import UserLikedPost from "@profile/UserCollection.vue";
-import { provide, ref, computed } from "vue";
+import { GetAllUserInfo } from "@composables/UserProfile";
 
-const choice = ref(false);
-provide("userPosts", ["foo", "foo", "foo", "foo"]);
-provide("collections", ["bar"]);
-const isCollections = computed(() =>
-  choice.value === true ? UserLikedPost : UsersPosts
+const route = useRoute();
+const pageLoadingState = ref(false);
+const userInfo = ref([]);
+const currentUser = LocalStorage.getItem("c_user");
+
+const choice = ref(true);
+const hideCollectionMenu = computed(
+  () => Number(route.params.isSelfVisit) === 0
 );
 
-const toggleCollections = () => {
-  choice.value = true;
+const isCollections = computed(() =>
+  choice.value ? UsersPosts : UserLikedPost
+);
+
+const getUserInfo = () => {
+  pageLoadingState.value = true;
+
+  if (route.params) {
+    const currentUserId = currentUser.id;
+    // 1 = true, 0 = false
+    const isSelfVisit = ref(currentUserId === route.params.id ? 1 : 0);
+
+    let payload = {
+      id: route.params.id,
+      isSelfVisit: isSelfVisit.value,
+    };
+
+    GetAllUserInfo(payload)
+      .then((response) => {
+        if (response.status === "success") {
+          userInfo.value = response.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        pageLoadingState.value = false;
+      });
+  }
 };
 
-const toggleLikedPost = () => {
-  choice.value = false;
-};
+watch(
+  () => route.params,
+  (value) => {
+    route.name === "profile" && getUserInfo();
+  }
+);
+
+onMounted(() => {
+  getUserInfo();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +117,7 @@ const toggleLikedPost = () => {
 
   flex: 1;
 
-  width: 60%;
+  width: 80%;
   min-height: 100%;
 }
 

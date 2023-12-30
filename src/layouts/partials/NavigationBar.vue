@@ -36,7 +36,10 @@
           :ripple="false"
           name="profile"
           label="Profile"
-          to="/home/profile"
+          :to="{
+            name: 'profile',
+            params: { id: currentUser.id, isSelfVisit: 1 },
+          }"
           exact
         />
       </q-tabs>
