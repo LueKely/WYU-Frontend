@@ -54,6 +54,7 @@ const props = defineProps({
   },
 });
 
+// emit on the same name but different variable same goes with profile form
 function editForm() {
   emit("editForm");
 }
