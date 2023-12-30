@@ -31,7 +31,7 @@ const router = useRouter();
 const cardProps = defineProps({
   payload: Object,
 });
-
+console.log(cardProps.payload);
 const visitRecipe = () => {
   if (isRecipe) {
     router.push({ name: "recipe", params: { id: cardProps.payload._id } });
