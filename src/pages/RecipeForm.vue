@@ -319,10 +319,14 @@
 </template>
 
 <script setup>
+import Notification from "../composables/Notification";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { CreateRecipe } from "../composables/Recipe";
 import { useCacheStore } from "../stores/cacheStore";
+import { useQuasar } from "quasar";
+
+const $q = useQuasar();
 
 const router = useRouter();
 const caching = useCacheStore();
@@ -426,6 +430,7 @@ const recipeTagLists = ref([
   { tagName: "dinner", isClicked: false, tagColor: "pink" },
   { tagName: "snack", isClicked: false, tagColor: "blue" },
   { tagName: "dessert", isClicked: false, tagColor: "amber" },
+  { tagName: "appetizers", isClicked: false, tagColor: "cyan" },
 ]);
 
 const removeTag = (array, item) => {
@@ -473,9 +478,11 @@ const sendForm = () => {
           if (response.status === "success") {
             caching.recentPosts = {};
             router.push({ name: "recent" });
+            Notification.success($q, "Recipe created successfully");
           }
         })
         .catch((error) => {
+          Notification.error($q, "Something went wrong");
           console.log(error);
         })
         .finally(() => {

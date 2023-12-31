@@ -63,9 +63,13 @@
 </template>
 
 <script setup>
+import Notification from "../../composables/Notification";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { RegisterUser } from "@composables/Authentication";
+import { useQuasar } from "quasar";
+
+const $q = useQuasar();
 
 const router = useRouter();
 
@@ -111,6 +115,8 @@ const onSubmit = () => {
         })
         .catch((error) => {
           console.log(error);
+          btnLoadingState.value = false;
+          Notification.error($q, "An Error has occured");
         });
     }
   });

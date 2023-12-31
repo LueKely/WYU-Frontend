@@ -38,6 +38,7 @@
       >
     </li>
   </ul>
+  <q-btn @click="editForm" outline rounded color="accent" label="edit info" />
 </template>
 
 <script setup>
@@ -45,12 +46,18 @@ import FacebookIcon from "@profile/facebookIcon.vue";
 import TwitterIcon from "@profile/twitterIcon.vue";
 import InstagramIcon from "./InstagramIcon.vue";
 
+const emit = defineEmits(["sendSignal"]);
 const props = defineProps({
   user: {
     type: Object,
     required: true,
   },
 });
+
+// emit on the same name but different variable same goes with profile form
+function editForm() {
+  emit("sendSignal", true);
+}
 </script>
 
 <style lang="scss" scoped>
