@@ -46,7 +46,7 @@ import FacebookIcon from "@profile/facebookIcon.vue";
 import TwitterIcon from "@profile/twitterIcon.vue";
 import InstagramIcon from "./InstagramIcon.vue";
 
-const emit = defineEmits(["editForm"]);
+const emit = defineEmits(["sendSignal"]);
 const props = defineProps({
   user: {
     type: Object,
@@ -56,7 +56,7 @@ const props = defineProps({
 
 // emit on the same name but different variable same goes with profile form
 function editForm() {
-  emit("editForm");
+  emit("sendSignal", true);
 }
 </script>
 

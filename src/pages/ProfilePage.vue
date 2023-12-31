@@ -6,8 +6,7 @@
         <!-- insert user links here -->
         <div class="container__user--info">
           <component
-            @edit-form="editForm"
-            @cancel-edit="cancelEdit"
+            @send-signal="changeEditState"
             :is="isEditingProfile"
             :user="userInfo.user"
           />
@@ -64,12 +63,8 @@ const currentUser = LocalStorage.getItem("c_user");
 
 const isEditing = ref(false);
 
-function editForm() {
-  isEditing.value = true;
-}
-
-function cancelEdit() {
-  isEditing.value = false;
+function changeEditState(e) {
+  isEditing.value = e;
 }
 
 const isEditingProfile = computed(() =>
