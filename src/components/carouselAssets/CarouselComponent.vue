@@ -1,7 +1,7 @@
 <template>
   <div class="carousel__container">
     <div class="carousel" :style="{ transform: `translateX(${translateX}px)` }">
-      <div class="carousel__container--cards" v-for="index in 6" :key="index">
+      <div class="carousel__container--cards" v-for="index in 2" :key="index">
         <CarouselCard
           v-for="(item, n) in groupedData[index - 1]"
           :key="n"
@@ -33,7 +33,7 @@
 
 <script setup>
 import CarouselCard from "../carouselAssets/CarouselCard.vue";
-import { onMounted, computed, ref, watchEffect } from "vue";
+import { computed, ref } from "vue";
 
 // generate a prop for the carousel card component
 const props = defineProps({

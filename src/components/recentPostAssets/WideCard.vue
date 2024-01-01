@@ -51,12 +51,15 @@
           {{ props.recipeData.recipe_name }}
         </h2>
         <div class="recent__tags">
-          <div v-for="(tag, index) in props.recipeData.tags" :key="index">
+          <div
+            v-for="(category, index) in props.recipeData.categories"
+            :key="index"
+          >
             <q-chip
               class="q-mr-sm q-px-md"
               style="background: #f5a623 !important"
               text-color="white"
-              >{{ tag }}</q-chip
+              >{{ category }}</q-chip
             >
           </div>
         </div>

@@ -23,4 +23,23 @@ const GetAllUserInfo = (payload) => {
   });
 };
 
-export { GetAllUserInfo };
+const EditUserInfo = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .put(`profile/edit/`, payload, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export { GetAllUserInfo, EditUserInfo };

@@ -8,7 +8,7 @@
       <hr style="width: 100%; color: #f7f2f2; margin-bottom: 10px" />
       <div class="result__container">
         <!-- if empty result from fetching -->
-        <div v-if="!recipeList" class="results--error">
+        <div v-if="recipeList.length === 0" class="results--error">
           <h3 class="text-24">No results Found</h3>
           <p>
             Looks like we don't have what you are looking for <br />

@@ -109,14 +109,16 @@ const onSubmit = () => {
       RegisterUser(payload.value)
         .then((response) => {
           if (response.status === "success") {
-            btnLoadingState.value = false;
+            Notification.success($q, "Registration Successful");
             router.push("/login");
           }
         })
         .catch((error) => {
           console.log(error);
-          btnLoadingState.value = false;
           Notification.error($q, "An Error has occured");
+        })
+        .finally(() => {
+          btnLoadingState.value = false;
         });
     }
   });
@@ -135,7 +137,7 @@ const onSubmit = () => {
   padding: 20px 40px;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   flex-direction: column;
 }
 .register__container > * {

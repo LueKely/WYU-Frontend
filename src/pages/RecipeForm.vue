@@ -8,7 +8,9 @@
     <div class="page--create">
       <q-form class="form--create" ref="recipeForm" greedy @submit="sendForm">
         <!-- Recipe Name -->
-        <h2 class="text-32 text-semibold q-mb-lg">Create a Recipe</h2>
+        <h2 class="text-32 text-semibold q-py-lg text-center">
+          Create a Recipe
+        </h2>
         <div class="q-mb-sm">
           <label for="recipe__name" class="text-18 text-medium q-mb-sm block"
             >Recipe Name</label
@@ -127,7 +129,7 @@
         </div>
         <!-- tags -->
         <div class="form__tags q-mb-lg">
-          <h3 class="text-18 text-medium block q-mb-sm">Tags</h3>
+          <h3 class="text-18 text-medium block q-mb-sm">Categories</h3>
           <div class="tags__container">
             <div v-for="(tag, index) in recipeTagLists" :key="index">
               <q-chip
@@ -467,7 +469,7 @@ const sendForm = () => {
         image_url: recipePhoto.value,
         difficulty: recipeDifficulty.value,
         cooking_time: recipeTime.value,
-        tags: [...recipeTags.value],
+        categories: [...recipeTags.value],
         description: recipeDescription.value,
         ingredients: modifiedIngredients,
         instructions: modifiedInstrutions,

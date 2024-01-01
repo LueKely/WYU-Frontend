@@ -1,7 +1,10 @@
 <template>
   <div class="page page--search">
     <div v-if="!pageLoadingState" class="container--profile">
-      <UserImage />
+      <UserImage
+        :profileBanner="userInfo.user?.user_bg_image"
+        :profilePicture="userInfo.user?.user_profile_image"
+      />
       <div class="container--split">
         <!-- insert user links here -->
         <div class="container__user--info">

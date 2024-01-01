@@ -23,8 +23,8 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+
 const router = useRouter();
-//cardProps
 const cardProps = defineProps({
   recipe_name: String,
   username: String,
@@ -34,7 +34,7 @@ const cardProps = defineProps({
 });
 
 function visitRecipe() {
-  router.push(`/home/recipe/${cardProps._id}`);
+  router.push({ name: "recipe", params: { id: cardProps._id } });
 }
 </script>
 

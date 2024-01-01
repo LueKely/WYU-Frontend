@@ -8,7 +8,7 @@
     </h4>
   </div>
   <p class="user-text__description">
-    {{ props.user?.user_bio }}
+    {{ props.user?.user_bio || "No bio yet." }}
   </p>
   <q-separator class="q-my-md" />
 
@@ -18,7 +18,7 @@
       <a
         :href="`https://www.facebook.com/${props.user?.fb_username}`"
         target="_blank"
-        >{{ props.user?.fb_username }}</a
+        >{{ props.user?.fb_username || "facebook" }}</a
       >
     </li>
     <li>
@@ -26,7 +26,7 @@
       <a
         :href="`https://instagram.com/${props.user?.ig_username}`"
         target="_blank"
-        >{{ props.user?.ig_username }}</a
+        >{{ props.user?.ig_username || "twitter" }}</a
       >
     </li>
     <li>
@@ -34,14 +34,22 @@
       <a
         :href="`https://www.twitter.com/${props.user?.twt_username}`"
         target="_blank"
-        >{{ props.user?.twt_username }}</a
+        >{{ props.user?.twt_username || "instagram" }}</a
       >
     </li>
   </ul>
-  <q-btn @click="editForm" outline rounded color="accent" label="edit info" />
+  <q-btn
+    v-if="Number(route.params.isSelfVisit) === 1"
+    @click="editForm"
+    outline
+    rounded
+    color="accent"
+    label="edit info"
+  />
 </template>
 
 <script setup>
+import { useRoute } from "vue-router";
 import FacebookIcon from "@profile/facebookIcon.vue";
 import TwitterIcon from "@profile/twitterIcon.vue";
 import InstagramIcon from "./InstagramIcon.vue";
@@ -53,6 +61,7 @@ const props = defineProps({
     required: true,
   },
 });
+const route = useRoute();
 
 // emit on the same name but different variable same goes with profile form
 function editForm() {

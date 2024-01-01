@@ -24,7 +24,7 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { inject, onMounted } from "vue";
+import { inject } from "vue";
 
 const isRecipe = inject("isRecipe");
 const router = useRouter();

@@ -1,25 +1,35 @@
 <template>
   <div class="container__profile--image">
     <div class="container__profile--banner">
-      <q-img
-        src="https://img.freepik.com/free-vector/restaurant-mural-wallpaper_23-2148703851.jpg"
-        height="300px"
-        :ratio="4 / 3"
-      />
+      <q-img :src="props.profileBanner" height="300px" :ratio="4 / 3" />
     </div>
     <div class="container__profile--avatar">
-      <q-avatar
-        size="120px"
-        font-size="52px"
-        color="teal"
-        text-color="white"
-        icon="directions"
-      />
+      <q-avatar size="120px" color="teal" text-color="white">
+        <img
+          v-if="props.profilePicture"
+          :src="props.profilePicture"
+          alt="User Profile Pic"
+        />
+        <span v-else>W</span>
+      </q-avatar>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  profileBanner: {
+    type: String,
+    required: true,
+  },
+  profilePicture: {
+    type: String,
+    required: true,
+  },
+});
+
+console.log(props.profileBanner);
+</script>
 
 <style lang="scss" scoped>
 .container__profile--image {

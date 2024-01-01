@@ -1,23 +1,25 @@
 <template>
-  <section>
+  <section v-if="!carouselLoadingState">
     <div class="heading flex justify-between items-center q-pr-sm">
       <h3 class="text-32 font-bold">Recent Post</h3>
       <p
         class="text-accent-2 text-semibold text-18 cursor-pointer"
-        @click="router.push({ name: 'recent' })"
+        @click="recipesData.length > 0 && router.push({ name: 'recent' })"
       >
         See all
       </p>
     </div>
 
     <p class="text-18">Fresh Bites: Explore Our Latest Updates and Insights</p>
+
     <CarouselComponent
       v-if="recipesData && recipesData.length > 0 && !carouselLoadingState"
       :payload="recipesData"
     />
-    <div v-else>
-      <q-inner-loading :showing="carouselLoadingState" />
-    </div>
+    <p v-else class="empty-data flex flex-center q-pa-lg text-24">
+      No recipe posts found.
+    </p>
+    <q-inner-loading :showing="carouselLoadingState" />
   </section>
 </template>
 
@@ -75,5 +77,11 @@ p {
 
 .heading {
   width: 100%;
+}
+
+section {
+  .empty-data {
+    width: 100%;
+  }
 }
 </style>
