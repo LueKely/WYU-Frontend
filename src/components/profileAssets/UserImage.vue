@@ -10,13 +10,19 @@
           :src="props.profilePicture"
           alt="User Profile Pic"
         />
-        <span v-else>W</span>
+        <span v-else> {{ username.charAt(0).toUpperCase() }}</span>
       </q-avatar>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useUserStore } from "../../stores/userStore";
+import { LocalStorage } from "quasar";
+import { ref } from "vue";
+const userStore = useUserStore();
+const currentUser = userStore.getUser || LocalStorage.getItem("c_user");
+const username = ref(currentUser.username);
 const props = defineProps({
   profileBanner: {
     type: String,
