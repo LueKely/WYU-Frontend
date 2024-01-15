@@ -32,8 +32,39 @@
           </div>
         </div>
 
+        <!-- edit and delete function -->
         <div v-if="recipeData.user_id === user_id">
-          <q-btn
+          <q-btn flat color="primary" size="lg" rounded icon="more_vert">
+            <q-menu anchor="bottom middle" self="top middle">
+              <q-list style="min-width: 100px">
+                <q-item
+                  clickable
+                  @click="
+                    router.push({
+                      name: 'create',
+                      params: { id: route.params.id },
+                    })
+                  "
+                >
+                  <q-item-section avatar>
+                    <q-icon color="blue" name="edit" />
+                  </q-item-section>
+                  <q-item-section>Edit </q-item-section>
+                </q-item>
+
+                <q-separator />
+                <!-- add delete section here mah nigga -->
+                <q-item clickable>
+                  <q-item-section avatar>
+                    <q-icon color="red" name="delete" />
+                  </q-item-section>
+                  <q-item-section>Delete</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
+
+          <!-- <q-btn
             square
             color="primary"
             round
@@ -44,7 +75,7 @@
             @click="
               router.push({ name: 'create', params: { id: route.params.id } })
             "
-          />
+          /> -->
         </div>
       </div>
 
