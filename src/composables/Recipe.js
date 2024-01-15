@@ -101,6 +101,25 @@ const CreateRecipe = (payload) => {
   });
 };
 
+const UpdateRecipe = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .put("recipe/update/", payload, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
 const LikeORUnlike = (payload) => {
   return new Promise((resolve, reject) => {
     api
@@ -167,4 +186,5 @@ export {
   LikeORUnlike,
   SaveOrUnsave,
   AddNewComment,
+  UpdateRecipe,
 };

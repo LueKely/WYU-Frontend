@@ -29,7 +29,7 @@ const routes = [
             component: () => import("../pages/CategoryPage.vue"),
           },
           {
-            path: "create",
+            path: "create/:id?",
             name: "create",
             component: () => import("../pages/RecipeForm.vue"),
           },

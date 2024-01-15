@@ -106,6 +106,7 @@ const onSubmit = () => {
   btnLoadingState.value = true;
   form.value.validate().then((success) => {
     if (success) {
+      payload.value.user_level = "user";
       RegisterUser(payload.value)
         .then((response) => {
           if (response.status === "success") {

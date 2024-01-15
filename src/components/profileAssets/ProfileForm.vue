@@ -115,7 +115,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import Notification from "../../composables/Notification";
 import { EditUserInfo } from "@composables/UserProfile";
 
@@ -177,10 +177,8 @@ function onReset() {
 
 // this will submit the form and do you thingy here
 function onSubmit() {
-  console.log("asdasdasssss");
   btnLoadingState.value = true;
   form.value.validate().then((success) => {
-    console.log("asdasdasd");
     if (success) {
       let payload = {
         id: props.user?._id,
@@ -206,11 +204,6 @@ function onSubmit() {
     }
   });
 }
-
-onMounted(() => {
-  // do your gaming here
-  console.log(props.user);
-});
 </script>
 
 <style lang="scss" scoped></style>

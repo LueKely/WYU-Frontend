@@ -1,33 +1,50 @@
 <template>
   <div class="recipe-page">
     <div v-if="!pageLoadingState" class="recipe-page__container">
-      <!-- User Info -->
-      <div class="flex items-center q-my-md">
-        <q-avatar
-          color="primary"
-          size="55px"
-          class="q-mr-md"
-          text-color="white"
-          >{{ userInitial }}</q-avatar
-        >
-        <div class="flex-column text-18 q-ml-sm">
-          <p
-            class="text-24 text-semibold cursor-pointer"
-            @click="
-              router.push({
-                name: 'profile',
-                params: {
-                  id: recipeData.user_id,
-                  isSelfVisit: recipeData.user_id === user_id ? 1 : 0,
-                },
-              })
-            "
+      <div class="flex items-center justify-between">
+        <!-- User Info -->
+        <div class="flex items-center q-my-md">
+          <q-avatar
+            color="primary"
+            size="55px"
+            class="q-mr-md"
+            text-color="white"
+            >{{ userInitial }}</q-avatar
           >
-            {{ recipeData.username }}
-          </p>
-          <p class="text-18 text-grey-7">
-            {{ recipeData.createdAt?.split("T")[0] }}
-          </p>
+          <div class="flex-column text-18 q-ml-sm">
+            <p
+              class="text-24 text-semibold cursor-pointer"
+              @click="
+                router.push({
+                  name: 'profile',
+                  params: {
+                    id: recipeData.user_id,
+                    isSelfVisit: recipeData.user_id === user_id ? 1 : 0,
+                  },
+                })
+              "
+            >
+              {{ recipeData.username }}
+            </p>
+            <p class="text-18 text-grey-7">
+              {{ recipeData.createdAt?.split("T")[0] }}
+            </p>
+          </div>
+        </div>
+
+        <div v-if="recipeData.user_id === user_id">
+          <q-btn
+            square
+            color="primary"
+            round
+            flat
+            outlined
+            :ripple="false"
+            icon="edit"
+            @click="
+              router.push({ name: 'create', params: { id: route.params.id } })
+            "
+          />
         </div>
       </div>
 
@@ -204,6 +221,7 @@ import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { useCacheStore } from "../stores/cacheStore";
 import { LocalStorage } from "quasar";
+import { root } from 'postcss';
 
 const router = useRouter();
 const route = useRoute();
@@ -263,6 +281,7 @@ onMounted(() => {
   let payload = {
     id: route.params.id
   }
+
 
   GetRecipe(payload).then((response) => {
     if(response.status === 'success'){

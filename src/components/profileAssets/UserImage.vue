@@ -33,8 +33,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-console.log(props.profileBanner);
 </script>
 
 <style lang="scss" scoped>

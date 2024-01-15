@@ -7,7 +7,6 @@ const axiosConfig = {
   headers: {
     "Content-Type": "application/json",
   },
-  data: {},
 };
 
 // Be careful when using SSR for cross-request state pollution

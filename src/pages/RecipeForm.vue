@@ -6,10 +6,16 @@
     :duration="2000"
   >
     <div class="page--create">
-      <q-form class="form--create" ref="recipeForm" greedy @submit="sendForm">
+      <q-form
+        v-if="!pageLoadingState"
+        class="form--create"
+        ref="recipeForm"
+        greedy
+        @submit="sendForm"
+      >
         <!-- Recipe Name -->
         <h2 class="text-32 text-semibold q-py-lg text-center">
-          Create a Recipe
+          {{ route.params.id ? "Edit" : "Create" }} a Recipe
         </h2>
         <div class="q-mb-sm">
           <label for="recipe__name" class="text-18 text-medium q-mb-sm block"
@@ -312,27 +318,30 @@
             :loading="btnLoadingState"
             :disable="isBtnDisabled"
             type="submit"
-            >Create</q-btn
+            >{{ route.params.id ? "Update" : "Create" }}</q-btn
           >
         </div>
       </q-form>
+      <q-inner-loading :showing="pageLoadingState" color="accent-1" />
     </div>
   </transition>
 </template>
 
 <script setup>
 import Notification from "../composables/Notification";
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-import { CreateRecipe } from "../composables/Recipe";
+import { ref, computed, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { CreateRecipe, GetRecipe, UpdateRecipe } from "../composables/Recipe";
 import { useCacheStore } from "../stores/cacheStore";
 import { useQuasar } from "quasar";
 
 const $q = useQuasar();
 
 const router = useRouter();
+const route = useRoute();
 const caching = useCacheStore();
 
+let pageLoadingState = ref(false);
 const recipeForm = ref(null);
 const btnLoadingState = ref(false);
 const recipeName = ref("");
@@ -475,6 +484,27 @@ const sendForm = () => {
         instructions: modifiedInstrutions,
       };
 
+      if (route.params.id) {
+        recipeData.id = route.params.id;
+        UpdateRecipe(recipeData)
+          .then((response) => {
+            if (response.status === "success") {
+              caching.recentPosts = {};
+              router.push({ name: "recent" });
+              Notification.success($q, "Recipe updated successfully");
+            }
+          })
+          .catch((error) => {
+            Notification.error($q, "Something went wrong");
+            console.log(error);
+          })
+          .finally(() => {
+            btnLoadingState.value = false;
+          });
+
+        return;
+      }
+
       CreateRecipe(recipeData)
         .then((response) => {
           if (response.status === "success") {
@@ -493,6 +523,54 @@ const sendForm = () => {
     }
   });
 };
+
+onMounted(() => {
+  if (route.params.id) {
+    pageLoadingState.value = true;
+    GetRecipe({ id: route.params.id })
+      .then((response) => {
+        if (response.status === "success") {
+          recipeName.value = response.data.recipe_name;
+          recipeDescription.value = response.data.description;
+          recipePhoto.value = response.data.image_url;
+          recipeDifficulty.value = response.data.difficulty;
+          minTime.value = response.data.cooking_time.split(" - ")[0];
+          maxTime.value = response.data.cooking_time.split(" - ")[1];
+
+          recipeTagLists.value.forEach((tag) => {
+            if (response.data.categories.includes(tag.tagName)) {
+              tag.isClicked = true;
+              recipeTags.value.push(tag.tagName);
+            }
+          });
+
+          recipeIngredients.value.push(
+            ...response.data.ingredients.map((ingredient) => {
+              return {
+                name: ingredient,
+                isEditing: false,
+              };
+            })
+          );
+
+          recipeSteps.value.push(
+            ...response.data.instructions.map((instruction) => {
+              return {
+                name: instruction,
+                isEditing: false,
+              };
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        pageLoadingState.value = false;
+      });
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>
