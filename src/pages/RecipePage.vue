@@ -63,19 +63,6 @@
               </q-list>
             </q-menu>
           </q-btn>
-
-          <!-- <q-btn
-            square
-            color="primary"
-            round
-            flat
-            outlined
-            :ripple="false"
-            icon="edit"
-            @click="
-              router.push({ name: 'create', params: { id: route.params.id } })
-            "
-          /> -->
         </div>
       </div>
 
@@ -257,19 +244,29 @@
 
       <q-card-actions align="right">
         <q-btn flat label="Cancel" color="primary" v-close-popup />
-        <q-btn flat label="Delete" color="red" v-close-popup />
+        <q-btn
+          flat
+          label="Delete"
+          @click="deleteRecipe"
+          color="red"
+          v-close-popup
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
 
 <script setup lang="js">
-import { GetRecipe, AddNewComment } from '@composables/Recipe';
+import { GetRecipe, AddNewComment, Notifications } from '@composables/Recipe';
+import Quasar from 'quasar';
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { useCacheStore } from "../stores/cacheStore";
 import { LocalStorage } from "quasar";
 import { root } from 'postcss';
+
+
+const $q = Quasar;
 
 const router = useRouter();
 const route = useRoute();
@@ -311,6 +308,26 @@ const addComment = (comment) => {
     })
   }
 }
+
+// @raagas dito men lagay ka ng async magic mo para idelete ung recipe
+function deleteRecipe() {
+  let payload = {
+    id: route.params.id,
+  };
+
+  DeleteRecipe(payload)
+    .then((response) => {
+      if (response.status === "success") {
+        Notification.success($q,"Recipe deleted successfully");
+        router.push({ name: "home" });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+Notification.error($q,"Something went wrong");
+    });
+}
+
 
 onMounted(() => {
   pageLoadingState.value = true;
