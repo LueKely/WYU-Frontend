@@ -54,7 +54,7 @@
 
                 <q-separator />
                 <!-- add delete section here mah nigga -->
-                <q-item clickable>
+                <q-item @click="confirmDelete = true" clickable>
                   <q-item-section avatar>
                     <q-icon color="red" name="delete" />
                   </q-item-section>
@@ -244,6 +244,23 @@
     </div>
     <q-inner-loading :showing="pageLoadingState" color="accent-1" />
   </div>
+
+  <!-- TO @raagas men dito ilalagay ung async function para idelete ung recipe -->
+  <q-dialog v-model="confirmDelete" persistent>
+    <q-card>
+      <q-card-section class="row items-center">
+        <q-avatar icon="warning" color="red" text-color="white" />
+        <span class="q-ml-sm"
+          >Are you sure you want to delete this recipe?</span
+        >
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancel" color="primary" v-close-popup />
+        <q-btn flat label="Delete" color="red" v-close-popup />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup lang="js">
@@ -263,6 +280,7 @@ const pageLoadingState = ref(false);
 const userInitial = ref("");
 const userComment = ref("");
 const comments = ref([]);
+const confirmDelete = ref(false);
 
 let numberOfLikes = ref(0);
 let numberOfFavorites = ref(0);
