@@ -32,19 +32,37 @@
           </div>
         </div>
 
+        <!-- edit and delete function -->
         <div v-if="recipeData.user_id === user_id">
-          <q-btn
-            square
-            color="primary"
-            round
-            flat
-            outlined
-            :ripple="false"
-            icon="edit"
-            @click="
-              router.push({ name: 'create', params: { id: route.params.id } })
-            "
-          />
+          <q-btn flat color="primary" size="lg" rounded icon="more_vert">
+            <q-menu anchor="bottom middle" self="top middle">
+              <q-list style="min-width: 100px">
+                <q-item
+                  clickable
+                  @click="
+                    router.push({
+                      name: 'create',
+                      params: { id: route.params.id },
+                    })
+                  "
+                >
+                  <q-item-section avatar>
+                    <q-icon color="blue" name="edit" />
+                  </q-item-section>
+                  <q-item-section>Edit </q-item-section>
+                </q-item>
+
+                <q-separator />
+                <!-- add delete section here mah nigga -->
+                <q-item @click="confirmDelete = true" clickable>
+                  <q-item-section avatar>
+                    <q-icon color="red" name="delete" />
+                  </q-item-section>
+                  <q-item-section>Delete</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
         </div>
       </div>
 
@@ -213,15 +231,42 @@
     </div>
     <q-inner-loading :showing="pageLoadingState" color="accent-1" />
   </div>
+
+  <!-- dialogue for when the user wants to deletes their recipe -->
+  <q-dialog v-model="confirmDelete" persistent>
+    <q-card>
+      <q-card-section class="row items-center">
+        <q-avatar icon="warning" color="red" text-color="white" />
+        <span class="q-ml-sm"
+          >Are you sure you want to delete this recipe?</span
+        >
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancel" color="primary" v-close-popup />
+        <q-btn
+          flat
+          label="Delete"
+          @click="deleteRecipe"
+          color="red"
+          v-close-popup
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup lang="js">
-import { GetRecipe, AddNewComment } from '@composables/Recipe';
+import { GetRecipe, AddNewComment, Notifications } from '@composables/Recipe';
+import Quasar from 'quasar';
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { useCacheStore } from "../stores/cacheStore";
 import { LocalStorage } from "quasar";
 import { root } from 'postcss';
+
+
+const $q = Quasar;
 
 const router = useRouter();
 const route = useRoute();
@@ -232,6 +277,7 @@ const pageLoadingState = ref(false);
 const userInitial = ref("");
 const userComment = ref("");
 const comments = ref([]);
+const confirmDelete = ref(false);
 
 let numberOfLikes = ref(0);
 let numberOfFavorites = ref(0);
@@ -262,6 +308,26 @@ const addComment = (comment) => {
     })
   }
 }
+
+// @raagas dito men lagay ka ng async magic mo para idelete ung recipe
+function deleteRecipe() {
+  let payload = {
+    id: route.params.id,
+  };
+// insert magic here
+  DeleteRecipe(payload)
+    .then((response) => {
+      if (response.status === "success") {
+        Notification.success($q,"Recipe deleted successfully");
+        router.push({ name: "home" });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+Notification.error($q,"Something went wrong");
+    });
+}
+
 
 onMounted(() => {
   pageLoadingState.value = true;
