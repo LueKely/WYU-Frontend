@@ -232,7 +232,7 @@
     <q-inner-loading :showing="pageLoadingState" color="accent-1" />
   </div>
 
-  <!-- TO @raagas men dito ilalagay ung async function para idelete ung recipe -->
+  <!-- dialogue for when the user wants to deletes their recipe -->
   <q-dialog v-model="confirmDelete" persistent>
     <q-card>
       <q-card-section class="row items-center">
@@ -314,7 +314,7 @@ function deleteRecipe() {
   let payload = {
     id: route.params.id,
   };
-
+// insert magic here
   DeleteRecipe(payload)
     .then((response) => {
       if (response.status === "success") {
