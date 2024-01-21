@@ -103,7 +103,8 @@
   align-items: flex-start;
   justify-content: space-evenly;
   transition: transform 0.3s ease-in-out;
-  transform: translate(0, 190px);
+  // adjust the translate value to move the card up and down
+  transform: translate(0, 170px);
 
   padding: 10px;
   // background: rgb(48, 45, 45);
