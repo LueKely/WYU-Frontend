@@ -6,7 +6,7 @@
     :duration="2000"
   >
     <div class="page page--search">
-      <div class="container--search">
+      <div v-if="!pageLoadingState" class="container--search">
         <div class="search__container--text">
           <h3 class="font-bold text-32">Category: {{ category }}</h3>
         </div>
@@ -30,8 +30,8 @@
             </div>
           </div>
         </div>
-        <q-inner-loading :showing="pageLoadingState" color="accent-2" />
       </div>
+      <q-inner-loading :showing="pageLoadingState" color="accent-2" />
     </div>
   </transition>
 </template>

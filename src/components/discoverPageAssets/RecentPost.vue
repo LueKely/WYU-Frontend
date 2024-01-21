@@ -19,7 +19,7 @@
     <p v-else class="empty-data flex flex-center q-pa-lg text-24">
       No recipe posts found.
     </p>
-    <q-inner-loading :showing="carouselLoadingState" />
+    <q-inner-loading :showing="carouselLoadingState" color="accent-2" />
   </section>
 </template>
 
@@ -33,7 +33,7 @@ import { LocalStorage } from "quasar";
 
 provide("isRecipe", true);
 const router = useRouter();
-const carouselLoadingState = ref(true);
+let carouselLoadingState = ref(true);
 const recipesData = ref([]);
 const userStore = useUserStore();
 

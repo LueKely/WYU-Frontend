@@ -39,6 +39,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   height: 100%;
+  padding-top: 20px;
 }
 
 .results--error {
@@ -63,9 +64,9 @@
   justify-items: center;
   flex-wrap: wrap;
 
-  width: 620px;
+  width: 800px;
 
-  gap: 15px 10px;
+  gap: 24px 15px;
 }
 
 .card--search {

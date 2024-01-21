@@ -229,7 +229,7 @@
         </div>
       </div>
     </div>
-    <q-inner-loading :showing="pageLoadingState" color="accent-1" />
+    <q-inner-loading :showing="pageLoadingState" color="accent-2" />
   </div>
 
   <!-- dialogue for when the user wants to deletes their recipe -->
