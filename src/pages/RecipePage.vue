@@ -257,16 +257,16 @@
 </template>
 
 <script setup lang="js">
-import { GetRecipe, AddNewComment, Notifications } from '@composables/Recipe';
-import Quasar from 'quasar';
+import {useQuasar} from 'quasar';
+import { LocalStorage } from "quasar";
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from 'vue-router';
+
 import { useCacheStore } from "../stores/cacheStore";
-import { LocalStorage } from "quasar";
-import { root } from 'postcss';
+import Notification from "@composables/Notification";
+import { GetRecipe, AddNewComment, DeleteRecipe } from '@composables/Recipe';
 
-
-const $q = Quasar;
+const $q = useQuasar();
 
 const router = useRouter();
 const route = useRoute();
@@ -319,12 +319,12 @@ function deleteRecipe() {
     .then((response) => {
       if (response.status === "success") {
         Notification.success($q,"Recipe deleted successfully");
-        router.push({ name: "home" });
+        router.push({name: 'recent'});
       }
     })
     .catch((error) => {
       console.log(error);
-Notification.error($q,"Something went wrong");
+      Notification.error($q,"Something went wrong");
     });
 }
 

@@ -120,6 +120,25 @@ const UpdateRecipe = (payload) => {
   });
 };
 
+const DeleteRecipe = (payload) => {
+  return new Promise((resolve, reject) => {
+    api
+      .delete(`recipe/delete/?id=${payload.id}`, {
+        headers: {
+          Authorization: `Bearer ${
+            userStore.getToken || LocalStorage.getItem("Bearer")
+          }`,
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
 const LikeORUnlike = (payload) => {
   return new Promise((resolve, reject) => {
     api
@@ -183,8 +202,9 @@ export {
   GetRecipeByName,
   GetRecipeByCategory,
   CreateRecipe,
+  UpdateRecipe,
+  DeleteRecipe,
   LikeORUnlike,
   SaveOrUnsave,
   AddNewComment,
-  UpdateRecipe,
 };
