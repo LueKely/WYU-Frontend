@@ -50,8 +50,8 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import FacebookIcon from "@profile/facebookIcon.vue";
-import TwitterIcon from "@profile/twitterIcon.vue";
+import FacebookIcon from "@profile/FacebookIcon.vue";
+import TwitterIcon from "@profile/TwitterIcon.vue";
 import InstagramIcon from "./InstagramIcon.vue";
 
 const emit = defineEmits(["sendSignal"]);
