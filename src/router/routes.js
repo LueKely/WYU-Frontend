@@ -1,7 +1,3 @@
-import { useRoute } from "vue-router";
-
-const router = useRoute();
-
 const routes = [
   {
     path: "/",
