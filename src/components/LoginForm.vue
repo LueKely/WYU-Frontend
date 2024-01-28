@@ -1,6 +1,10 @@
 <template>
   <div class="column items-center justify-center q-mb-lg">
-    <q-icon class="q-my-md" name="img:/wyu-icon.svg" size="8rem" />
+    <q-img
+      class="q-my-md"
+      src="../../public/wyu-icon.svg"
+      style="height: 140px; max-width: 150px"
+    />
     <h4 class="q-my-sm">Sign in</h4>
   </div>
   <div class="error q-mb-md">
