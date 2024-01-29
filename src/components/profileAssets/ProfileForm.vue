@@ -26,13 +26,14 @@
         lazy-rules
         :rules="[(val) => (val && val.length > 5) || 'Please type something']"
       />
-      <!-- username -->
+      <!-- user bio -->
       <q-input
         filled
         v-model="formInput.user_bio"
         label="User Bio *"
         lazy-rules
         :rules="[(val) => (val && val.length > 5) || 'Please type something']"
+        type="textarea"
       />
       <!-- profile picture -->
       <q-input
