@@ -384,7 +384,15 @@ const saveToggled = ref(false);
 // like and bookmark functions
 
 const LikeOrUnlikePost = (recipeId) => {
-  heartToggled.value = !heartToggled.value;
+  if( heartToggled.value){
+    heartToggled.value = false;
+    numberOfLikes.value -= 1;
+  }else{
+    heartToggled.value = true;
+    numberOfLikes.value += 1;
+  }
+
+
 
   let payload = {
     user_id: user_id,
