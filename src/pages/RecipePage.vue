@@ -98,6 +98,48 @@
             numberOfFavorites
           }}</span>
         </div>
+
+        <!-- add the shits -->
+        <div class="interactions flex q-gutter-md q-mt-xs items-center">
+          <div
+            class="heart cursor-pointer"
+            @click="LikeOrUnlikePost(route.params.id)"
+          >
+            <q-img
+              v-if="!heartToggled"
+              loading="lazy"
+              no-spinner
+              src="../assets/heart_outlined.svg"
+              width="30px"
+            />
+            <q-img
+              v-else
+              loading="lazy"
+              no-spinner
+              src="../assets/heart_filled.svg"
+              width="30px"
+            />
+          </div>
+          <div
+            class="save cursor-pointer"
+            @click="SaveOrUnsavePost(route.params.id)"
+          >
+            <q-img
+              v-if="!saveToggled"
+              loading="lazy"
+              no-spinner
+              src="../assets/save_outline.svg"
+              width="30px"
+            />
+            <q-img
+              v-else
+              loading="lazy"
+              no-spinner
+              src="../assets/save_filled.svg"
+              width="30px"
+            />
+          </div>
+        </div>
       </div>
 
       <div class="recipe-page__container__recipe-information">
@@ -266,6 +308,10 @@ import { useCacheStore } from "../stores/cacheStore";
 import Notification from "@composables/Notification";
 import { GetRecipe, AddNewComment, DeleteRecipe } from '@composables/Recipe';
 
+import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
+
+
+
 const $q = useQuasar();
 
 const router = useRouter();
@@ -274,6 +320,7 @@ const caching = useCacheStore();
 const recipeData = ref({});
 const pageLoadingState = ref(false);
 
+console.log(route.params.id);
 const userInitial = ref("");
 const userComment = ref("");
 const comments = ref([]);
@@ -329,6 +376,62 @@ function deleteRecipe() {
 }
 
 
+
+
+const heartToggled = ref(false);
+const saveToggled = ref(false);
+
+// like and bookmark functions
+
+const LikeOrUnlikePost = (recipeId) => {
+  heartToggled.value = !heartToggled.value;
+
+  let payload = {
+    user_id: user_id,
+    recipe_id: recipeId,
+  };
+
+  LikeORUnlike(payload)
+    .then((response) => {
+      if (response.status === "success") {
+        caching.recentPosts = {};
+        delete caching.recipe.recipes[recipeId];
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const SaveOrUnsavePost = (recipeId) => {
+
+  if(saveToggled.value){
+    saveToggled.value = !saveToggled.value;
+    numberOfFavorites.value -= 1;
+  }else{
+    saveToggled.value = !saveToggled.value;
+    numberOfFavorites.value += 1;
+    Notification.success($q,"Recipe saved successfully");
+  }
+
+  let payload = {
+    user_id: user_id,
+    recipe_id: recipeId,
+  };
+
+  SaveOrUnsave(payload)
+    .then((response) => {
+      if (response.status === "success") {
+        caching.recentPosts = {};
+        delete caching.recipe.recipes[recipeId];
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+
 onMounted(() => {
   pageLoadingState.value = true;
 
@@ -344,11 +447,12 @@ onMounted(() => {
     return;
   }
 
+
+
+
   let payload = {
     id: route.params.id
   }
-
-
   GetRecipe(payload).then((response) => {
     if(response.status === 'success'){
       recipeData.value = response.data;
@@ -357,12 +461,35 @@ onMounted(() => {
       numberOfFavorites.value = recipeData.value.saves.length;
       userInitial.value = recipeData.value.username.charAt(0).toUpperCase();
       caching.setRecipeCache(recipeData.value._id, recipeData.value);
+      console.log(recipeData.value);
+
+      if (recipeData.value.likes.length > 0) {
+  recipeData.value.likes.forEach((like) => {
+      if (like.user_id === user_id) {
+        heartToggled.value = true;
+      }
+    });
+  }
+
+  if (recipeData.value.saves.length > 0) {
+    recipeData.value.saves.forEach((save) => {
+      if (save.user_id === user_id) {
+        saveToggled.value = true;
+      }
+    });
+  }
+
+
     }
     }).catch((error) => {
       console.log(error)
     }).finally(() => {
       pageLoadingState.value = false;
     })
+
+
+
+
 })
 </script>
 
