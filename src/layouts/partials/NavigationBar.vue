@@ -42,12 +42,22 @@
           }"
           exact
         />
+
+        <q-route-tab
+          :ripple="false"
+          name="posts"
+          label="Posts"
+          :to="{
+            name: 'recent',
+          }"
+          exact
+        />
       </q-tabs>
 
       <q-space />
 
       <q-avatar color="primary" class="q-mr-sm" text-color="white">
-        {{ username.charAt(0).toUpperCase() }}
+        <img :src="currentUser.user_profile_image" alt="User Profile Image" />
       </q-avatar>
       <LogoutButton />
     </q-toolbar>

@@ -35,20 +35,23 @@
         <!-- Image Input -->
         <div class="q-mb-sm">
           <label for="recipe__photo" class="text-18 text-medium q-mb-sm block"
-            >Photo Url</label
+            >Recipe Image</label
           >
-          <q-input
+          <q-file
             id="recipe__photo"
             :rules="[
               (val) => !!val || '* Required',
-
-              (val) => /^https?:\/\/\S+$/.test(val) || 'Invalid URL',
+              (val) =>
+                /\.(jpg|jpeg|png|webp)$/i.test(val.name) ||
+                'Invalid File Format(Only jpg, jpeg, png, webp allowed)',
             ]"
+            label="Upload Recipe Image"
+            accept=".jpg, .pdf, image/*"
             outlined
             v-model="recipePhoto"
           >
             <template v-slot:prepend> <q-icon name="photo_library" /> </template
-          ></q-input>
+          ></q-file>
         </div>
         <div class="form__part--dropdown q-mb-sm">
           <!-- drop down -->
@@ -329,23 +332,25 @@
 
 <script setup>
 import Notification from "../composables/Notification";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { CreateRecipe, GetRecipe, UpdateRecipe } from "../composables/Recipe";
 import { useCacheStore } from "../stores/cacheStore";
-import { useQuasar } from "quasar";
+import { useQuasar, LocalStorage } from "quasar";
+import { uploadImage } from "../composables/UploadImage";
 
 const $q = useQuasar();
 
 const router = useRouter();
 const route = useRoute();
 const caching = useCacheStore();
+const current_user = ref(LocalStorage.getItem("c_user"));
 
 let pageLoadingState = ref(false);
 const recipeForm = ref(null);
 const btnLoadingState = ref(false);
 const recipeName = ref("");
-const recipePhoto = ref("");
+const recipePhoto = ref(null);
 const recipeDifficulty = ref("difficulty");
 const minTime = ref(0);
 const maxTime = ref(0);
@@ -462,7 +467,7 @@ const addTag = (tag) => {
 const sendForm = () => {
   btnLoadingState.value = true;
 
-  recipeForm.value.validate().then((success) => {
+  recipeForm.value.validate().then(async (success) => {
     if (success) {
       // Get all the ingredients and instructions
       let modifiedIngredients = recipeIngredients.value.map((ingredient) => {
@@ -473,58 +478,67 @@ const sendForm = () => {
         return step.name;
       });
 
-      const recipeData = {
-        recipe_name: recipeName.value,
-        image_url: recipePhoto.value,
-        difficulty: recipeDifficulty.value,
-        cooking_time: recipeTime.value,
-        categories: [...recipeTags.value],
-        description: recipeDescription.value,
-        ingredients: modifiedIngredients,
-        instructions: modifiedInstrutions,
-      };
-
-      if (route.params.id) {
-        recipeData.id = route.params.id;
-        UpdateRecipe(recipeData)
-          .then((response) => {
-            if (response.status === "success") {
-              caching.recentPosts = {};
-              router.push({ name: "recent" });
-              Notification.success($q, "Recipe updated successfully");
-            }
-          })
-          .catch((error) => {
-            Notification.error($q, "Something went wrong");
-            console.log(error);
-          })
-          .finally(() => {
-            btnLoadingState.value = false;
-          });
-
-        return;
-      }
-
-      CreateRecipe(recipeData)
+      uploadImage(recipePhoto.value, current_user.value.id)
         .then((response) => {
-          if (response.status === "success") {
-            caching.recentPosts = {};
-            router.push({ name: "recent" });
-            Notification.success($q, "Recipe created successfully");
+          recipePhoto.value = response;
+
+          const recipeData = {
+            recipe_name: recipeName.value,
+            image_url: recipePhoto.value,
+            difficulty: recipeDifficulty.value,
+            cooking_time: recipeTime.value,
+            categories: [...recipeTags.value],
+            description: recipeDescription.value,
+            ingredients: modifiedIngredients,
+            instructions: modifiedInstrutions,
+          };
+
+          if (route.params.id) {
+            recipeData.id = route.params.id;
+            UpdateRecipe(recipeData)
+              .then((response) => {
+                if (response.status === "success") {
+                  caching.recentPosts = {};
+                  router.push({ name: "recent" });
+                  Notification.success($q, "Recipe updated successfully");
+                }
+              })
+              .catch((error) => {
+                Notification.error($q, "Something went wrong");
+                console.log(error);
+              })
+              .finally(() => {
+                btnLoadingState.value = false;
+              });
+
+            return;
           }
+
+          CreateRecipe(recipeData)
+            .then((response) => {
+              if (response.status === "success") {
+                caching.recentPosts = {};
+                router.push({ name: "recent" });
+                Notification.success($q, "Recipe created successfully");
+              }
+            })
+            .catch((error) => {
+              Notification.error($q, "Something went wrong");
+              console.log(error);
+            })
+            .finally(() => {
+              btnLoadingState.value = false;
+            });
         })
         .catch((error) => {
-          Notification.error($q, "Something went wrong");
           console.log(error);
-        })
-        .finally(() => {
-          btnLoadingState.value = false;
         });
     }
   });
 };
 
 onMounted(() => {
+  console.log(import.meta.env.VITE_FIREBASE_API_KEY);
   if (route.params.id) {
     pageLoadingState.value = true;
     GetRecipe({ id: route.params.id })

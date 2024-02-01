@@ -36,29 +36,39 @@
         type="textarea"
       />
       <!-- profile picture -->
-      <q-input
-        filled
+      <q-file
+        id="user_profile"
+        :rules="[
+          (val) => !!val || '* Required',
+          (val) =>
+            /\.(jpg|jpeg|png|webp)$/i.test(val.name) ||
+            'Invalid File Format(Only jpg, jpeg, png, webp allowed)',
+        ]"
+        accept=".jpg, .pdf, image/*"
+        outlined
         v-model="formInput.user_profile_image"
-        label="Profile Picture URL *"
         lazy-rules
-        :rules="[
-          (val) =>
-            (val && /^https?:\/\/.*$/.test(val)) ||
-            'Please enter a valid image URL',
-        ]"
-      />
+        label="Upload Profile Image"
+      >
+        <template v-slot:prepend> <q-icon name="photo_library" /> </template
+      ></q-file>
       <!-- banner -->
-      <q-input
-        filled
-        v-model="formInput.user_bg_image"
-        label="Banner Picture URL *"
-        lazy-rules
+      <q-file
+        id="user_profile"
         :rules="[
+          (val) => !!val || '* Required',
           (val) =>
-            (val && /^https?:\/\/.*$/.test(val)) ||
-            'Please enter a valid image URL',
+            /\.(jpg|jpeg|png|webp)$/i.test(val.name) ||
+            'Invalid File Format(Only jpg, jpeg, png, webp allowed)',
         ]"
-      />
+        accept=".jpg, .pdf, image/*"
+        outlined
+        v-model="formInput.user_bg_image"
+        lazy-rules
+        label="Upload Banner Image"
+      >
+        <template v-slot:prepend> <q-icon name="photo_library" /> </template
+      ></q-file>
       <!-- facebook -->
       <q-input
         filled
@@ -119,6 +129,7 @@ import { useQuasar } from "quasar";
 import { computed, reactive, ref } from "vue";
 import Notification from "../../composables/Notification";
 import { EditUserInfo } from "@composables/UserProfile";
+import { uploadProfileImages } from "@composables/UploadImage";
 
 const emit = defineEmits(["sendSignal"]);
 const props = defineProps({
@@ -181,26 +192,39 @@ function onSubmit() {
   btnLoadingState.value = true;
   form.value.validate().then((success) => {
     if (success) {
-      let payload = {
-        id: props.user?._id,
-        email: props.user?.email,
-        ...formInput,
-      };
-      // put the axios gaming here
-      EditUserInfo(payload)
+      uploadProfileImages(
+        formInput.user_profile_image,
+        formInput.user_bg_image,
+        props.user?._id
+      )
         .then((response) => {
-          if (response.status === "success") {
-            Notification.success($q, "Edit successful");
-            // this will refresh the page
-            router.go();
-          }
+          formInput.user_profile_image = response.profile;
+          formInput.user_bg_image = response.banner;
+
+          let payload = {
+            id: props.user?._id,
+            email: props.user?.email,
+            ...formInput,
+          };
+
+          EditUserInfo(payload)
+            .then((response) => {
+              if (response.status === "success") {
+                Notification.success($q, "Edit successful");
+                // this will refresh the page
+                router.go();
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              Notification.error($q, "An Error has occured");
+            })
+            .finally(() => {
+              btnLoadingState.value = false;
+            });
         })
         .catch((error) => {
           console.log(error);
-          Notification.error($q, "An Error has occured");
-        })
-        .finally(() => {
-          btnLoadingState.value = false;
         });
     }
   });

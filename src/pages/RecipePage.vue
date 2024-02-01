@@ -9,8 +9,20 @@
             size="55px"
             class="q-mr-md"
             text-color="white"
-            >{{ userInitial }}</q-avatar
           >
+            <img
+              v-if="recipeData.user_profile_image != ''"
+              :src="recipeData.user_profile_image"
+              alt="User Profile Image"
+            />
+            <span v-else>{{
+              recipeData?.username.charAt(0).toUpperCase()
+            }}</span>
+            <img
+              :src="recipeData.user_profile_image"
+              alt="User Profile Image"
+            />
+          </q-avatar>
           <div class="flex-column text-18 q-ml-sm">
             <p
               class="text-24 text-semibold cursor-pointer"
@@ -76,8 +88,21 @@
         />
       </div>
       <div class="interactions flex q-gutter-md q-mt-xs items-center q-mb-sm">
-        <div class="heart">
+        <!-- add the shits -->
+        <div
+          class="heart cursor-pointer"
+          @click="LikeOrUnlikePost(route.params.id)"
+        >
           <q-img
+            v-if="!heartToggled"
+            loading="lazy"
+            no-spinner
+            src="../assets/heart_outlined.svg"
+            width="30px"
+          />
+
+          <q-img
+            v-else
             loading="lazy"
             no-spinner
             src="../assets/heart_filled.svg"
@@ -87,8 +112,19 @@
             numberOfLikes
           }}</span>
         </div>
-        <div>
+        <div
+          class="save cursor-pointer"
+          @click="SaveOrUnsavePost(route.params.id)"
+        >
           <q-img
+            v-if="!saveToggled"
+            loading="lazy"
+            no-spinner
+            src="../assets/save_outline.svg"
+            width="30px"
+          />
+          <q-img
+            v-else
             loading="lazy"
             no-spinner
             src="../assets/save_filled.svg"
@@ -97,48 +133,6 @@
           <span class="block text-center text-12 q-mt-xs">{{
             numberOfFavorites
           }}</span>
-        </div>
-
-        <!-- add the shits -->
-        <div class="interactions flex q-gutter-md q-mt-xs items-center">
-          <div
-            class="heart cursor-pointer"
-            @click="LikeOrUnlikePost(route.params.id)"
-          >
-            <q-img
-              v-if="!heartToggled"
-              loading="lazy"
-              no-spinner
-              src="../assets/heart_outlined.svg"
-              width="30px"
-            />
-            <q-img
-              v-else
-              loading="lazy"
-              no-spinner
-              src="../assets/heart_filled.svg"
-              width="30px"
-            />
-          </div>
-          <div
-            class="save cursor-pointer"
-            @click="SaveOrUnsavePost(route.params.id)"
-          >
-            <q-img
-              v-if="!saveToggled"
-              loading="lazy"
-              no-spinner
-              src="../assets/save_outline.svg"
-              width="30px"
-            />
-            <q-img
-              v-else
-              loading="lazy"
-              no-spinner
-              src="../assets/save_filled.svg"
-              width="30px"
-            />
-          </div>
         </div>
       </div>
 
@@ -210,10 +204,16 @@
                     size="45px"
                     class="q-mr-md block"
                     text-color="white"
-                    >{{
-                      currentUser.username.charAt(0).toUpperCase()
-                    }}</q-avatar
                   >
+                    <img
+                      v-if="currentUser.user_profile_image != ''"
+                      :src="currentUser.user_profile_image"
+                      alt="User Profile Image"
+                    />
+                    <span v-else>{{
+                      currentUser?.username.charAt(0).toUpperCase()
+                    }}</span>
+                  </q-avatar>
                 </div>
                 <div class="input">
                   <q-input
@@ -250,8 +250,16 @@
                   size="45px"
                   class="q-mr-md"
                   text-color="white"
-                  >{{ comment.username.charAt(0).toUpperCase() }}</q-avatar
                 >
+                  <img
+                    v-if="comment.user_profile_image != ''"
+                    :src="comment.user_profile_image"
+                    alt="User Profile Image"
+                  />
+                  <span v-else>{{
+                    comment.username.charAt(0).toUpperCase()
+                  }}</span>
+                </q-avatar>
               </div>
               <div>
                 <h3 class="text-18 text-medium q-mb-xs">

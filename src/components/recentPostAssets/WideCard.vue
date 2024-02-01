@@ -7,8 +7,16 @@
           size="55px"
           class="q-mr-md"
           text-color="white"
-          >{{ userInitials }}</q-avatar
         >
+          <img
+            v-if="props.recipeData.user_profile_image != ''"
+            :src="props.recipeData.user_profile_image"
+            alt="User Profile Image"
+          />
+          <span v-else>{{
+            props.recipeData?.username.charAt(0).toUpperCase()
+          }}</span>
+        </q-avatar>
         <div class="user__container--text text-18">
           <p
             class="text-18 text-semibold cursor-pointer"
