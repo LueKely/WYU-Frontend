@@ -328,7 +328,6 @@ const caching = useCacheStore();
 const recipeData = ref({});
 const pageLoadingState = ref(false);
 
-console.log(route.params.id);
 const userInitial = ref("");
 const userComment = ref("");
 const comments = ref([]);
@@ -477,7 +476,6 @@ onMounted(() => {
       numberOfFavorites.value = recipeData.value.saves.length;
       userInitial.value = recipeData.value.username.charAt(0).toUpperCase();
       caching.setRecipeCache(recipeData.value._id, recipeData.value);
-      console.log(recipeData.value);
 
       if (recipeData.value.likes.length > 0) {
   recipeData.value.likes.forEach((like) => {
