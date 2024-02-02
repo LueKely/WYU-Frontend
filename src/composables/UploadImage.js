@@ -14,7 +14,6 @@ const uploadImage = async (file, user_id) => {
     uploadBytes(filePath, file)
       .then(async (snapshot) => {
         url.value = await getDownloadURL(snapshot.ref);
-        print(url.value);
         resolve(url.value);
       })
       .catch((err) => {
