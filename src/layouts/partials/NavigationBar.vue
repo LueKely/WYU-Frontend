@@ -57,7 +57,8 @@
       <q-space />
 
       <q-avatar color="primary" class="q-mr-sm" text-color="white">
-        <img :src="currentUser.user_profile_image" alt="User Profile Image" />
+        <img v-if="currentUser.user_profile_image" :src="currentUser.user_profile_image" alt="User Profile Image" />
+        <span v-else> {{currentUser.username.charAt(0).toUpperCase()}} </span>
       </q-avatar>
       <LogoutButton />
     </q-toolbar>
