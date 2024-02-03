@@ -11,17 +11,13 @@
             text-color="white"
           >
             <img
-              v-if="recipeData.user_profile_image != ''"
-              :src="recipeData.user_profile_image"
+              v-if="recipeData?.user_profile_image !== ''"
+              :src="recipeData?.user_profile_image"
               alt="User Profile Image"
             />
             <span v-else>{{
-              recipeData?.username.charAt(0).toUpperCase()
+              recipeData?.username?.charAt(0).toUpperCase()
             }}</span>
-            <img
-              :src="recipeData.user_profile_image"
-              alt="User Profile Image"
-            />
           </q-avatar>
           <div class="flex-column text-18 q-ml-sm">
             <p
@@ -471,6 +467,7 @@ onMounted(() => {
   GetRecipe(payload).then((response) => {
     if(response.status === 'success'){
       recipeData.value = response.data;
+      console.log(Boolean(recipeData.value.user_profile_image));
       comments.value = recipeData.value.comments;
       numberOfLikes.value = recipeData.value.likes.length;
       numberOfFavorites.value = recipeData.value.saves.length;
