@@ -2,10 +2,10 @@
   <div class="page">
     <q-form ref="form" @submit="onSubmit" class="register__container">
       <div class="register__text q-mb-xl">
-        <q-avatar size="150px" square>
+        <q-avatar size="130px" square>
           <q-img src="/wyu-icon.svg" fit="cover"></q-img>
         </q-avatar>
-        <h1 class="text-bold text-32 q-mt-sm">Register</h1>
+        <h1 class="text-bold text-32 q-mt-md">Register</h1>
       </div>
       <div class="row name__container">
         <q-input
@@ -48,7 +48,7 @@
       >
         <template v-slot:hint> Must be atleast 8 characters long </template>
       </q-input>
-      <div class="btn--register">
+      <div class="btn--register q-mt-sm">
         <q-btn
           label="Submit"
           type="submit"
@@ -63,11 +63,11 @@
 </template>
 
 <script setup>
-import { useQuasar } from "quasar";
 import { ref, computed } from "vue";
+import { useQuasar } from "quasar";
 import { useRouter } from "vue-router";
 
-import { RegisterUser } from "@composables/Authentication";
+import { RegisterUser } from "../../composables/Authentication";
 import Notification from "../../composables/Notification";
 
 const $q = useQuasar();

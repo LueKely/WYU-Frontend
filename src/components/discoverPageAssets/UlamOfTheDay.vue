@@ -198,7 +198,7 @@ section {
   justify-content: flex-end;
 }
 
-.ulam__info > {
+.ulam__info {
   color: #ffffff;
 }
 </style>

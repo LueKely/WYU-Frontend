@@ -1,10 +1,8 @@
 <template>
-  <div class="column items-center justify-center q-mb-lg">
-    <q-img
-      class="q-my-md"
-      src="/wyu-icon.svg"
-      style="height: 140px; max-width: 150px"
-    />
+  <div class="column items-center justify-center q-my-lg">
+    <q-avatar size="120px" square>
+      <q-img src="/wyu-icon.svg" fit="cover"></q-img>
+    </q-avatar>
     <h4 class="q-my-sm">Sign in</h4>
   </div>
   <div class="error q-mb-md">
@@ -13,7 +11,7 @@
     </div>
   </div>
 
-  <q-form ref="form" greedy @submit="login">
+  <q-form ref="form" @submit="login">
     <label for="username" class="font text-18 q-mb-sm">Username/Email</label>
     <q-input
       @focus="clearError"
