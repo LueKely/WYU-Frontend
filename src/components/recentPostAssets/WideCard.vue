@@ -93,14 +93,14 @@
             v-if="!heartToggled"
             loading="lazy"
             no-spinner
-            src="../../assets/heart_outlined.svg"
+            src="../../assets/icons/heart_outlined.svg"
             width="30px"
           />
           <q-img
             v-else
             loading="lazy"
             no-spinner
-            src="../../assets/heart_filled.svg"
+            src="../../assets/icons/heart_filled.svg"
             width="30px"
           />
         </div>
@@ -112,14 +112,14 @@
             v-if="!saveToggled"
             loading="lazy"
             no-spinner
-            src="../../assets/save_outline.svg"
+            src="../../assets/icons/save_outline.svg"
             width="30px"
           />
           <q-img
             v-else
             loading="lazy"
             no-spinner
-            src="../../assets/save_filled.svg"
+            src="../../assets/icons/save_filled.svg"
             width="30px"
           />
         </div>
@@ -144,10 +144,6 @@ const props = defineProps({
 
 const caching = useCacheStore();
 const router = useRouter();
-
-const userInitials = computed(() => {
-  return props.recipeData.username.charAt(0);
-});
 
 const ingridientCount = computed(() => {
   return props.recipeData.ingredients.length;
@@ -217,5 +213,3 @@ const SaveOrUnsavePost = (recipeId) => {
     });
 };
 </script>
-
-<style lang="scss" scoped></style>

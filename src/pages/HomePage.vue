@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import NavigationBar from "@partials/NavigationBar.vue";
+import NavigationBar from "../layouts/partials/NavigationBar.vue";
 </script>
 
 <style lang="scss" scoped>

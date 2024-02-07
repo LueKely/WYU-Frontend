@@ -25,9 +25,9 @@
 </template>
 
 <script setup>
-import UlamOfTheDay from "@discover/UlamOfTheDay.vue";
-import RecentPost from "@discover/RecentPost.vue";
-import CategoriesSection from "@discover/CategoriesSection.vue";
+import UlamOfTheDay from "../components/discoverPageAssets/UlamOfTheDay.vue";
+import RecentPost from "../components/discoverPageAssets/RecentPost.vue";
+import CategoriesSection from "../components/discoverPageAssets/CategoriesSection.vue";
 </script>
 
 <style lang="scss" scoped>

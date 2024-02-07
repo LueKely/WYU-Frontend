@@ -57,8 +57,12 @@
       <q-space />
 
       <q-avatar color="primary" class="q-mr-sm" text-color="white">
-        <img v-if="currentUser.user_profile_image" :src="currentUser.user_profile_image" alt="User Profile Image" />
-        <span v-else> {{currentUser.username.charAt(0).toUpperCase()}} </span>
+        <img
+          v-if="currentUser.user_profile_image"
+          :src="currentUser.user_profile_image"
+          alt="User Profile Image"
+        />
+        <span v-else> {{ currentUser.username.charAt(0).toUpperCase() }} </span>
       </q-avatar>
       <LogoutButton />
     </q-toolbar>
@@ -67,10 +71,11 @@
 
 <script lang="js" setup>
 import { ref} from "vue";
+import {useRouter} from "vue-router";
+import { LocalStorage } from "quasar";
+
 import LogoutButton from "../partials/LogoutButton.vue";
 import { useUserStore } from "../../stores/userStore";
-import { LocalStorage } from "quasar";
-import {useRouter} from "vue-router";
 
 const router = useRouter();
 const text = ref("");
@@ -78,14 +83,12 @@ const currentTab = ref("home");
 
 const userStore = useUserStore();
 const currentUser = userStore.getUser || LocalStorage.getItem("c_user");
-const username = ref(currentUser.username);
 
 const handleSearchRecipe = (query) => {
   if(query){
     text.value = "";
     router.push({ name: 'search', params: { q: query } })
   }
-
 }
 </script>
 

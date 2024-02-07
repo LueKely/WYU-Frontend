@@ -31,8 +31,8 @@
 </template>
 
 <script setup lang="js">
-import FoodCarousel from 'src/components/FoodCarousel.vue';
-import LoginForm from 'src/components/LoginForm.vue';
+import FoodCarousel from '../components/FoodCarousel.vue';
+import LoginForm from '../components/LoginForm.vue';
 </script>
 
 <style lang="scss" scoped></style>

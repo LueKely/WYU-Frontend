@@ -28,14 +28,17 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import { onMounted, ref, watch } from "vue";
+
+import { GetRecipeByName } from "../composables/Recipe";
+
 import SearchCard from "../components/searchAssets/SearchCard.vue";
-import { GetRecipeByName } from "@composables/Recipe";
 
 const route = useRoute();
 
 let pageLoadingState = ref(false);
+
 const recipeList = ref([]);
 
 const SearchRecipeByName = () => {

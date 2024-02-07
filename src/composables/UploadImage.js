@@ -1,5 +1,5 @@
-import { storage } from "../boot/firebase";
 import { ref } from "vue";
+import { storage } from "../boot/firebase";
 import {
   ref as storageRef,
   uploadBytes,

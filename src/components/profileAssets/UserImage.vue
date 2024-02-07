@@ -17,9 +17,10 @@
 </template>
 
 <script setup>
-import { useUserStore } from "../../stores/userStore";
-import { LocalStorage } from "quasar";
 import { ref } from "vue";
+import { LocalStorage } from "quasar";
+import { useUserStore } from "../../stores/userStore";
+
 const userStore = useUserStore();
 const currentUser = userStore.getUser || LocalStorage.getItem("c_user");
 const username = ref(currentUser.username);

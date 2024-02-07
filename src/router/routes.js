@@ -54,8 +54,6 @@ const routes = [
       },
     ],
   },
-  // tambak lang muna to rito
-
   {
     path: "/register",
     name: "register",

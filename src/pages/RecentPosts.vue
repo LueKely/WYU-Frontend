@@ -25,12 +25,15 @@
 </template>
 
 <script setup>
-import WideCard from "@recent/WideCard.vue";
 import { ref, onMounted } from "vue";
-import { GetAllRecipe } from "@composables/Recipe";
+
+import { GetAllRecipe } from "../composables/Recipe";
 import { useCacheStore } from "../stores/cacheStore";
 
-const pageLoadingState = ref(false);
+import WideCard from "../components/recentPostAssets/WideCard.vue";
+
+let pageLoadingState = ref(true);
+
 const recipeList = ref([]);
 const caching = useCacheStore();
 

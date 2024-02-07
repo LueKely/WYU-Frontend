@@ -20,7 +20,7 @@
         @click="prevPage"
       ></q-btn>
       <q-btn
-        :disable="turn == groupedData.length"
+        :disable="turn == 2"
         round
         size="20px"
         color="accent"

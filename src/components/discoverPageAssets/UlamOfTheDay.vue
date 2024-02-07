@@ -67,6 +67,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+
 import { GetAllRecipe } from "@composables/Recipe";
 
 const router = useRouter();

@@ -1,6 +1,7 @@
+import { LocalStorage } from "quasar";
+
 import { api } from "../boot/axios";
 import { useUserStore } from "../stores/userStore";
-import { LocalStorage } from "quasar";
 
 const userStore = useUserStore();
 

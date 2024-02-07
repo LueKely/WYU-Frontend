@@ -38,17 +38,15 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { GetRecipeByCategory } from "@composables/Recipe";
+
 import { useRoute } from "vue-router";
+import { GetRecipeByCategory } from "../composables/Recipe";
+
 import SearchCard from "../components/searchAssets/SearchCard.vue";
-/**
- * TODO: Mga need gawin
- * 1. UI for category page
- * 2. Direct to recipe page when click on recipe card, base on recipe ID
- */
 
 const route = useRoute();
-const pageLoadingState = ref(false);
+
+let pageLoadingState = ref(false);
 
 const category = ref(route.params.category || "");
 const recipeLists = ref([]);

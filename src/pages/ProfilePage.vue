@@ -49,32 +49,34 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { LocalStorage } from "quasar";
-import UserImage from "@profile/UserImage.vue";
-import UserLinks from "@profile/UserLinks.vue";
-import UsersPosts from "@profile/UsersPosts.vue";
-import UserLikedPost from "@profile/UserCollection.vue";
-import ProfileForm from "@profile/ProfileForm.vue";
-import { GetAllUserInfo } from "@composables/UserProfile";
+import { ref, computed, onMounted, watch } from "vue";
+
+import { GetAllUserInfo } from "../composables/UserProfile";
+
+import UserImage from "../components/profileAssets/UserImage.vue";
+import UserLinks from "../components/profileAssets/UserLinks.vue";
+import UsersPosts from "../components/profileAssets/UsersPosts.vue";
+import ProfileForm from "../components/profileAssets/ProfileForm.vue";
+import UserLikedPost from "../components/profileAssets/UserCollection.vue";
 
 const route = useRoute();
-const pageLoadingState = ref(false);
+let pageLoadingState = ref(false);
+
 const userInfo = ref([]);
-const currentUser = LocalStorage.getItem("c_user");
-
 const isEditing = ref(false);
+const currentUser = LocalStorage.getItem("c_user");
+const choice = ref(true);
 
-function changeEditState(e) {
+const changeEditState = (e) => {
   isEditing.value = e;
-}
+};
 
 const isEditingProfile = computed(() =>
   isEditing.value ? ProfileForm : UserLinks
 );
 
-const choice = ref(true);
 const hideCollectionMenu = computed(
   () => Number(route.params.isSelfVisit) === 0
 );

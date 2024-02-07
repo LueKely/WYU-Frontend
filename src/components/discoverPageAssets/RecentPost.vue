@@ -24,12 +24,13 @@
 </template>
 
 <script setup>
-import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
-import { provide, ref, onMounted } from "vue";
-import { GetAllRecipe } from "@composables/Recipe";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../../stores/userStore";
 import { LocalStorage } from "quasar";
+import { useRouter } from "vue-router";
+import { provide, ref, onMounted } from "vue";
+
+import { GetAllRecipe } from "../../composables/Recipe";
+import { useUserStore } from "../../stores/userStore";
+import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 
 provide("isRecipe", true);
 const router = useRouter();

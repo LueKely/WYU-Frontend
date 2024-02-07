@@ -57,20 +57,23 @@
 
 <script setup lang="js">
 import { ref } from "vue";
-import { LoginUser } from "@composables/Authentication";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/userStore";
 import { LocalStorage } from "quasar";
+import { useRouter } from "vue-router";
+
+import { LoginUser } from "../composables/Authentication";
+import { useUserStore } from "../stores/userStore";
 
 
 const router = useRouter();
 const userStore = useUserStore();
 
+let loginError = ref('');
+let btnLoadingState = ref(false);
+
 const form = ref(null);
 const loginIdentifier = ref("");
 const password = ref("");
-let loginError = ref('');
-let btnLoadingState = ref(false);
+
 
 
 const login = () => {

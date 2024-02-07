@@ -63,18 +63,19 @@
 </template>
 
 <script setup>
-import Notification from "../../composables/Notification";
+import { useQuasar } from "quasar";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+
 import { RegisterUser } from "@composables/Authentication";
-import { useQuasar } from "quasar";
+import Notification from "../../composables/Notification";
 
 const $q = useQuasar();
-
 const router = useRouter();
 
-const form = ref({});
 let btnLoadingState = ref(false);
+
+const form = ref({});
 const username = ref("");
 const email = ref("");
 const password = ref("");

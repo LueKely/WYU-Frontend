@@ -93,7 +93,7 @@
             v-if="!heartToggled"
             loading="lazy"
             no-spinner
-            src="../assets/heart_outlined.svg"
+            src="../assets/icons/heart_outlined.svg"
             width="30px"
           />
 
@@ -101,7 +101,7 @@
             v-else
             loading="lazy"
             no-spinner
-            src="../assets/heart_filled.svg"
+            src="../assets/icons/heart_filled.svg"
             width="30px"
           />
           <span class="block text-center text-12 q-mt-xs">{{
@@ -116,14 +116,14 @@
             v-if="!saveToggled"
             loading="lazy"
             no-spinner
-            src="../assets/save_outline.svg"
+            src="../assets/icons/save_outline.svg"
             width="30px"
           />
           <q-img
             v-else
             loading="lazy"
             no-spinner
-            src="../assets/save_filled.svg"
+            src="../assets/icons/save_filled.svg"
             width="30px"
           />
           <span class="block text-center text-12 q-mt-xs">{{
@@ -303,37 +303,36 @@
 </template>
 
 <script setup lang="js">
-import {useQuasar} from 'quasar';
-import { LocalStorage } from "quasar";
+import { useQuasar } from 'quasar';
 import { ref, onMounted } from "vue";
+import { LocalStorage } from "quasar";
 import { useRoute, useRouter } from 'vue-router';
 
 import { useCacheStore } from "../stores/cacheStore";
-import Notification from "@composables/Notification";
-import { GetRecipe, AddNewComment, DeleteRecipe } from '@composables/Recipe';
+import { LikeORUnlike, SaveOrUnsave } from "../composables/Recipe";
+import { GetRecipe, AddNewComment, DeleteRecipe } from '../composables/Recipe';
 
-import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
-
-
+import Notification from "../composables/Notification";
 
 const $q = useQuasar();
-
-const router = useRouter();
 const route = useRoute();
-const caching = useCacheStore();
-const recipeData = ref({});
-const pageLoadingState = ref(false);
+const router = useRouter();
 
+let pageLoadingState = ref(false);
+
+const caching = useCacheStore();
+const currentUser = LocalStorage.getItem("c_user");
+const user_id = currentUser.id;
+
+const recipeData = ref({});
 const userInitial = ref("");
 const userComment = ref("");
 const comments = ref([]);
 const confirmDelete = ref(false);
-
-let numberOfLikes = ref(0);
-let numberOfFavorites = ref(0);
-
-const currentUser = LocalStorage.getItem("c_user");
-const user_id = currentUser.id;
+const heartToggled = ref(false);
+const saveToggled = ref(false);
+const numberOfLikes = ref(0);
+const numberOfFavorites = ref(0);
 
 const addComment = (comment) => {
   if(comment){
@@ -359,12 +358,10 @@ const addComment = (comment) => {
   }
 }
 
-// @raagas dito men lagay ka ng async magic mo para idelete ung recipe
-function deleteRecipe() {
+const deleteRecipe = () => {
   let payload = {
     id: route.params.id,
   };
-// insert magic here
   DeleteRecipe(payload)
     .then((response) => {
       if (response.status === "success") {
@@ -378,24 +375,15 @@ function deleteRecipe() {
     });
 }
 
-
-
-
-const heartToggled = ref(false);
-const saveToggled = ref(false);
-
-// like and bookmark functions
-
 const LikeOrUnlikePost = (recipeId) => {
-  if( heartToggled.value){
+  if ( heartToggled.value){
     heartToggled.value = false;
     numberOfLikes.value -= 1;
-  }else{
+  }
+  else {
     heartToggled.value = true;
     numberOfLikes.value += 1;
   }
-
-
 
   let payload = {
     user_id: user_id,
@@ -416,10 +404,10 @@ const LikeOrUnlikePost = (recipeId) => {
 
 const SaveOrUnsavePost = (recipeId) => {
 
-  if(saveToggled.value){
+  if (saveToggled.value) {
     saveToggled.value = !saveToggled.value;
     numberOfFavorites.value -= 1;
-  }else{
+  } else {
     saveToggled.value = !saveToggled.value;
     numberOfFavorites.value += 1;
     Notification.success($q,"Recipe saved successfully");
@@ -442,7 +430,6 @@ const SaveOrUnsavePost = (recipeId) => {
     });
 };
 
-
 onMounted(() => {
   pageLoadingState.value = true;
 
@@ -458,9 +445,6 @@ onMounted(() => {
     return;
   }
 
-
-
-
   let payload = {
     id: route.params.id
   }
@@ -475,32 +459,25 @@ onMounted(() => {
       caching.setRecipeCache(recipeData.value._id, recipeData.value);
 
       if (recipeData.value.likes.length > 0) {
-  recipeData.value.likes.forEach((like) => {
-      if (like.user_id === user_id) {
-        heartToggled.value = true;
+        recipeData.value.likes.forEach((like) => {
+          if (like.user_id === user_id) {
+            heartToggled.value = true;
+          }
+        });
       }
-    });
-  }
 
-  if (recipeData.value.saves.length > 0) {
-    recipeData.value.saves.forEach((save) => {
-      if (save.user_id === user_id) {
-        saveToggled.value = true;
+      if (recipeData.value.saves.length > 0) {
+        recipeData.value.saves.forEach((save) => {
+          if (save.user_id === user_id) {
+            saveToggled.value = true;
+          }
+        });
       }
-    });
-  }
-
-
-    }
-    }).catch((error) => {
+    }}).catch((error) => {
       console.log(error)
     }).finally(() => {
       pageLoadingState.value = false;
     })
-
-
-
-
 })
 </script>
 

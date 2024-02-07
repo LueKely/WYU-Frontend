@@ -25,6 +25,7 @@
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+
 const cardProps = defineProps({
   recipe_name: String,
   username: String,
@@ -33,9 +34,9 @@ const cardProps = defineProps({
   _id: String,
 });
 
-function visitRecipe() {
+const visitRecipe = () => {
   router.push({ name: "recipe", params: { id: cardProps._id } });
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

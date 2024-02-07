@@ -26,8 +26,9 @@
 import { useRouter } from "vue-router";
 import { inject } from "vue";
 
-const isRecipe = inject("isRecipe");
 const router = useRouter();
+const isRecipe = inject("isRecipe");
+
 const cardProps = defineProps({
   payload: Object,
 });

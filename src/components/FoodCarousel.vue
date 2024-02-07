@@ -32,7 +32,10 @@
 
 <script setup>
 import { ref } from "vue";
+
 import CardComponent from "./CardComponent.vue";
+
+const slide = ref(null);
 
 const foodList = ref([
   {
@@ -61,8 +64,6 @@ const foodList = ref([
     url: "https://www.cookingclassy.com/wp-content/uploads/2020/09/ceviche-6.jpg",
   },
 ]);
-
-const slide = ref(null);
 </script>
 
 <style lang="scss" scoped>

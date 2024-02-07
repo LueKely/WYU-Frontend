@@ -124,12 +124,13 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
+import { useRouter } from "vue-router";
 import { computed, reactive, ref } from "vue";
+
 import Notification from "../../composables/Notification";
-import { EditUserInfo } from "@composables/UserProfile";
-import { uploadProfileImages } from "@composables/UploadImage";
+import { EditUserInfo } from "../../composables/UserProfile";
+import { uploadProfileImages } from "../../composables/UploadImage";
 
 const emit = defineEmits(["sendSignal"]);
 const props = defineProps({
@@ -140,8 +141,9 @@ const props = defineProps({
 });
 
 const router = useRouter();
-const form = ref({});
 const $q = useQuasar();
+const form = ref({});
+let btnLoadingState = ref(false);
 
 // this is the the values of the form
 const formInput = reactive({
@@ -169,13 +171,8 @@ const isDisabled = computed(() => {
   );
 });
 
-let btnLoadingState = ref(false);
-function cancelEdit() {
-  emit("sendSignal", false);
-}
-
 // this will clear out the form based on the props
-function onReset() {
+const onReset = () => {
   formInput.first_name = "";
   formInput.last_name = "";
   formInput.username = "";
@@ -185,10 +182,10 @@ function onReset() {
   formInput.fb_username = "";
   formInput.ig_username = "";
   formInput.twt_username = "";
-}
+};
 
 // this will submit the form and do you thingy here
-function onSubmit() {
+const onSubmit = () => {
   btnLoadingState.value = true;
   form.value.validate().then((success) => {
     if (success) {
@@ -228,7 +225,9 @@ function onSubmit() {
         });
     }
   });
-}
-</script>
+};
 
-<style lang="scss" scoped></style>
+const cancelEdit = () => {
+  emit("sendSignal", false);
+};
+</script>

@@ -19,7 +19,7 @@
           <q-img
             loading="lazy"
             no-spinner
-            src="../../assets/heart_filled.svg"
+            src="../../assets/icons/heart_filled.svg"
             width="15px"
           />
         </div>
@@ -30,7 +30,7 @@
           <q-img
             loading="lazy"
             no-spinner
-            src="../../assets/save_filled.svg"
+            src="../../assets/icons/save_filled.svg"
             width="15px"
           />
         </div>

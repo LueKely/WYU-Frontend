@@ -331,38 +331,39 @@
 </template>
 
 <script setup>
-import Notification from "../composables/Notification";
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { CreateRecipe, GetRecipe, UpdateRecipe } from "../composables/Recipe";
-import { useCacheStore } from "../stores/cacheStore";
 import { useQuasar, LocalStorage } from "quasar";
+
+import { useCacheStore } from "../stores/cacheStore";
 import { uploadImage } from "../composables/UploadImage";
+import { CreateRecipe, GetRecipe, UpdateRecipe } from "../composables/Recipe";
+
+import Notification from "../composables/Notification";
 
 const $q = useQuasar();
-
 const router = useRouter();
 const route = useRoute();
+
+let pageLoadingState = ref(false);
+
 const caching = useCacheStore();
 const current_user = ref(LocalStorage.getItem("c_user"));
 
-let pageLoadingState = ref(false);
 const recipeForm = ref(null);
 const btnLoadingState = ref(false);
-const recipeName = ref("");
+const recipeName = ref("Kare-Kare");
 const recipePhoto = ref(null);
-const recipeDifficulty = ref("difficulty");
-const minTime = ref(0);
-const maxTime = ref(0);
+const recipeDifficulty = ref("intermediate");
+const minTime = ref(20);
+const maxTime = ref(30);
 const recipeTime = ref(computed(() => `${minTime.value} - ${maxTime.value}`));
 const recipeTags = ref([]);
 const recipeDescription = ref("");
-
 const isAddingNewIngredient = ref(false);
 const isAddingNewStep = ref(false);
 const ingredientInput = ref("");
 const recipeIngredients = ref([]);
-
 const stepInput = ref("");
 const recipeSteps = ref([]);
 
