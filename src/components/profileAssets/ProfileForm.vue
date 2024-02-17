@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="text-24" style="margin-block: 15px 25px">Edit Info</h3>
+    <h3 class="text-24 q-my-xl">Edit Info</h3>
     <q-form ref="form" @submit="onSubmit" @reset="onReset" class="q-gutter-sm">
       <!-- first name -->
       <q-input
@@ -128,9 +128,10 @@ import { useQuasar } from "quasar";
 import { useRouter } from "vue-router";
 import { computed, reactive, ref } from "vue";
 
-import Notification from "../../composables/Notification";
 import { EditUserInfo } from "../../composables/UserProfile";
 import { uploadProfileImages } from "../../composables/UploadImage";
+
+import Notification from "../../composables/Notification";
 
 const emit = defineEmits(["sendSignal"]);
 const props = defineProps({
@@ -165,9 +166,7 @@ const isDisabled = computed(() => {
     formInput.first_name === "" ||
     formInput.last_name === "" ||
     formInput.username === "" ||
-    formInput.user_bio === "" ||
-    formInput.user_profile_image === "" ||
-    formInput.user_bg_image === ""
+    formInput.user_bio === ""
   );
 });
 
@@ -177,8 +176,6 @@ const onReset = () => {
   formInput.last_name = "";
   formInput.username = "";
   formInput.user_bio = "";
-  formInput.user_profile_image = "";
-  formInput.user_bg_image = "";
   formInput.fb_username = "";
   formInput.ig_username = "";
   formInput.twt_username = "";

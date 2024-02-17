@@ -89,39 +89,15 @@
           class="heart cursor-pointer"
           @click="LikeOrUnlikePost(props.recipeData._id)"
         >
-          <q-img
-            v-if="!heartToggled"
-            loading="lazy"
-            no-spinner
-            src="../../assets/icons/heart_outlined.svg"
-            width="30px"
-          />
-          <q-img
-            v-else
-            loading="lazy"
-            no-spinner
-            src="../../assets/icons/heart_filled.svg"
-            width="30px"
-          />
+          <HeartIcon v-if="!heartToggled" type="outlined" size="35" />
+          <HeartIcon v-else type="filled" size="35" />
         </div>
         <div
           class="save cursor-pointer"
           @click="SaveOrUnsavePost(props.recipeData._id)"
         >
-          <q-img
-            v-if="!saveToggled"
-            loading="lazy"
-            no-spinner
-            src="../../assets/icons/save_outline.svg"
-            width="30px"
-          />
-          <q-img
-            v-else
-            loading="lazy"
-            no-spinner
-            src="../../assets/icons/save_filled.svg"
-            width="30px"
-          />
+          <BookmarkIcon v-if="!saveToggled" type="outlined" size="30" />
+          <BookmarkIcon v-else type="filled" size="30" />
         </div>
       </div>
     </div>
@@ -129,11 +105,13 @@
 </template>
 
 <script setup>
-import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useCacheStore } from "../../stores/cacheStore";
 import { LocalStorage } from "quasar";
+import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
+import { useCacheStore } from "../../stores/cacheStore";
+import HeartIcon from "../icons/HeartIcon.vue";
+import BookmarkIcon from "../icons/BookmarkIcon.vue";
 
 const props = defineProps({
   recipeData: {

@@ -89,21 +89,8 @@
           class="heart cursor-pointer"
           @click="LikeOrUnlikePost(route.params.id)"
         >
-          <q-img
-            v-if="!heartToggled"
-            loading="lazy"
-            no-spinner
-            src="../assets/icons/heart_outlined.svg"
-            width="30px"
-          />
-
-          <q-img
-            v-else
-            loading="lazy"
-            no-spinner
-            src="../assets/icons/heart_filled.svg"
-            width="30px"
-          />
+          <HeartIcon v-if="!heartToggled" type="outlined" size="35" />
+          <HeartIcon v-else type="filled" size="35" />
           <span class="block text-center text-12 q-mt-xs">{{
             numberOfLikes
           }}</span>
@@ -112,20 +99,8 @@
           class="save cursor-pointer"
           @click="SaveOrUnsavePost(route.params.id)"
         >
-          <q-img
-            v-if="!saveToggled"
-            loading="lazy"
-            no-spinner
-            src="../assets/icons/save_outline.svg"
-            width="30px"
-          />
-          <q-img
-            v-else
-            loading="lazy"
-            no-spinner
-            src="../assets/icons/save_filled.svg"
-            width="30px"
-          />
+          <BookmarkIcon v-if="!saveToggled" type="outlined" size="35" />
+          <BookmarkIcon v-else type="filled" size="35" />
           <span class="block text-center text-12 q-mt-xs">{{
             numberOfFavorites
           }}</span>
@@ -313,6 +288,8 @@ import { LikeORUnlike, SaveOrUnsave } from "../composables/Recipe";
 import { GetRecipe, AddNewComment, DeleteRecipe } from '../composables/Recipe';
 
 import Notification from "../composables/Notification";
+import HeartIcon from "../components/icons/HeartIcon.vue";
+import BookmarkIcon from "../components/icons/BookmarkIcon.vue"
 
 const $q = useQuasar();
 const route = useRoute();

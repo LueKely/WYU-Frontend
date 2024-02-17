@@ -7,7 +7,7 @@
       width="100%"
       height="150px"
     />
-    <div class="card__container--text q-mt-md">
+    <div class="card__container__info q-mt-md">
       <h4 class="text-18 font-bold">
         {{
           cardProps.payload.recipe_name
@@ -15,7 +15,7 @@
             : cardProps.payload.categories
         }}
       </h4>
-      <p class="card__text">
+      <p>
         {{ cardProps.payload.description }}
       </p>
     </div>
@@ -47,37 +47,36 @@ const visitRecipe = () => {
 
 <style lang="scss" scoped>
 .card__container {
-  transition: all ease-out 100ms;
-  background: #ffe2b8;
-  border: 5px solid transparent;
-  width: 250px;
-  height: 290px;
-  border-radius: 10px;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  flex-direction: column;
+  width: 250px;
+  height: 290px;
   padding: 15px;
   margin-inline: 10px;
-}
+  border: 5px solid transparent;
+  border-radius: 10px;
+  background: #ffe2b8;
+  transition: all ease-out 100ms;
 
-.card__container:hover {
-  transition: all ease-in 100ms;
-  border: 5px solid rgb(238, 167, 60);
-}
-.card__container--text {
-  // background-color: red;
+  &:hover {
+    border: 5px solid rgb(238, 167, 60);
+    transition: all ease-in 100ms;
+  }
 
-  height: 100px;
-  width: 100%;
-}
-.card__text {
-  margin: 0;
-  margin-top: 8px !important;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
+  &__info {
+    width: 100%;
+    height: 100px;
+
+    & > p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3; /* number of lines to show */
+      line-clamp: 3;
+      margin-top: 8px !important;
+      overflow: hidden;
+    }
+  }
 }
 </style>

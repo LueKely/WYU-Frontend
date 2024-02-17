@@ -21,3 +21,9 @@ h5,
 h6 {
   line-height: normal !important;
 }
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}

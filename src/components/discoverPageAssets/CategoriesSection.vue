@@ -7,8 +7,9 @@
 </template>
 
 <script setup>
-import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 import { provide, ref } from "vue";
+
+import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 
 provide("isRecipe", false);
 
@@ -60,20 +61,12 @@ const categoriesData = ref([
 
 <style lang="scss" scoped>
 section {
-  margin-top: 30px;
-
-  width: 100%;
-
-  row-gap: 5px;
-
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
   flex-direction: column;
-}
-
-h3,
-p {
-  margin: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+  row-gap: 5px;
+  width: 100%;
+  margin-top: 30px;
 }
 </style>

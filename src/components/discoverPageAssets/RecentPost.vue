@@ -35,6 +35,7 @@ import CarouselComponent from "../carouselAssets/CarouselComponent.vue";
 provide("isRecipe", true);
 const router = useRouter();
 let carouselLoadingState = ref(true);
+
 const recipesData = ref([]);
 const userStore = useUserStore();
 
@@ -59,28 +60,15 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 section {
-  margin-top: 30px;
-
-  width: 100%;
-
-  row-gap: 5px;
-
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-}
-
-h3,
-p {
-  margin: 0;
-}
-
-.heading {
+  row-gap: 5px;
   width: 100%;
-}
+  margin-top: 30px;
 
-section {
+  .heading,
   .empty-data {
     width: 100%;
   }

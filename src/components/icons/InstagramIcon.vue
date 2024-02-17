@@ -1,5 +1,5 @@
 <template>
-  <div class="icon--link">
+  <div class="social-icons">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
@@ -33,3 +33,7 @@
     </svg>
   </div>
 </template>
+
+<style lang="scss">
+@import "./styles/icons.scss";
+</style>

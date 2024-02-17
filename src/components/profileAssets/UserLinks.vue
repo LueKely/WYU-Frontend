@@ -1,5 +1,6 @@
 <template>
-  <div class="user__text__contianer">
+  <!-- User Fullname and Username -->
+  <div>
     <h3 class="text-43 text-bold">
       {{ props.user?.first_name }} {{ props.user?.last_name }}
     </h3>
@@ -7,7 +8,8 @@
       @{{ props.user?.username }}
     </h4>
   </div>
-  <p class="user-text__description">
+  <!-- User Bio -->
+  <p>
     {{ props.user?.user_bio || "No bio yet." }}
   </p>
   <q-separator class="q-my-md" />
@@ -51,9 +53,9 @@
 <script setup>
 import { useRoute } from "vue-router";
 
-import FacebookIcon from "./FacebookIcon.vue";
-import TwitterIcon from "./TwitterIcon.vue";
-import InstagramIcon from "./InstagramIcon.vue";
+import FacebookIcon from "../icons/FacebookIcon.vue";
+import TwitterIcon from "../icons/TwitterIcon.vue";
+import InstagramIcon from "../icons/InstagramIcon.vue";
 
 const route = useRoute();
 
@@ -73,14 +75,14 @@ const editForm = () => {
 
 <style lang="scss" scoped>
 .user__links {
-  list-style: none;
   padding: 0;
+  list-style: none;
 
   li {
-    margin-block: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-block: 10px;
   }
 }
 </style>

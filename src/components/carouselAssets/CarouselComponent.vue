@@ -1,6 +1,9 @@
 <template>
-  <div class="carousel__container">
-    <div class="carousel" :style="{ transform: `translateX(${translateX}px)` }">
+  <div class="carousel">
+    <div
+      class="carousel__container"
+      :style="{ transform: `translateX(${translateX}px)` }"
+    >
       <div class="carousel__container--cards" v-for="index in 2" :key="index">
         <CarouselCard
           v-for="(item, n) in groupedData[index - 1]"
@@ -32,8 +35,9 @@
 </template>
 
 <script setup>
-import CarouselCard from "../carouselAssets/CarouselCard.vue";
 import { computed, ref } from "vue";
+
+import CarouselCard from "../carouselAssets/CarouselCard.vue";
 
 // generate a prop for the carousel card component
 const props = defineProps({
@@ -42,24 +46,19 @@ const props = defineProps({
 
 const translateX = ref(370);
 const turn = ref(1);
-
 const turnLength = 810;
 
-function nextPage() {
+const nextPage = () => {
   if (turn.value == groupedData.value.length) return;
   turn.value++;
   translateX.value -= turnLength;
-}
+};
 
-function prevPage() {
+const prevPage = () => {
   if (turn.value == 0) return;
   turn.value--;
   translateX.value += turnLength;
-}
-
-const length = computed(() => {
-  return groupedData.value.length;
-});
+};
 
 // this splits the props into three groups
 const groupedData = computed(() => {
@@ -72,55 +71,37 @@ const groupedData = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-.carousel__container {
-  overflow: hidden;
-
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   width: 100%;
   height: 350px;
+  overflow: hidden;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  &__container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    transition: all 0.5s ease-in-out;
 
-  position: relative;
-}
+    &--cards {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
 
-.carousel {
-  transition: all 0.5s ease-in-out;
-
-  width: 100%;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  left: 0;
-}
-
-.carousel__list--card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-
-  justify-content: center;
-
-  position: relative;
-  column-gap: 20px;
-}
-
-.carousel__container--cards {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.carousel__container--buttons {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  column-gap: 20px;
-  padding-inline: 10px;
+    &--buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 20px;
+      position: absolute;
+      width: 100%;
+      padding-inline: 10px;
+    }
+  }
 }
 </style>
