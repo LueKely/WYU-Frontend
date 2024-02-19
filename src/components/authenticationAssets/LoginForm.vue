@@ -6,7 +6,11 @@
     <h4 class="q-my-sm">Sign in</h4>
   </div>
   <div class="error q-mb-md">
-    <div v-if="loginError" class="text-18 text-center text-negative">
+    <div
+      v-if="loginError"
+      class="text-18 text-center text-negative"
+      style="height: 1rem"
+    >
       {{ loginError }}
     </div>
   </div>
@@ -36,17 +40,19 @@
     />
     <q-btn
       size="lg"
-      class="text-bold q-my-sm login-btn login__button"
+      class="text-bold q-my-sm login-btn full-width"
+      style="background-color: #ffb74d"
       type="submit"
       label="Login"
       unelevated
       :loading="btnLoadingState"
+      :disable="isDisabled"
     />
     <q-btn
       color="accent-0"
       outline
       size="lg"
-      class="text-bold q-my-sm login__button login--signup"
+      class="text-bold q-my-sm full-width login--signup"
       label="Sign Up"
       @click="$router.push({ name: 'register' })"
     />
@@ -54,12 +60,12 @@
 </template>
 
 <script setup lang="js">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { LocalStorage } from "quasar";
 import { useRouter } from "vue-router";
 
-import { LoginUser } from "../composables/Authentication";
-import { useUserStore } from "../stores/userStore";
+import { LoginUser } from "../../composables/Authentication";
+import { useUserStore } from "../../stores/userStore";
 
 
 const router = useRouter();
@@ -72,19 +78,26 @@ const form = ref(null);
 const loginIdentifier = ref("");
 const password = ref("");
 
+const isDisabled = computed(() => {
+  return !loginIdentifier.value || !password.value;
+});
 
+const clearError = () => {
+  loginError.value = null;
+}
 
 const login = () => {
   btnLoadingState.value = true;
   loginError.value = null;
+
   form.value.validate().then((succcess) => {
     if (succcess) {
-      const userData = {
+      const payload = {
         login_identifier: loginIdentifier.value,
         password: password.value,
       };
 
-      LoginUser(userData)
+      LoginUser(payload)
         .then((response) => {
           if (response.status === "success") {
             LocalStorage.set("Bearer", response.data.token);
@@ -106,22 +119,4 @@ const login = () => {
     }
   });
 };
-
-const clearError = () => {
-  loginError.value = null;
-}
 </script>
-
-<style lang="scss" scoped>
-.login__button {
-  width: 100%;
-}
-
-.login-btn {
-  background-color: #ffb74d !important;
-}
-
-.error {
-  height: 1rem;
-}
-</style>

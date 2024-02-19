@@ -75,16 +75,21 @@ const groupedData = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+
   position: relative;
+
   width: 100%;
   height: 350px;
+
   overflow: hidden;
 
   &__container {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+
     width: 100%;
+
     transition: all 0.5s ease-in-out;
 
     &--cards {
@@ -98,8 +103,11 @@ const groupedData = computed(() => {
       align-items: center;
       justify-content: space-between;
       column-gap: 20px;
+
       position: absolute;
+
       width: 100%;
+
       padding-inline: 10px;
     }
   }

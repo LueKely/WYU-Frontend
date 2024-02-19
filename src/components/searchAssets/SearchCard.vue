@@ -38,5 +38,3 @@ const visitRecipe = () => {
   router.push({ name: "recipe", params: { id: cardProps._id } });
 };
 </script>
-
-<style lang="scss" scoped></style>

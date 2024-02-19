@@ -428,7 +428,6 @@ onMounted(() => {
   GetRecipe(payload).then((response) => {
     if(response.status === 'success'){
       recipeData.value = response.data;
-      console.log(Boolean(recipeData.value.user_profile_image));
       comments.value = recipeData.value.comments;
       numberOfLikes.value = recipeData.value.likes.length;
       numberOfFavorites.value = recipeData.value.saves.length;

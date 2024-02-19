@@ -61,11 +61,13 @@ onMounted(() => {
 <style lang="scss" scoped>
 section {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   row-gap: 5px;
+
   width: 100%;
+
   margin-top: 30px;
 
   .heading,

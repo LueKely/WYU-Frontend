@@ -352,11 +352,11 @@ const current_user = ref(LocalStorage.getItem("c_user"));
 
 const recipeForm = ref(null);
 const btnLoadingState = ref(false);
-const recipeName = ref("Kare-Kare");
+const recipeName = ref("");
 const recipePhoto = ref(null);
-const recipeDifficulty = ref("intermediate");
-const minTime = ref(20);
-const maxTime = ref(30);
+const recipeDifficulty = ref("");
+const minTime = ref(0);
+const maxTime = ref(0);
 const recipeTime = ref(computed(() => `${minTime.value} - ${maxTime.value}`));
 const recipeTags = ref([]);
 const recipeDescription = ref("");

@@ -49,9 +49,9 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import { LocalStorage } from "quasar";
 import { ref, computed, onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { LocalStorage } from "quasar";
 
 import { GetAllUserInfo } from "../composables/UserProfile";
 
@@ -61,6 +61,7 @@ import UsersPosts from "../components/profileAssets/UsersPosts.vue";
 import ProfileForm from "../components/profileAssets/ProfileForm.vue";
 import UserLikedPost from "../components/profileAssets/UserCollection.vue";
 
+const router = useRouter();
 const route = useRoute();
 let pageLoadingState = ref(false);
 
@@ -91,7 +92,9 @@ const getUserInfo = () => {
   if (route.params) {
     const currentUserId = currentUser.id;
     // 1 = true, 0 = false
-    const isSelfVisit = ref(currentUserId === route.params.id ? 1 : 0);
+    console.log(currentUserId === route.params.id);
+    const isSelfVisit = currentUserId === route.params.id ? 1 : 0;
+    console.log(isSelfVisit);
 
     let payload = {
       id: route.params.id,
@@ -113,91 +116,118 @@ const getUserInfo = () => {
   }
 };
 
+const checkIfUserIsSelf = (value) => {
+  if (value.id === currentUser.id && value.isSelfVisit === String(1)) {
+    getUserInfo();
+  } else if (value.id !== currentUser.id && value.isSelfVisit === String(0)) {
+    getUserInfo();
+  } else if (value.id === currentUser.id && value.isSelfVisit === String(0)) {
+    router.push({
+      name: "profile",
+      params: { id: currentUser.id, isSelfVisit: 1 },
+    });
+  } else {
+    router.push({
+      name: "profile",
+      params: { id: currentUser.id, isSelfVisit: 0 },
+    });
+  }
+};
+
 watch(
   () => route.params,
   (value) => {
-    route.name === "profile" && getUserInfo();
+    if (route.name === "profile") {
+      checkIfUserIsSelf(value);
+    }
   }
 );
 
 onMounted(() => {
-  getUserInfo();
+  if (checkIfUserIsSelf(route.params)) {
+    getUserInfo();
+  }
 });
 </script>
 
 <style lang="scss" scoped>
 .container--profile {
-  padding-block: 90px 100px;
-  box-shadow: 0px 0px 20px 0px rgba(206, 206, 206, 0.932);
-  background-color: #f5f5f5;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
   flex: 1;
 
   width: 80%;
   min-height: 100%;
-}
 
-.container--split {
-  padding-top: 52px;
-  z-index: 1;
-  flex: 1;
-  position: relative;
-  bottom: 52px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  padding-inline: 50px 20px;
-}
+  padding-block: 90px 100px;
 
-.container__controls {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 20px 0px rgba(206, 206, 206, 0.932);
 
-  button {
-    transition: all 0.3s ease-in-out 0s;
-    padding: 5px 20px;
-    outline: none;
-    border: none;
-    border-bottom: solid 3px #d1d1d1;
-    background-color: transparent;
-  }
+  .container--split {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1;
 
-  button:hover {
-    transition: all 0.3s ease-in-out 0s;
-    cursor: pointer;
-    background-color: #eceaea;
-  }
+    position: relative;
+    bottom: 52px;
 
-  button.post,
-  button.collection {
-    transition: all 0.3s ease-in-out 0s;
-    border-bottom: solid 3px #ffb74d;
-  }
-
-  hr {
-    margin: 0;
     width: 100%;
-    border: none;
-    height: 3px;
-    background-color: #d1d1d1;
+
+    padding-top: 52px;
+    padding-inline: 50px 20px;
+
+    z-index: 1;
+
+    .container__user--info {
+      flex: 0.8;
+      padding-right: 50px;
+    }
+
+    .container__user--activity {
+      flex: 2;
+
+      .container__controls {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        button {
+          padding: 5px 20px;
+
+          background-color: transparent;
+          outline: none;
+          border: none;
+          border-bottom: solid 3px #d1d1d1;
+          transition: all 0.3s ease-in-out 0s;
+
+          &.post,
+          &.collection {
+            transition: all 0.3s ease-in-out 0s;
+            border-bottom: solid 3px #ffb74d;
+          }
+
+          &:hover {
+            background-color: #eceaea;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out 0s;
+          }
+        }
+
+        hr {
+          width: 100%;
+          height: 3px;
+
+          margin: 0;
+
+          border: none;
+          background-color: #d1d1d1;
+        }
+      }
+    }
   }
-}
-
-.container__user--info {
-  padding-right: 50px;
-  flex: 0.8;
-}
-
-.container__user--activity {
-  // height: 100%;
-
-  flex: 2;
 }
 </style>

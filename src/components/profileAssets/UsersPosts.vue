@@ -11,7 +11,6 @@ import PostCard from "../profileAssets/PostCard.vue";
 const props = defineProps({
   posts: {
     type: Array,
-    required: true,
   },
 });
 </script>
@@ -21,11 +20,13 @@ const props = defineProps({
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+
   margin-top: 20px;
 }
 
 .empty-data {
   width: 100%;
+
   padding: 36px 0;
 }
 </style>

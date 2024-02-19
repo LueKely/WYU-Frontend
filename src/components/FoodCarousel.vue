@@ -68,10 +68,9 @@ const foodList = ref([
 
 <style lang="scss" scoped>
 .carousel {
-  min-height: 500px;
-  height: auto;
-  max-width: 750px;
   width: 90%;
   min-width: 300px;
+  max-width: 750px;
+  height: 100vh;
 }
 </style>

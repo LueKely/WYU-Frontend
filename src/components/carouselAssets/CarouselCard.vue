@@ -51,13 +51,17 @@ const visitRecipe = () => {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+
   width: 250px;
   height: 290px;
+
   padding: 15px;
   margin-inline: 10px;
+
+  background: #ffe2b8;
+
   border: 5px solid transparent;
   border-radius: 10px;
-  background: #ffe2b8;
   transition: all ease-out 100ms;
 
   &:hover {
@@ -71,10 +75,10 @@ const visitRecipe = () => {
 
     & > p {
       display: -webkit-box;
+      margin-top: 8px !important;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3; /* number of lines to show */
       line-clamp: 3;
-      margin-top: 8px !important;
       overflow: hidden;
     }
   }

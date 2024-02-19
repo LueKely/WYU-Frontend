@@ -1,13 +1,13 @@
 <template>
   <div class="page">
     <q-form ref="form" @submit="onSubmit" class="register__container">
-      <div class="register__text q-mb-xl">
+      <div class="register__container--header q-mb-xl">
         <q-avatar size="130px" square>
           <q-img src="/wyu-icon.svg" fit="cover"></q-img>
         </q-avatar>
         <h1 class="text-bold text-32 q-mt-md">Register</h1>
       </div>
-      <div class="row name__container">
+      <div class="row register__container--fields">
         <q-input
           v-model="first_name"
           :rules="[(val) => !!val || 'Required*']"
@@ -28,7 +28,7 @@
       />
       <q-input
         v-model="email"
-        label="email"
+        label="Email"
         :rules="[
           (val) => emailRegex.test(val) || 'Invalid email',
           (val) => !!val || 'Required*',
@@ -39,7 +39,7 @@
         rounded
         bottom-slots
         v-model="password"
-        label="password"
+        label="Password"
         type="password"
         counter
         :rules="[
@@ -48,14 +48,21 @@
       >
         <template v-slot:hint> Must be atleast 8 characters long </template>
       </q-input>
-      <div class="btn--register q-mt-sm">
+      <div class="register__container--buttons q-mt-sm">
         <q-btn
-          label="Submit"
+          label="Sign Up"
           type="submit"
           color="accent"
           :disabled="isDisabled"
-          class="q-ma-sm btn"
+          class="q-ma-sm full-width"
           :loading="btnLoadingState"
+        />
+
+        <q-btn
+          label="Sign In"
+          type="submit"
+          class="q-ma-sm full-width"
+          @click="router.push({ name: 'login' })"
         />
       </div>
     </q-form>
@@ -68,12 +75,14 @@ import { useQuasar } from "quasar";
 import { useRouter } from "vue-router";
 
 import { RegisterUser } from "../../composables/Authentication";
+
 import Notification from "../../composables/Notification";
 
 const $q = useQuasar();
 const router = useRouter();
 
 let btnLoadingState = ref(false);
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const form = ref({});
 const username = ref("");
@@ -81,7 +90,6 @@ const email = ref("");
 const password = ref("");
 const first_name = ref("");
 const last_name = ref("");
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const payload = computed(() => {
   return {
@@ -128,48 +136,59 @@ const onSubmit = () => {
 </script>
 
 <style lang="scss" scoped>
-.register__container {
-  background-color: #ffffff;
-  width: 500px;
-  height: 90vh;
+.page {
+  display: grid;
+  place-items: center;
 
-  box-shadow: 0 0 5px rgba(116, 116, 116, 0.5);
-  border-radius: 10px;
+  height: 100vh;
 
-  padding: 20px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-}
-.register__container > * {
-  width: 100%;
-}
-.name__container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.register__text {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.name__container > * {
-  width: 48%;
-}
-.btn--register {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  .register__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  .btn {
-    width: 100%;
+    width: 500px;
+    height: 90vh;
+
+    padding: 20px 40px;
+
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px rgba(116, 116, 116, 0.5);
+
+    & > * {
+      width: 100%;
+    }
+
+    &--header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+    }
+
+    &--fields {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      width: 100%;
+
+      & > * {
+        width: 48%;
+      }
+    }
+
+    &--buttons {
+      display: flex;
+      gap: 16px;
+
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

@@ -63,7 +63,6 @@ const emit = defineEmits(["sendSignal"]);
 const props = defineProps({
   user: {
     type: Object,
-    required: true,
   },
 });
 
@@ -76,12 +75,14 @@ const editForm = () => {
 <style lang="scss" scoped>
 .user__links {
   padding: 0;
+
   list-style: none;
 
   li {
     display: flex;
     align-items: center;
     gap: 10px;
+
     margin-block: 10px;
   }
 }

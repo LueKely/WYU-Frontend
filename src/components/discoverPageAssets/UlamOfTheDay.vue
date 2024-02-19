@@ -51,7 +51,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-import { GetAllRecipe } from "@composables/Recipe";
+import { GetAllRecipe } from "../../composables/Recipe";
 
 import HeartIcon from "../icons/HeartIcon.vue";
 
@@ -94,18 +94,24 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     position: relative;
+
     margin-top: 75px;
 
     &__contents {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+
       position: absolute;
       left: 0;
       bottom: 0;
+
       width: 100%;
+
       padding: 35px 45px;
+
       z-index: 2;
 
       &--info {
@@ -122,7 +128,9 @@ section {
           display: flex;
           align-items: center;
           justify-content: center;
+
           margin-bottom: 2px;
+
           p {
             margin: 0 5px 0 0;
           }
@@ -133,12 +141,17 @@ section {
         display: flex;
         align-items: center;
         justify-content: center;
+
         position: relative;
+
         margin: 0px;
         padding: 5px 15px;
+
         background: none;
+
         border-radius: 50px;
         border: 1px solid white;
+
         transition: all 0.1s ease-in-out;
 
         &:hover {
@@ -149,9 +162,12 @@ section {
 
     .ulam__gradient {
       position: absolute;
+
       width: 100%;
       height: 100%;
+
       z-index: 1;
+
       background: linear-gradient(
         0deg,
         rgba(48, 45, 45, 1) 1%,

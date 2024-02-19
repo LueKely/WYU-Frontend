@@ -108,8 +108,10 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { LocalStorage } from "quasar";
-import { LikeORUnlike, SaveOrUnsave } from "@composables/Recipe";
+
+import { LikeORUnlike, SaveOrUnsave } from "../../composables/Recipe";
 import { useCacheStore } from "../../stores/cacheStore";
+
 import HeartIcon from "../icons/HeartIcon.vue";
 import BookmarkIcon from "../icons/BookmarkIcon.vue";
 

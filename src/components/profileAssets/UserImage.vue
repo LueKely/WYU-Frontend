@@ -32,11 +32,9 @@ import { useUserStore } from "../../stores/userStore";
 const props = defineProps({
   profileBanner: {
     type: String,
-    required: true,
   },
   profilePicture: {
     type: String,
-    required: true,
   },
 });
 
@@ -51,18 +49,24 @@ const username = ref(currentUser.username);
   align-items: flex-end;
   justify-content: flex-start;
   position: relative;
+
   width: 100%;
   height: 352px;
+
   padding-inline: 20px;
-  z-index: 2;
+
   background-color: transparent;
+
+  z-index: 2;
 
   &--banner {
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 300px;
+
     aspect-ratio: 4/3;
     background-color: #ffb74d;
   }

@@ -66,7 +66,9 @@ section {
   justify-content: flex-start;
   align-items: flex-start;
   row-gap: 5px;
+
   width: 100%;
+
   margin-top: 30px;
 }
 </style>

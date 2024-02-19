@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card q-pa-sm" flat bordered>
+  <q-card class="q-pa-sm" style="width: 320px" flat bordered>
     <q-img :ratio="4 / 3" :src="prop.url" />
 
     <q-card-section>
@@ -22,9 +22,3 @@ const prop = defineProps({
 
 });
 </script>
-
-<style lang="scss" scoped>
-.my-card {
-  width: 320px;
-}
-</style>
